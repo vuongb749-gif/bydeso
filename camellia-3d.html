@@ -248,6 +248,7 @@
   </div>
 </div>
 
+<script src="bydeso-sheet.js"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script>
   setTimeout(function(){var l=document.getElementById('loading');if(l&&!l.hidden&&!window.__b3d)l.textContent='Không tải được thư viện 3D. Hãy kiểm tra kết nối mạng rồi tải lại trang.'},12000);
@@ -588,9 +589,13 @@ function holdForm(u){
   box.querySelector('#resForm').addEventListener('submit',e=>{e.preventDefault();const n=box.querySelector('#resName').value.trim(),p=box.querySelector('#resPhone').value.replace(/[\s.\-]/g,''),er=box.querySelector('#resErr');
     if(!n){er.textContent='Vui lòng nhập họ tên.';er.hidden=false;return}
     if(!/^(\+?84|0)\d{9,10}$/.test(p)){er.textContent='Số điện thoại chưa đúng. Ví dụ: 0905 123 456.';er.hidden=false;return}
+    er.hidden=true;const sb=box.querySelector('button[type=submit]'),sl=sb.textContent;sb.disabled=true;sb.textContent='Đang gửi...';
+    window.bydesoSend({loai:'Giữ chỗ căn',hoTen:n,sdt:p,duAn:'The Camellia Sơn Trà - '+u.code}).then(ok=>{
+    if(!ok){sb.disabled=false;sb.textContent=sl;er.textContent='Chưa gửi được yêu cầu. Vui lòng thử lại hoặc gọi 0325 982 512.';er.hidden=false;return}
     u.status='hold';u.pending=true;stats();floorButtons();
-    box.innerHTML='<div class="okmsg"><b>Đã ghi nhận yêu cầu giữ chỗ căn '+esc(u.code)+'.</b><br>Tư vấn viên Bydeso sẽ xác nhận với chủ đầu tư, báo thứ tự ưu tiên nếu căn đã có khách quan tâm, và liên hệ lại. Hotline/Zalo: <b>0325 982 512</b>.<br><span style="color:var(--muted)">Bản thử nghiệm: yêu cầu chưa được gửi đi.</span></div>';
+    box.innerHTML='<div class="okmsg"><b>Đã ghi nhận yêu cầu giữ chỗ căn '+esc(u.code)+'.</b><br>Tư vấn viên Bydeso sẽ xác nhận với chủ đầu tư, báo thứ tự ưu tiên nếu căn đã có khách quan tâm, và liên hệ lại. Hotline/Zalo: <b>0325 982 512</b>.</div>';
     paint();card.querySelector('.badge').className='badge hold';card.querySelector('.badge').textContent='Bạn đã gửi yêu cầu giữ chỗ';const hb=card.querySelector('#cHold');hb.disabled=true;hb.textContent='Đã gửi yêu cầu';
+    });
   });
 }
 
