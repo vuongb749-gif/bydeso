@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chính sách bảo mật | Bydeso</title>
+<meta name="description" content="Bydeso thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn như thế nào, và bạn có những quyền gì đối với dữ liệu đó.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // Dùng lại lựa chọn sáng/tối khách đã chọn ở trang chủ; mặc định nền tối.
+  (function(){var t=null;try{t=localStorage.getItem('bydeso-theme-v2')}catch(e){}
+  document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark')})();
+</script>
+<style>
+  :root{
+    --bg:#fffcf2; --bg-soft:#fbeabb; --card:#fffdf5; --border:#ecdba6;
+    --text:#141414; --muted:#5f5f5a;
+    --accent:#fde68a; --accent-ink:#8a6100; --accent-wash:#ffedb3;
+    --header-bg:rgba(255,255,255,.96);
+  }
+  :root[data-theme="dark"]{
+    --bg:#120f06; --bg-soft:#1d190a; --card:#231e0e; --border:#3d351a;
+    --text:#f5f5f2; --muted:#a3a39c;
+    --accent-ink:#fde68a; --accent-wash:#312a12; --header-bg:#ffffff;
+  }
+  :root[data-theme="dark"] header{--text:#141414;--muted:#5f5f5a;--border:#ecdba6;color-scheme:light}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background-color:var(--bg);color:var(--text);line-height:1.7}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+  header{position:sticky;top:0;z-index:50;color:var(--text);background:var(--header-bg);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:10px}
+  .logo{display:flex;align-items:center;gap:8px;min-width:0}
+  .logo svg{height:34px;width:auto;aspect-ratio:59/40;flex-shrink:0}
+  .brand{font-size:21px;font-weight:800;letter-spacing:-.03em}
+  .home-link{font-size:14px;font-weight:700;color:var(--muted);flex-shrink:0}
+  .home-link:hover{color:var(--text)}
+
+  .doc{max-width:760px;margin:0 auto;padding:56px 0 40px}
+  h1{font-size:clamp(32px,5vw,48px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:10px}
+  .updated{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .intro{font-size:18px;margin-bottom:28px}
+
+  .summary{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:12px}
+  .summary h2{margin:0 0 8px;font-size:17px;letter-spacing:0}
+  .summary ul{margin-bottom:0}
+
+  h2{font-size:22px;font-weight:700;line-height:1.3;letter-spacing:-.01em;margin:40px 0 12px}
+  h3{font-size:16px;font-weight:700;margin:20px 0 6px}
+  p{margin-bottom:12px}
+  ul{padding-left:20px;margin-bottom:12px}
+  li{margin-bottom:6px}
+  .doc a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+
+  .table-scroll{overflow-x:auto;margin:12px 0 8px;border:1px solid var(--border);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:15px;min-width:460px}
+  th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--border)}
+  th{background:var(--bg-soft);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .note{color:var(--muted);font-size:14px}
+
+  .contact{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 22px;margin:12px 0}
+  .contact p{margin-bottom:4px}
+  .contact p:last-child{margin-bottom:0}
+
+  footer{border-top:1px solid var(--border);padding:24px 0 28px;margin-top:24px;font-size:14px;color:var(--muted)}
+  .fbottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a:hover{color:var(--text)}
+
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    .brand{font-size:18px}.logo svg{height:30px}
+    .doc{padding-top:36px}
+    .intro{font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo" aria-label="Bydeso trang chủ">
+      <svg viewBox="0 0 59 40" aria-hidden="true">
+        <rect width="59" height="40" rx="11" fill="#fde68a"/>
+        <path d="M8 19 20 9l12 10" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 17v14h7.5a4 4 0 0 0 0-8H14m0 0h6a3.5 3.5 0 0 0 0-7" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="27.6" y="31.2" font-family="'Be Vietnam Pro',system-ui,sans-serif" font-size="8.7" font-weight="800" letter-spacing="-.2" fill="#141414">ydeso</text>
+      </svg>
+      <span class="brand">Bydeso</span>
+    </a>
+    <a href="index.html" class="home-link">← Trang chủ</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="doc">
+    <h1>Chính sách bảo mật</h1>
+    <p class="updated">Có hiệu lực từ ngày 04/11/2026</p>
+    <p class="intro">Trang này giải thích Bydeso thu thập thông tin gì của bạn, dùng vào việc gì, lưu ở đâu và bạn có thể yêu cầu gì đối với thông tin đó.</p>
+
+    <div class="summary">
+      <h2>Tóm tắt nhanh</h2>
+      <ul>
+        <li>Bydeso chỉ nhận thông tin khi bạn tự điền và gửi qua các biểu mẫu trên website.</li>
+        <li>Thông tin được dùng để tư vấn, xử lý yêu cầu giữ chỗ và gửi tin về dự án bạn đã chọn.</li>
+        <li>Thông tin được lưu trên Google Sheets. Bydeso không bán thông tin của bạn.</li>
+        <li>Bạn có thể xem, sửa, xóa thông tin hoặc ngừng nhận tin bất cứ lúc nào qua <a href="mailto:vuongb749@gmail.com">vuongb749@gmail.com</a>.</li>
+      </ul>
+    </div>
+
+    <h2>1. Ai chịu trách nhiệm về dữ liệu của bạn</h2>
+    <p>Website Bydeso do cá nhân Bùi Thanh Vương vận hành. Bùi Thanh Vương là người quyết định mục đích, cách thức xử lý dữ liệu cá nhân thu thập qua website và chịu trách nhiệm về việc này.</p>
+    <div class="contact">
+      <p><strong>Bùi Thanh Vương</strong> (Bydeso)</p>
+      <p>Email: <a href="mailto:vuongb749@gmail.com">vuongb749@gmail.com</a></p>
+      <p>Hotline / Zalo: <a href="tel:0325982512">0325 982 512</a></p>
+    </div>
+
+    <h2>2. Bydeso thu thập những thông tin nào</h2>
+    <h3>Thông tin bạn điền vào biểu mẫu</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Biểu mẫu</th><th>Thông tin thu thập</th></tr></thead>
+        <tbody>
+          <tr><td>Nhận tư vấn</td><td>Số điện thoại</td></tr>
+          <tr><td>Quan tâm dự án</td><td>Số điện thoại Zalo, tài khoản Telegram hoặc email (tùy kênh bạn chọn); dự án, nội dung và tần suất muốn nhận tin</td></tr>
+          <tr><td>Giữ chỗ căn (sa bàn 3D)</td><td>Họ tên, số điện thoại, căn bạn chọn</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Kèm theo mỗi lần gửi, hệ thống ghi lại thời gian gửi, loại yêu cầu và trang đã gửi. Khi bạn tạm dừng hoặc bỏ quan tâm một dự án, thông tin liên hệ cùng thao tác đó cũng được gửi về để Bydeso ngừng gửi tin cho bạn.</p>
+    <p>Bydeso không yêu cầu dữ liệu nhạy cảm như số căn cước, thông tin tài khoản ngân hàng hay tình trạng sức khỏe qua các biểu mẫu. Vui lòng không điền những thông tin này vào biểu mẫu.</p>
+
+    <h3>Thông tin lưu trên chính trình duyệt của bạn</h3>
+    <p>Website dùng bộ nhớ của trình duyệt (localStorage) để ghi nhớ giao diện sáng/tối, ngôn ngữ, mục đã lưu, dự án đang quan tâm và thông tin liên hệ bạn đã nhập để lần sau không phải điền lại. Phần dữ liệu này nằm trên thiết bị của bạn. Bạn có thể xóa bằng cách xóa dữ liệu duyệt web của trang.</p>
+    <p>Hiện tại, website không dùng công cụ phân tích hành vi hay quảng cáo như Google Analytics hoặc Facebook Pixel.</p>
+
+    <h2>3. Bydeso dùng thông tin để làm gì</h2>
+    <ul>
+      <li>Liên hệ và tư vấn bất động sản theo yêu cầu của bạn.</li>
+      <li>Xử lý yêu cầu giữ chỗ căn bạn đã gửi.</li>
+      <li>Gửi tin về dự án bạn chọn (giá, chính sách bán hàng, mở bán, tiến độ, pháp lý) qua kênh và tần suất bạn đã đăng ký.</li>
+      <li>Ghi nhận việc bạn tạm dừng hoặc ngừng nhận tin, và trả lời các yêu cầu về dữ liệu của bạn.</li>
+    </ul>
+    <p>Bydeso không dùng thông tin của bạn vào mục đích khác nếu chưa thông báo và chưa được bạn đồng ý, trừ trường hợp pháp luật cho phép.</p>
+
+    <h2>4. Căn cứ xử lý dữ liệu</h2>
+    <p>Bydeso xử lý dữ liệu của bạn trên cơ sở sự đồng ý của bạn, thể hiện khi bạn chủ động điền và gửi biểu mẫu. Sự im lặng hoặc không phản hồi không được xem là đồng ý. Bạn có quyền rút lại sự đồng ý bất cứ lúc nào; việc rút lại không ảnh hưởng đến các hoạt động xử lý đã diễn ra trước đó.</p>
+
+    <h2>5. Dữ liệu được lưu ở đâu và trong bao lâu</h2>
+    <p>Dữ liệu từ biểu mẫu được lưu trên bảng tính Google Sheets thuộc tài khoản Google của Bydeso. Google có thể lưu trữ dữ liệu trên máy chủ đặt ngoài lãnh thổ Việt Nam. Việc gửi biểu mẫu đồng nghĩa với việc dữ liệu của bạn có thể được lưu trữ theo cách này.</p>
+    <p>Bydeso lưu dữ liệu trong thời gian cần thiết cho các mục đích nêu trên, <strong>tối đa 24 tháng kể từ lần liên hệ gần nhất của bạn</strong>, trừ khi bạn yêu cầu xóa sớm hơn hoặc pháp luật buộc phải lưu lâu hơn. Hết thời hạn này, dữ liệu sẽ được xóa.</p>
+
+    <h2>6. Ai có thể tiếp cận dữ liệu của bạn</h2>
+    <p>Bydeso không mua bán dữ liệu cá nhân của bạn. Dữ liệu chỉ được cung cấp hoặc đi qua các bên sau:</p>
+    <ul>
+      <li><strong>Google:</strong> cung cấp dịch vụ Google Sheets và Google Apps Script để nhận và lưu dữ liệu biểu mẫu.</li>
+      <li><strong>Zalo, Telegram, nhà cung cấp email và mạng điện thoại:</strong> khi Bydeso liên hệ hoặc gửi tin cho bạn qua các kênh này. Mỗi nền tảng có chính sách bảo mật riêng.</li>
+      <li><strong>Chủ đầu tư hoặc đơn vị phân phối dự án:</strong> chỉ khi cần cho giao dịch bạn yêu cầu và sau khi được bạn đồng ý.</li>
+      <li><strong>Cơ quan nhà nước có thẩm quyền:</strong> khi pháp luật yêu cầu.</li>
+    </ul>
+    <p>Khi bạn mở website, trình duyệt của bạn tự động kết nối tới các dịch vụ cung cấp phông chữ và hình ảnh (Google Fonts, Unsplash, Wikimedia) và đơn vị lưu trữ website. Các dịch vụ này có thể ghi nhận thông tin kỹ thuật như địa chỉ IP và loại trình duyệt. Các đường dẫn đến Zalo đưa bạn sang trang của Zalo và áp dụng chính sách của Zalo.</p>
+
+    <h2>7. Quyền của bạn</h2>
+    <p>Theo Luật Bảo vệ dữ liệu cá nhân, bạn có quyền:</p>
+    <ul>
+      <li>Được biết về việc dữ liệu của bạn đang được xử lý.</li>
+      <li>Đồng ý, không đồng ý hoặc rút lại sự đồng ý.</li>
+      <li>Xem, chỉnh sửa hoặc yêu cầu chỉnh sửa dữ liệu.</li>
+      <li>Yêu cầu cung cấp hoặc xóa dữ liệu, hạn chế xử lý, phản đối xử lý.</li>
+      <li>Yêu cầu ngừng nhận tin quảng cáo, giới thiệu sản phẩm.</li>
+      <li>Khiếu nại, tố cáo, khởi kiện và yêu cầu bồi thường theo quy định của pháp luật.</li>
+      <li>Yêu cầu cơ quan có thẩm quyền hoặc các bên liên quan thực hiện biện pháp bảo vệ dữ liệu của bạn.</li>
+    </ul>
+    <p>Bạn cũng có trách nhiệm cung cấp thông tin chính xác và tôn trọng dữ liệu của người khác. Vui lòng không điền thông tin của người khác nếu chưa được họ đồng ý.</p>
+
+    <h2>8. Cách gửi yêu cầu và thời gian xử lý</h2>
+    <p>Gửi email tới <a href="mailto:vuongb749@gmail.com">vuongb749@gmail.com</a>, nêu rõ yêu cầu của bạn và số điện thoại, email hoặc tài khoản Telegram đã dùng để đăng ký. Bydeso có thể hỏi thêm để xác minh đúng là bạn trước khi thực hiện. Nếu cần hỗ trợ cách gửi yêu cầu, hãy gọi hotline <a href="tel:0325982512">0325 982 512</a>.</p>
+    <p>Bydeso phản hồi trong vòng <strong>02 ngày làm việc</strong> và thực hiện yêu cầu trong thời hạn sau:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Yêu cầu</th><th>Thời hạn thực hiện</th></tr></thead>
+        <tbody>
+          <tr><td>Xem, chỉnh sửa, cung cấp dữ liệu</td><td>10 ngày</td></tr>
+          <tr><td>Rút lại đồng ý, hạn chế hoặc phản đối xử lý</td><td>15 ngày</td></tr>
+          <tr><td>Thực hiện biện pháp bảo vệ dữ liệu</td><td>15 ngày</td></tr>
+          <tr><td>Xóa dữ liệu</td><td>20 ngày</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Nếu chưa thể hoàn thành đúng hạn, Bydeso sẽ báo lý do cho bạn và chỉ gia hạn một lần theo quy định. Có thể cần thêm thời gian nếu yêu cầu liên quan đến bên thứ ba. Một số dữ liệu có thể chưa xóa được nếu pháp luật buộc phải lưu giữ.</p>
+    <p>Thao tác tạm dừng hoặc bỏ quan tâm trong mục "Đang quan tâm" chỉ giúp bạn ngừng nhận tin về dự án đó. Để xóa hẳn dữ liệu đã lưu, vui lòng gửi email như hướng dẫn ở trên.</p>
+    <p>Nếu không hài lòng với cách Bydeso xử lý, bạn có thể gửi phản ánh tới cơ quan chuyên trách bảo vệ dữ liệu cá nhân thuộc Bộ Công an.</p>
+
+    <h2>9. Bydeso bảo vệ dữ liệu của bạn như thế nào</h2>
+    <ul>
+      <li>Dữ liệu biểu mẫu được gửi qua kết nối mã hóa HTTPS.</li>
+      <li>Quyền truy cập bảng tính được giới hạn cho người phụ trách của Bydeso.</li>
+      <li>Biểu mẫu chỉ hỏi những thông tin cần thiết cho yêu cầu của bạn.</li>
+    </ul>
+    <p>Không có hệ thống nào an toàn tuyệt đối. Nếu xảy ra vi phạm có thể gây tổn hại, Bydeso sẽ thông báo cho cơ quan chuyên trách chậm nhất 72 giờ kể từ khi phát hiện, và báo cho bạn nếu dữ liệu của bạn bị ảnh hưởng.</p>
+
+    <h2>10. Trẻ em</h2>
+    <p>Dịch vụ của Bydeso dành cho người trưởng thành có nhu cầu về bất động sản. Người dưới 16 tuổi không nên tự gửi thông tin qua website. Nếu bạn là cha, mẹ hoặc người giám hộ và phát hiện trẻ đã gửi thông tin, hãy liên hệ để Bydeso xóa dữ liệu.</p>
+
+    <h2>11. Thay đổi chính sách</h2>
+    <p>Khi chính sách này thay đổi, Bydeso sẽ cập nhật tại trang này cùng ngày hiệu lực mới. Nếu thay đổi có mục đích sử dụng dữ liệu mới, Bydeso sẽ xin lại sự đồng ý của bạn trước khi áp dụng.</p>
+
+    <h2>12. Căn cứ pháp lý</h2>
+    <p>Chính sách này được xây dựng theo Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và Nghị định số 356/2025/NĐ-CP, cùng có hiệu lực từ ngày 01/01/2026.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap fbottom">
+    <span>© 2026 Bydeso. Bảo lưu mọi quyền.</span>
+    <span>Hotline / Zalo: <a href="tel:0325982512">0325 982 512</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
