@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dành cho môi giới | Bydeso</title>
+<meta name="description" content="Bydeso dành cho môi giới bất động sản: AI gọi điện và AI chăm sóc dùng chung một hồ sơ khách trên mọi kênh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // Dùng lại lựa chọn sáng/tối khách đã chọn ở trang chủ; mặc định nền tối.
+  (function(){var t=null;try{t=localStorage.getItem('bydeso-theme-v2')}catch(e){}
+  document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark')})();
+</script>
+<style>
+  :root{
+    --bg:#fffcf2; --bg-soft:#fbeabb; --card:#fffdf5; --border:#ecdba6;
+    --text:#141414; --muted:#5f5f5a;
+    --accent:#fde68a; --accent-ink:#8a6100; --on-accent:#141414; --accent-wash:#ffedb3;
+    --shadow:0 10px 30px rgba(20,20,20,.06); --header-bg:rgba(255,255,255,.96);
+  }
+  :root[data-theme="dark"]{
+    --bg:#120f06; --bg-soft:#1d190a; --card:#231e0e; --border:#3d351a;
+    --text:#f5f5f2; --muted:#a3a39c;
+    --accent-ink:#fde68a; --accent-wash:#312a12; --shadow:0 10px 30px rgba(0,0,0,.4); --header-bg:#ffffff;
+  }
+  :root[data-theme="dark"] header{--text:#141414;--muted:#5f5f5a;--border:#ecdba6;--card:#fffdf5;--accent-ink:#8a6100;color-scheme:light}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background-color:var(--bg);background-image:radial-gradient(900px 500px at 85% -5%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%);background-repeat:no-repeat;color:var(--text);line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+  h1,h2{line-height:1.2;letter-spacing:-.02em}
+  h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:14px}
+
+  header{position:sticky;top:0;z-index:50;color:var(--text);background:var(--header-bg);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:10px}
+  .logo{display:flex;align-items:center;gap:8px;min-width:0}
+  .logo svg{height:34px;width:auto;aspect-ratio:59/40;flex-shrink:0}
+  .brand{font-size:21px;font-weight:800;letter-spacing:-.03em}
+  .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .home-link{font-size:14px;font-weight:700;color:var(--muted)}
+  .home-link:hover{color:var(--text)}
+  .lang-switch{display:flex;border:1px solid var(--border);border-radius:12px;padding:3px;background:var(--card);height:40px;align-items:center}
+  .lang-switch button{border:none;background:none;font:inherit;font-size:13px;font-weight:700;color:var(--muted);padding:0 8px;height:32px;border-radius:9px;cursor:pointer;min-width:36px}
+  .lang-switch button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+
+  .page-head{padding-top:56px;padding-bottom:8px}
+  .page-head h1{font-size:clamp(32px,5vw,52px);font-weight:800}
+  section{padding:48px 0}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:600;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+  .lead{color:var(--muted);font-size:18px;max-width:640px;margin-bottom:28px}
+  .omni{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .journey{display:flex;flex-direction:column;gap:12px}
+  .jitem{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+  .chan{flex-shrink:0;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--bg-soft);border:1px solid var(--border);min-width:92px;text-align:center}
+  .jitem p{font-size:14px;color:var(--muted)}
+  .chan.c-fb{background:#1877F2;border-color:#1877F2;color:#fff}
+  .chan.c-zalo{background:#0068FF;border-color:#0068FF;color:#fff}
+  .chan.c-hot{background:#16a34a;border-color:#16a34a;color:#fff}
+  .chan.c-mail{background:#EA4335;border-color:#EA4335;color:#fff}
+  .profile{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+  .profile h2{font-size:17px;margin-bottom:4px;letter-spacing:0;line-height:1.6}
+  .profile-sub{color:var(--muted);font-size:14px;margin-bottom:10px}
+  .prow{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);font-size:14px}
+  .prow:last-child{border-bottom:none}
+  .prow span{color:var(--muted)}
+  .prow .chip{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--accent-wash);color:var(--accent-ink);border:1px solid var(--border);font-weight:600}
+
+  .cta{background:var(--accent);color:var(--on-accent);border-radius:28px;padding:56px 32px;text-align:center}
+  .cta p{opacity:.75;margin:0 auto 26px;max-width:560px;font-size:18px}
+  .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;padding:12px 20px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid transparent}
+  .btn-dark{background:#141414;color:#fff}
+  .btn-dark:hover{background:#000}
+  .btn-line{border-color:rgba(20,20,20,.25);color:#141414}
+
+  footer{border-top:1px solid var(--border);padding:24px 0 28px;margin-top:24px;font-size:14px;color:var(--muted)}
+  .fbottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a:hover{color:var(--text)}
+
+  @media (max-width:980px){.omni{grid-template-columns:1fr}}
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    .brand{font-size:18px}.logo svg{height:30px}
+    .page-head{padding-top:36px}
+    .cta{padding:40px 20px}
+    .jitem{align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo" aria-label="Bydeso trang chủ">
+      <svg viewBox="0 0 59 40" aria-hidden="true">
+        <rect width="59" height="40" rx="11" fill="#fde68a"/>
+        <path d="M8 19 20 9l12 10" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 17v14h7.5a4 4 0 0 0 0-8H14m0 0h6a3.5 3.5 0 0 0 0-7" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="27.6" y="31.2" font-family="'Be Vietnam Pro',system-ui,sans-serif" font-size="8.7" font-weight="800" letter-spacing="-.2" fill="#141414">ydeso</text>
+      </svg>
+      <span class="brand">Bydeso</span>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="home-link">← Trang chủ</a>
+      <div class="lang-switch" role="group" aria-label="Đổi ngôn ngữ"><button type="button" data-lang="vi" aria-pressed="true">VN</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap page-head">
+    <h1>Dành cho môi giới</h1>
+  </div>
+
+  <section id="da-kenh">
+    <div class="wrap omni">
+      <div>
+        <span class="eyebrow">Đa kênh</span>
+        <h2>Một khách hàng, chăm sóc đồng bộ mọi kênh</h2>
+        <p class="lead">AI gọi điện và AI chăm sóc dùng chung một hồ sơ khách — dù khách đến từ Facebook, Zalo, TikTok hay website.</p>
+        <div class="journey">
+          <div class="jitem"><span class="chan c-fb">Facebook</span><p>Khách nhắn hỏi giá căn 2PN dự án</p></div>
+          <div class="jitem"><span class="chan">Website</span><p>Bấm "Quan tâm" trên bảng hàng, để lại email</p></div>
+          <div class="jitem"><span class="chan c-mail">Email</span><p>Nhận chính sách, pháp lý, tiến độ tự động</p></div>
+          <div class="jitem"><span class="chan c-hot">Hotline</span><p>Gọi hỏi thêm — AI đã biết khách là ai</p></div>
+          <div class="jitem"><span class="chan c-zalo">Zalo</span><p>Nhận nhắc lịch xem nhà mẫu sáng thứ Bảy</p></div>
+        </div>
+      </div>
+      <div class="profile">
+        <h2>Hồ sơ khách hàng</h2>
+        <p class="profile-sub">Cập nhật tự động từ mọi kênh</p>
+        <div class="prow"><span>Họ tên</span><strong>Anh Minh</strong></div>
+        <div class="prow"><span>Dự án quan tâm</span><strong>Căn hộ 2PN</strong></div>
+        <div class="prow"><span>Ngân sách</span><strong>~3 tỷ</strong></div>
+        <div class="prow"><span>Mức độ</span><span class="chip">Khách nóng</span></div>
+        <div class="prow"><span>Lịch hẹn</span><strong>T7 · 9:00</strong></div>
+        <div class="prow"><span>Sale phụ trách</span><strong>Đã phân phối</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dat-lich">
+    <div class="wrap">
+      <div class="cta">
+        <h2>Nghe AI của bạn tư vấn cho khách của bạn</h2>
+        <p>Đặt lịch demo 15 phút — chúng tôi dựng thử AI cho chính dự án bạn đang bán.</p>
+        <div class="cta-actions">
+          <a href="https://zalo.me/0325982512" target="_blank" rel="noopener" class="btn btn-dark">Đặt lịch demo</a>
+          <a href="tel:0325982512" class="btn btn-line">Liên hệ đội ngũ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap fbottom">
+    <span>© 2026 Bydeso. Bảo lưu mọi quyền.</span>
+    <span>Hotline / Zalo: <a href="tel:0325982512">0325 982 512</a></span>
+  </div>
+</footer>
+
+<script>
+  // Dùng lại lựa chọn ngôn ngữ của trang chủ.
+  (function(){
+    var EN={
+      "← Trang chủ":"← Home","Dành cho môi giới":"For brokers","Đa kênh":"Omnichannel",
+      "Một khách hàng, chăm sóc đồng bộ mọi kênh":"One buyer, consistent care across every channel",
+      "AI gọi điện và AI chăm sóc dùng chung một hồ sơ khách — dù khách đến từ Facebook, Zalo, TikTok hay website.":"AI Calling and AI Nurturing share one customer profile — whether buyers come from Facebook, Zalo, TikTok or your website.",
+      "Khách nhắn hỏi giá căn 2PN dự án":"Messages to ask the price of a 2-bedroom unit",
+      "Bấm \"Quan tâm\" trên bảng hàng, để lại email":"Clicks \"Follow\" on the price list and leaves an email",
+      "Nhận chính sách, pháp lý, tiến độ tự động":"Receives policies, legal docs and progress updates automatically",
+      "Gọi hỏi thêm — AI đã biết khách là ai":"Calls with more questions — AI already knows who they are",
+      "Nhận nhắc lịch xem nhà mẫu sáng thứ Bảy":"Gets a reminder for the Saturday morning show-unit visit",
+      "Hồ sơ khách hàng":"Customer profile","Cập nhật tự động từ mọi kênh":"Auto-updated from every channel",
+      "Họ tên":"Name","Anh Minh":"Mr. Minh","Dự án quan tâm":"Interested in","Căn hộ 2PN":"2-bedroom apartment",
+      "Ngân sách":"Budget","~3 tỷ":"~3 billion VND","Mức độ":"Lead status","Khách nóng":"Hot lead",
+      "Lịch hẹn":"Appointment","T7 · 9:00":"Sat · 9:00","Sale phụ trách":"Assigned agent","Đã phân phối":"Assigned",
+      "Nghe AI của bạn tư vấn cho khách của bạn":"Hear your AI advise your buyers",
+      "Đặt lịch demo 15 phút — chúng tôi dựng thử AI cho chính dự án bạn đang bán.":"Book a 15-minute demo — we'll set up a trial AI for the very project you're selling.",
+      "Đặt lịch demo":"Book a demo","Liên hệ đội ngũ":"Contact our team",
+      "© 2026 Bydeso. Bảo lưu mọi quyền.":"© 2026 Bydeso. All rights reserved."
+    };
+    var nodes=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){return n.parentElement.closest('script,style')?2:1}}),n;
+    while((n=walker.nextNode())){var k=n.nodeValue.trim();if(EN[k])nodes.push({n:n,vi:n.nodeValue,k:k})}
+    var viTitle=document.title;
+    function setLang(lang){
+      var en=lang==='en';
+      nodes.forEach(function(x){x.n.nodeValue=en?EN[x.k]:x.vi});
+      document.title=en?'For brokers | Bydeso':viTitle;
+      document.documentElement.lang=en?'en':'vi';
+      document.querySelectorAll('.lang-switch button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===lang))});
+      try{localStorage.setItem('bydeso-lang',lang)}catch(e){}
+    }
+    document.querySelectorAll('.lang-switch button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+    var saved=null;try{saved=localStorage.getItem('bydeso-lang')}catch(e){}
+    if(saved==='en')setLang('en');
+  })();
+</script>
+</body>
+</html>
