@@ -2,6 +2,9 @@
 // Dán link Web App của Google Apps Script vào giữa hai dấu nháy ở dòng dưới.
 window.BYDESO_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwL8qNVfSP0qtjP8DCJXEt52Y3yI1wf4wZZUJqQXwKoJeun8CJke7vC9DLLAxrSo9rHZQ/exec';
 
+// Nội dung ghi vào cột "Đồng ý". Khi sửa chính sách bảo mật, đổi ngày này theo bản mới.
+window.BYDESO_DONG_Y = 'Đồng ý theo Chính sách bảo mật bản 04/11/2026';
+
 // Trả về true chỉ khi Google Sheets xác nhận đã ghi xong.
 window.bydesoSend = function (data) {
   var url = window.BYDESO_SHEET_URL;

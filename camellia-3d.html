@@ -37,6 +37,7 @@
   .top>*{pointer-events:auto}
   .brand{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
   .back-home{display:inline-block;margin-bottom:4px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none}
+  .back-home+.back-home{margin-left:12px;color:var(--muted);font-weight:600}
   .brand small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
   .brand h1{margin:2px 0 0;font-size:19px;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
   .brand p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
@@ -122,6 +123,9 @@
   form.res{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
   form.res label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
   form.res input{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px}
+  form.res label.consent{flex-direction:row;align-items:flex-start;gap:8px;line-height:1.5;cursor:pointer}
+  form.res .consent input{flex:none;width:17px;height:17px;margin:1px 0 0;padding:0;accent-color:var(--gold);cursor:pointer}
+  form.res .consent a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
   .err{color:var(--danger);font-size:12.5px}
   .okmsg{margin-top:12px;border:1px solid rgba(47,191,135,.4);background:rgba(47,191,135,.1);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.5}
 
@@ -182,7 +186,7 @@
 
   <header class="top">
     <div class="brand">
-      <a class="back-home" href="index.html">← Trang chủ Bydeso</a>
+      <a class="back-home" href="index.html">← Trang chủ Bydeso</a><a class="back-home" href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Chính sách bảo mật</a>
       <small>Bydeso 3D · Bản mô phỏng thử nghiệm</small>
       <h1>The Camellia Sơn Trà</h1>
       <p>Lê Văn Lương – Lê Đức Thọ, Sơn Trà, Đà Nẵng</p>
@@ -588,13 +592,14 @@ function select(u){
 }
 function holdForm(u){
   const box=card.querySelector('#cForm');
-  box.innerHTML='<form class="res" id="resForm" novalidate><label for="resName">Họ tên<input id="resName" autocomplete="name" placeholder="Nguyễn Văn A"></label><label for="resPhone">Số điện thoại<input id="resPhone" inputmode="tel" autocomplete="tel" placeholder="0905 123 456"></label><div class="err" id="resErr" hidden></div><button class="btn primary" type="submit">Gửi yêu cầu giữ chỗ</button></form>';
+  box.innerHTML='<form class="res" id="resForm" novalidate><label for="resName">Họ tên<input id="resName" autocomplete="name" placeholder="Nguyễn Văn A"></label><label for="resPhone">Số điện thoại<input id="resPhone" inputmode="tel" autocomplete="tel" placeholder="0905 123 456"></label><label class="consent"><input type="checkbox" id="resConsent"><span>Tôi đồng ý để Bydeso lưu và dùng thông tin trên để xử lý yêu cầu giữ chỗ, kể cả xác nhận với chủ đầu tư khi cần, theo <a href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Chính sách bảo mật</a>.</span></label><div class="err" id="resErr" hidden></div><button class="btn primary" type="submit">Gửi yêu cầu giữ chỗ</button></form>';
   box.querySelector('#resName').focus();
   box.querySelector('#resForm').addEventListener('submit',e=>{e.preventDefault();const n=box.querySelector('#resName').value.trim(),p=box.querySelector('#resPhone').value.replace(/[\s.\-]/g,''),er=box.querySelector('#resErr');
     if(!n){er.textContent='Vui lòng nhập họ tên.';er.hidden=false;return}
     if(!/^(\+?84|0)\d{9,10}$/.test(p)){er.textContent='Số điện thoại chưa đúng. Ví dụ: 0905 123 456.';er.hidden=false;return}
+    if(!box.querySelector('#resConsent').checked){er.textContent='Vui lòng tích vào ô đồng ý để tiếp tục.';er.hidden=false;box.querySelector('#resConsent').focus();return}
     er.hidden=true;const sb=box.querySelector('button[type=submit]'),sl=sb.textContent;sb.disabled=true;sb.textContent='Đang gửi...';
-    window.bydesoSend({loai:'Giữ chỗ căn',hoTen:n,sdt:p,duAn:'The Camellia Sơn Trà - '+u.code}).then(ok=>{
+    window.bydesoSend({loai:'Giữ chỗ căn',hoTen:n,sdt:p,duAn:'The Camellia Sơn Trà - '+u.code,dongY:window.BYDESO_DONG_Y}).then(ok=>{
     if(!ok){sb.disabled=false;sb.textContent=sl;er.textContent='Chưa gửi được yêu cầu. Vui lòng thử lại hoặc gọi 0325 982 512.';er.hidden=false;return}
     u.status='hold';u.pending=true;stats();floorButtons();
     box.innerHTML='<div class="okmsg"><b>Đã ghi nhận yêu cầu giữ chỗ căn '+esc(u.code)+'.</b><br>Tư vấn viên Bydeso sẽ xác nhận với chủ đầu tư, báo thứ tự ưu tiên nếu căn đã có khách quan tâm, và liên hệ lại. Hotline/Zalo: <b>0325 982 512</b>.</div>';
