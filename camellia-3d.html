@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<script>if(window.top===window.self)location.replace('index.html#3d/the-camellia-son-tra')</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Camellia 3D</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -95,39 +96,10 @@
   .tip{position:absolute;z-index:6;pointer-events:none;background:var(--panel-solid);border:1px solid var(--line);border-radius:10px;padding:6px 9px;font-size:12.5px;font-weight:700;white-space:nowrap;transform:translate(12px,12px)}
   .tip small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
 
-  /* thẻ căn hộ */
-  .card{position:absolute;right:96px;top:150px;width:330px;max-height:calc(100% - 270px);overflow:auto;z-index:5;background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 20px 50px rgba(0,0,0,.45);animation:up .2s ease}
   @keyframes up{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
-  .card .x{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);display:grid;place-items:center}
-  .card .x svg{width:14px;height:14px}
-  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
-  .badge.ok{background:rgba(47,191,135,.16);color:#7fe3b9}.badge.hold{background:rgba(243,179,61,.16);color:#ffd27e}.badge.sold{background:rgba(140,145,158,.18);color:#c7cad3}
-  .badge.real{background:rgba(246,207,85,.14);color:var(--gold)}
-  .card h3{margin:10px 0 2px;font-size:24px;font-weight:800;letter-spacing:-.01em}
-  .card .sub{font-size:13px;color:var(--muted)}
-  .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
-  .kv div{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;padding:8px 10px;min-width:0}
-  .kv dt{font-size:11px;color:var(--muted)}.kv dd{margin:2px 0 0;font-size:14px;font-weight:700;overflow-wrap:anywhere}
-  .kv dd.upd{color:var(--muted);font-style:italic;font-weight:600}
-  .price{border-radius:12px;padding:10px 12px;background:rgba(246,207,85,.08);border:1px solid rgba(246,207,85,.3)}
-  .price small{font-size:11.5px;color:var(--muted)}.price b{display:block;font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
-  .pm{margin-top:10px;display:flex;flex-direction:column;gap:5px}
-  .pm div{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-variant-numeric:tabular-nums}
-  .pm div b{font-weight:700}
-  .pm div.best b{color:#7fe3b9}
-  .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   .btn{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:11px;padding:10px 13px;font-size:13.5px;font-weight:700}
   .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
   .btn[disabled]{opacity:.45;cursor:not-allowed}
-  .fine{font-size:11.5px;color:var(--muted);margin:10px 0 0;line-height:1.5}
-  form.res{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-  form.res label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
-  form.res input{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px}
-  form.res label.consent{flex-direction:row;align-items:flex-start;gap:8px;line-height:1.5;cursor:pointer}
-  form.res .consent input{flex:none;width:17px;height:17px;margin:1px 0 0;padding:0;accent-color:var(--gold);cursor:pointer}
-  form.res .consent a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
-  .err{color:var(--danger);font-size:12.5px}
-  .okmsg{margin-top:12px;border:1px solid rgba(47,191,135,.4);background:rgba(47,191,135,.1);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.5}
 
   /* hướng dẫn lần đầu */
   .intro{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:rgba(8,7,4,.55);backdrop-filter:blur(3px);padding:20px}
@@ -147,7 +119,6 @@
     .filters{display:none;top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-height:55%}
     .filters.open{display:flex}
     .floors{top:auto;bottom:calc(104px + env(safe-area-inset-bottom,0px));height:min(46%,330px);width:58px}
-    .card{left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;max-height:62%}
     .note{display:none}
     .compass{width:62px;height:62px;bottom:calc(60px + env(safe-area-inset-bottom,0px))}.compass svg{width:50px;height:50px}
     .legend{font-size:11.5px;padding:7px 10px;gap:8px;right:max(16px,env(safe-area-inset-right,0px));justify-content:center}
@@ -173,9 +144,8 @@
   .t-fade{position:absolute;inset:0;background:#0e0c08;opacity:0;transition:opacity .28s ease;pointer-events:none}
   .t-fade.on{opacity:1}
   .tour.overhead .t-hint{display:none}
-  .btn.tour-btn{background:rgba(47,191,135,.16);border-color:rgba(47,191,135,.5);color:#9ff0cd}
   @media (max-width:860px){.t-info h2{font-size:15px}.t-room{top:auto;bottom:calc(84px + env(safe-area-inset-bottom,0px))}.t-hint{display:none}.t-rooms{left:12px;right:12px;transform:none;max-width:none}}
-  @media (prefers-reduced-motion:reduce){.card{animation:none}.compass svg{transition:none}}
+  @media (prefers-reduced-motion:reduce){.compass svg{transition:none}}
 </style>
 </head>
 <body>
@@ -186,7 +156,7 @@
 
   <header class="top">
     <div class="brand">
-      <a class="back-home" href="index.html">← Trang chủ Bydeso</a><a class="back-home" href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Chính sách bảo mật</a>
+      <a class="back-home" id="backList" href="#">← Danh sách dự án</a>
       <small>Bydeso 3D · Bản mô phỏng thử nghiệm</small>
       <h1>The Camellia Sơn Trà</h1>
       <p>Lê Văn Lương – Lê Đức Thọ, Sơn Trà, Đà Nẵng</p>
@@ -240,8 +210,7 @@
     <div class="t-fade" id="tFade"></div>
   </div>
   <div class="tip" id="tip" hidden></div>
-  <section class="card" id="card" hidden aria-live="polite"></section>
-
+  
   <div class="intro" id="intro" hidden>
     <div class="box">
       <h2>Chọn căn như chọn ghế xem phim</h2>
@@ -256,7 +225,7 @@
   </div>
 </div>
 
-<script src="bydeso-sheet.js"></script>
+<script src="camellia-units.js"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script>
   setTimeout(function(){var l=document.getElementById('loading');if(l&&!l.hidden&&!window.__b3d)l.textContent='Không tải được thư viện 3D. Hãy kiểm tra kết nối mạng rồi tải lại trang.'},12000);
@@ -271,48 +240,9 @@ import {Sky} from 'three/addons/objects/Sky.js';
 window.__b3d=true;
 const $=s=>document.querySelector(s);
 
-// ================= DỮ LIỆU DỰ ÁN (thay bằng số liệu thật khi có) =================
-const P={
-  podiumFloors:2, podiumH:4.5, floorH:3.3, firstRes:3, topFloor:25,
-  // Căn tầng điển hình: [x0,z0,x1,z1] theo mét trên mặt bằng (x sang phải, z xuống dưới bản vẽ), loại, diện tích, mặt hướng
-  slots:[
-    [28.5,53.5,37.7,62,'2PN',68.3,['TN']],[19.8,53.5,28.5,62,'2PN',66.5,['TN']],[10,53.5,19.8,62,'1PN',52.1,['TN']],[0,51,10,62,'3PN',98.6,['TN','TB']],
-    [0,42,9.6,51,'2PN',70.2,['TB']],[0,35.5,9.6,42,'1PN',47.3,['TB']],[0,29,9.6,35.5,'1PN',47.3,['TB']],[0,21.5,9.6,29,'2PN',63.8,['TB']],
-    [0,15,9.6,21.5,'1PN',46.9,['TB']],[0,8.5,9.6,15,'Studio',31.6,['TB']],[0,0,10,8.5,'2PN',74.5,['TB','ĐB']],
-    [40,0,48,8.5,'1PN',50.2,['ĐB']],[48,0,56,8.5,'2PN',67.9,['ĐB']],[56,0,64,8.5,'2PN',75.4,['ĐB','ĐN']],
-    [55.5,8.5,64,17,'1PN',48.8,['ĐN']],[55.5,17,64,25.5,'Studio',33.2,['ĐN']],[55.5,25.5,64,34,'1PN',49.5,['ĐN']],[55.5,34,64,42.5,'2PN',69.1,['ĐN']],
-    [55.5,42.5,64,53.5,'2PN',72.6,['ĐN']],[55.5,53.5,64,62,'3PN',105.2,['ĐN','TN']],[46,53.5,55.5,62,'1PN',51.4,['TN']],
-    [40,8.5,48.5,17,'1PN',46.2,['SAN']],[40,17,48.5,25.5,'Studio',30.8,['SAN']]
-  ],
-  floor3Skip:[2,12,13,14,15,16,17,18,19,20,22,23], // tầng 3: sân vườn và khu tiện ích
-  cores:[[9.6,0,12,51],[10,51,55.5,53.5],[37.7,53.5,46,62],[48.5,8.5,55.5,53.5],[40,25.5,48.5,51],[12,20,18,32]],
-  slabs:[[0,0,12,62],[10,51,64,62],[40,0,64,53.5],[12,20,18,32]],
-  real:{code:'CH-0301',list:4284446665,unitGross:62729819,dir:'Tây Nam',status:'ok',
-    methods:[['TTS 95%',3614641789],['TTS 70%',3739506119],['TT thông thường',3989234778],['TT giãn',4072477665],['Vay HTLS 70%',4155720552]]}
-};
-const DIR={TN:'Tây Nam',TB:'Tây Bắc','ĐB':'Đông Bắc','ĐN':'Đông Nam',SAN:'Tây Bắc'};
-const VIEW={TN:'Phố, đường Lê Đức Thọ',TB:'Phố, đường Lê Văn Lương','ĐB':'Núi Sơn Trà','ĐN':'Hướng biển',SAN:'Sân vườn nội khu'};
-const VF={TN:1,TB:1,'ĐB':1.03,'ĐN':1.06,SAN:.98};
-const ST={ok:{t:'Còn hàng',c:0x2fbf87,cls:'ok'},hold:{t:'Có khách quan tâm',c:0xf3b33d,cls:'hold'},sold:{t:'Đã bán',c:0x6a6f7b,cls:'sold'}};
-const TYPES=['Studio','1PN','2PN','3PN'];
-
-// sinh dữ liệu căn (minh họa, cố định theo hạt giống)
-function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-const R=rng(20261103), units=[];
+// Dữ liệu căn nằm ở camellia-units.js
+const {P,ST,TYPES,rng,units}=window.BYDESO_3D;
 const floorY=f=>P.podiumFloors*P.podiumH+(f-P.firstRes)*P.floorH;
-for(let f=P.firstRes;f<=P.topFloor;f++){
-  P.slots.forEach((s,i)=>{
-    const no=i+1; if(f===3&&P.floor3Skip.includes(no))return;
-    const code='CH-'+String(f).padStart(2,'0')+String(no).padStart(2,'0');
-    const isReal=code===P.real.code, faces=s[6];
-    let st; const r=R(); st=r<.36?'sold':r<.48?'hold':'ok';
-    const corner=faces.length>1?1.03:1, ff=1+.006*(f-3);
-    let price=Math.round(s[5]*62.73e6*ff*VF[faces[0]]*corner/1e6)*1e6;
-    if(isReal){st=P.real.status;price=P.real.list}
-    units.push({code,floor:f,no,box:s.slice(0,4),type:s[4],area:s[5],faces,dir:isReal?P.real.dir:faces.map(x=>DIR[x]).join(' – '),
-      view:isReal?null:VIEW[faces[0]],price,status:st,real:isReal});
-  });
-}
 
 // ================= DỰNG CẢNH 3D =================
 const stage=$('#stage');
@@ -493,7 +423,6 @@ function animateLife(dt,now){
 // ================= TRẠNG THÁI GIAO DIỆN =================
 const S={mode:'status',floor:null,sel:null,hover:null,f:{status:new Set(),type:new Set(),dir:new Set(),max:7.5}};
 const fmtTy=n=>(n/1e9).toFixed(2).replace('.',',')+' tỷ';
-const fmtVnd=n=>n.toLocaleString('vi-VN')+' đ';
 const match=u=>(!S.f.status.size||S.f.status.has(u.status))&&(!S.f.type.size||S.f.type.has(u.type))&&(!S.f.dir.size||u.faces.some(x=>S.f.dir.has(x==='SAN'?'TB':x))||(u.real&&S.f.dir.has('TN')))&&(S.f.max>=7.5||u.price<=S.f.max*1e9);
 const glass=new THREE.Color(0x8fb1c4);
 function paint(){
@@ -565,47 +494,10 @@ renderer.domElement.addEventListener('pointermove',e=>{if(IN.active||e.pointerTy
   if(u){tip.hidden=false;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px';tip.innerHTML=u.code+' · '+u.type+'<small>'+ST[u.status].t+' · '+fmtTy(u.price)+'</small>';renderer.domElement.style.cursor='pointer'}else{tip.hidden=true;renderer.domElement.style.cursor='grab'}});
 renderer.domElement.addEventListener('pointerleave',()=>{tip.hidden=true;if(S.hover){S.hover=null;paint()}});
 
-const card=$('#card');
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Bấm một căn: báo cho trang chủ mở trang thông tin căn đó
 function select(u){
-  S.sel=u;paint();
-  if(!u){card.hidden=true;return}
-  const st=ST[u.status], canHold=u.status!=='sold';
-  const best=u.real?P.real.methods.reduce((a,b)=>b[1]<a[1]?b:a):null;
-  card.innerHTML='<button type="button" class="x" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
-    '<span class="badge '+st.cls+'">'+(u.pending?'Bạn đã gửi yêu cầu giữ chỗ':st.t+(u.real?'':' (minh họa)'))+'</span> '+(u.real?'<span class="badge real">Dữ liệu thật</span>':'')+
-    '<h3>'+esc(u.code)+'</h3><div class="sub">Tầng '+String(u.floor).padStart(2,'0')+' · Căn số '+String(u.no).padStart(2,'0')+' · The Camellia</div>'+
-    '<dl class="kv"><div><dt>Loại căn</dt><dd>'+esc(u.type)+'</dd></div><div><dt>Diện tích thông thủy</dt><dd>'+String(u.area).replace('.',',')+' m²</dd></div>'+
-    '<div><dt>Hướng</dt><dd>'+esc(u.dir)+'</dd></div><div><dt>View</dt><dd'+(u.view?'':' class="upd"')+'>'+esc(u.view||'Đang cập nhật')+'</dd></div></dl>'+
-    '<div class="price"><small>'+(u.real?'Giá niêm yết (gồm VAT + KPBT)':'Giá minh họa')+'</small><b>'+(u.real?fmtVnd(u.price):'≈ '+fmtTy(u.price))+'</b></div>'+
-    (u.real?'<div class="pm">'+P.real.methods.map(m=>'<div'+(m===best?' class="best"':'')+'><span>'+m[0]+(m===best?' · tốt nhất':'')+'</span><b>'+fmtVnd(m[1])+'</b></div>').join('')+'</div>':'')+
-    '<div class="acts"><button type="button" class="btn primary" id="cHold"'+(canHold?'':' disabled')+'>'+(u.pending?'Đã gửi yêu cầu':canHold?'Đăng ký giữ chỗ':'Căn đã bán')+'</button>'+
-    (TPL[u.type]?'<button type="button" class="btn tour-btn" id="cTour">Vào xem căn hộ 3D</button>':'')+
-    '<button type="button" class="btn" id="cFloor">Xem mặt bằng tầng '+String(u.floor).padStart(2,'0')+'</button></div>'+
-    (u.status==='hold'&&!u.pending?'<p class="fine" style="margin-top:10px">Căn này đã có khách quan tâm nhưng chưa ai mua. Bạn vẫn đăng ký giữ chỗ được, Bydeso sẽ báo thứ tự ưu tiên khi liên hệ.</p>':'')+'<div id="cForm"></div>'+
-    '<p class="fine">'+(u.real?'Giá theo phiếu tính giá tạm tính ngày 07/10/2026, chính sách bán hàng 09/09/2026.':'Thông tin căn này là minh họa cho bản thử. Khi có bảng hàng thật, mọi số liệu sẽ được thay đúng.')+'</p>';
-  card.hidden=false;
-  card.querySelector('.x').onclick=()=>select(null);
-  const tb=card.querySelector('#cTour');if(tb)tb.onclick=()=>enterTour(u);
-  card.querySelector('#cFloor').onclick=()=>{setFloor(u.floor,true);if(innerWidth<860)card.hidden=true};
-  const hb=card.querySelector('#cHold');if(canHold&&!u.pending)hb.onclick=()=>holdForm(u);else if(u.pending)hb.disabled=true;
-}
-function holdForm(u){
-  const box=card.querySelector('#cForm');
-  box.innerHTML='<form class="res" id="resForm" novalidate><label for="resName">Họ tên<input id="resName" autocomplete="name" placeholder="Nguyễn Văn A"></label><label for="resPhone">Số điện thoại<input id="resPhone" inputmode="tel" autocomplete="tel" placeholder="0905 123 456"></label><label class="consent"><input type="checkbox" id="resConsent"><span>Tôi đồng ý để Bydeso lưu và dùng thông tin trên để xử lý yêu cầu giữ chỗ, kể cả xác nhận với chủ đầu tư khi cần, theo <a href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Chính sách bảo mật</a>.</span></label><div class="err" id="resErr" hidden></div><button class="btn primary" type="submit">Gửi yêu cầu giữ chỗ</button></form>';
-  box.querySelector('#resName').focus();
-  box.querySelector('#resForm').addEventListener('submit',e=>{e.preventDefault();const n=box.querySelector('#resName').value.trim(),p=box.querySelector('#resPhone').value.replace(/[\s.\-]/g,''),er=box.querySelector('#resErr');
-    if(!n){er.textContent='Vui lòng nhập họ tên.';er.hidden=false;return}
-    if(!/^(\+?84|0)\d{9,10}$/.test(p)){er.textContent='Số điện thoại chưa đúng. Ví dụ: 0905 123 456.';er.hidden=false;return}
-    if(!box.querySelector('#resConsent').checked){er.textContent='Vui lòng tích vào ô đồng ý để tiếp tục.';er.hidden=false;box.querySelector('#resConsent').focus();return}
-    er.hidden=true;const sb=box.querySelector('button[type=submit]'),sl=sb.textContent;sb.disabled=true;sb.textContent='Đang gửi...';
-    window.bydesoSend({loai:'Giữ chỗ căn',hoTen:n,sdt:p,duAn:'The Camellia Sơn Trà - '+u.code,dongY:window.BYDESO_DONG_Y}).then(ok=>{
-    if(!ok){sb.disabled=false;sb.textContent=sl;er.textContent='Chưa gửi được yêu cầu. Vui lòng thử lại hoặc gọi 0325 982 512.';er.hidden=false;return}
-    u.status='hold';u.pending=true;stats();floorButtons();
-    box.innerHTML='<div class="okmsg"><b>Đã ghi nhận yêu cầu giữ chỗ căn '+esc(u.code)+'.</b><br>Tư vấn viên Bydeso sẽ xác nhận với chủ đầu tư, báo thứ tự ưu tiên nếu căn đã có khách quan tâm, và liên hệ lại. Hotline/Zalo: <b>0325 982 512</b>.</div>';
-    paint();card.querySelector('.badge').className='badge hold';card.querySelector('.badge').textContent='Bạn đã gửi yêu cầu giữ chỗ';const hb=card.querySelector('#cHold');hb.disabled=true;hb.textContent='Đã gửi yêu cầu';
-    });
-  });
+  S.sel=u;paint();tip.hidden=true;
+  if(u)parent.postMessage({type:'b3d-unit',code:u.code},'*');
 }
 
 // la bàn: hướng Bắc thật (mặt bằng: phía dưới bản vẽ là Tây Nam)
@@ -893,7 +785,9 @@ function updateTour(dt){
 // vòng lặp
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
 let lastT=performance.now();
+let paused=false;
 function loop(now){
+  if(paused){lastT=now;requestAnimationFrame(loop);return}
   const dt=Math.min(.05,(now-lastT)/1000);lastT=now;animateLife(dt,now);
   if(tw){const k=Math.min(1,(now-tw.s)/tw.d),e=ease(k);camera.position.lerpVectors(tw.p0,tw.p1,e);controls.target.lerpVectors(tw.t0,tw.t1,e);if(k>=1)tw=null}
   if(IN.active){updateTour(dt);renderer.render(IN.scene,IN.cam);requestAnimationFrame(loop);return}
@@ -901,13 +795,25 @@ function loop(now){
 }
 stats();floorButtons();paint();requestAnimationFrame(loop);
 $('#loading').hidden=true;
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!IN.active){if(!card.hidden)select(null);else if(S.floor)setFloor(null)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!IN.active&&S.floor)setFloor(null)});
 
 // hướng dẫn lần đầu
 let seen=false;try{seen=localStorage.getItem('b3d-intro')==='1'}catch(e){}
 if(!seen){$('#intro').hidden=false;$('#introGo').focus()}
 $('#introGo').onclick=()=>{$('#intro').hidden=true;try{localStorage.setItem('b3d-intro','1')}catch(e){}};
 window.__b3dState={S,units,select,setFloor,enterTour,IN};
+
+// ================= NÓI CHUYỆN VỚI TRANG CHỦ =================
+$('#backList').onclick=e=>{e.preventDefault();parent.postMessage({type:'b3d-back'},'*')};
+window.addEventListener('message',e=>{
+  if(e.source!==parent)return;
+  const d=e.data||{},u=units.find(x=>x.code===d.code);
+  if(d.type==='b3d-pause')paused=d.on;
+  else if(d.type==='b3d-tour'&&u)enterTour(u);
+  else if(d.type==='b3d-floor'&&u)setFloor(u.floor,true);
+  else if(d.type==='b3d-held'&&u){u.status='hold';u.pending=true;stats();floorButtons();paint()}
+});
+parent.postMessage({type:'b3d-ready'},'*');
 </script>
 </body>
 </html>
