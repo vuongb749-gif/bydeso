@@ -160,7 +160,7 @@
       <small>Bydeso 3D · Bản mô phỏng thử nghiệm</small>
       <h1>The Camellia Sơn Trà</h1>
       <p>Lê Văn Lương – Lê Đức Thọ, Sơn Trà, Đà Nẵng</p>
-      <p class="demo-note" role="note">Số căn, trạng thái và giá chỉ là minh họa, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật.</p>
+      <p class="demo-note" role="note">Giá và tình trạng căn chỉ là minh họa, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật.</p>
       <div class="stats" id="stats"></div>
     </div>
     <div class="tools">
@@ -190,7 +190,7 @@
   <div class="legend" aria-label="Chú thích màu">
     <span><i style="background:var(--ok)"></i>Còn hàng</span><span><i style="background:var(--hold)"></i>Có khách quan tâm</span><span><i style="background:var(--sold)"></i>Đã bán</span>
   </div>
-  <div class="note">Hình khối ước lượng từ mặt bằng tầng 3 và phối cảnh. Dữ liệu căn là minh họa, riêng CH-0301 là dữ liệu thật.</div>
+  <div class="note">Hình khối ước lượng. Số căn, loại căn và diện tích theo Salekit (tầng 3A đến 23) và mặt bằng tầng 3; tầng 24, 25 chưa có dữ liệu. Giá và tình trạng là minh họa, riêng CH-0301 là dữ liệu thật.</div>
   <div class="compass" title="La bàn: chữ B chỉ hướng Bắc"><svg id="needle" viewBox="0 0 100 100" aria-hidden="true">
     <circle cx="50" cy="50" r="46" fill="none" stroke="#5a4e33" stroke-width="2"/>
     <path d="M50 10 58 50 50 56 42 50Z" fill="#e8574a"/><path d="M50 90 58 50 50 44 42 50Z" fill="#cfc4a6"/>
@@ -214,7 +214,7 @@
   <div class="intro" id="intro" hidden>
     <div class="box">
       <h2>Chọn căn như chọn ghế xem phim</h2>
-      <p>Mô hình mô phỏng tòa The Camellia. Số căn, trạng thái và giá chỉ là minh họa, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật.</p>
+      <p>Mô hình mô phỏng tòa The Camellia. Giá và tình trạng căn chỉ là minh họa, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật.</p>
       <div class="steps">
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg><span><b>Kéo</b> để xoay tòa nhà 360°</span></div>
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg><span><b>Cuộn chuột</b> hoặc <b>chụm hai ngón</b> để phóng to, thu nhỏ</span></div>
@@ -309,11 +309,11 @@ building.add(box(-2,-2,66,64,0,podH,matPodium));
 building.add(box(-2.05,-2.05,66.05,64.05,.6,3.2,matShop,false));
 building.add(box(12,0,40,51,podH,.35,matGreen,false));
 const y3=floorY(3);
-building.add(box(40,0,64,51,y3,P.floorH,matAmen));
+building.add(box(48.5,0,64,51,y3,P.floorH,matAmen));building.add(box(40,0,48.5,32,y3,P.floorH,matAmen));building.add(box(18,42.5,37.7,51,y3,P.floorH,matAmen));
 const pool=box(42,26,53,50,y3+P.floorH,.2,new THREE.MeshStandardMaterial({color:0x2fa6d6,roughness:.1,metalness:.2,emissive:0x0b4a66,emissiveIntensity:.4}),false);building.add(pool);
-const garden=box(19.8,53.5,28.5,62,y3,.4,matGreen,false);building.add(garden);
+const garden=box(10,62,24,64,y3,.4,matGreen,false);building.add(garden);
 const tree=new THREE.MeshStandardMaterial({color:0x3f6e33,roughness:1});
-[[16,8],[24,14],[33,9],[18,30],[30,24],[35,40],[22,44],[14,40]].forEach(([x,z])=>{const t=new THREE.Mesh(new THREE.IcosahedronGeometry(2.2,0),tree);t.position.copy(at(x,podH+2.6,z));t.castShadow=true;building.add(t)});
+[[16,8],[24,14],[33,9],[18,30],[30,24],[35,40],[22,37],[14,40]].forEach(([x,z])=>{const t=new THREE.Mesh(new THREE.IcosahedronGeometry(2.2,0),tree);t.position.copy(at(x,podH+2.6,z));t.castShadow=true;building.add(t)});
 
 // lõi, sàn, khung mái
 const resTop=floorY(P.topFloor+1);
@@ -330,6 +330,8 @@ units.forEach(u=>{
   const m=box(x0+.25,z0+.25,x1-.25,z1-.25,y+.18,P.floorH-.5,mat);
   m.userData.u=u;u.mesh=m;unitMeshes.push(m);building.add(m);
 });
+// tầng chưa có dữ liệu căn: chỉ dựng hình khối, không chọn được
+for(let f=P.dataTop+1;f<=P.topFloor;f++)P.slots.forEach(s=>building.add(box(s[0]+.25,s[1]+.25,s[2]-.25,s[3]-.25,floorY(f)+.18,P.floorH-.5,matCore)));
 
 // nhãn
 const label=(text,cls,v)=>{const d=document.createElement('div');d.className='lbl '+(cls||'');d.textContent=text;const o=new CSS2DObject(d);o.position.copy(v);world.add(o);return o};
@@ -442,7 +444,7 @@ function paint(){
 }
 function stats(){
   const c={ok:0,hold:0,sold:0};units.forEach(u=>c[u.status]++);
-  $('#stats').innerHTML='<span class="stat">'+units.length+' căn · 23 tầng ở</span>'+['ok','hold','sold'].map(k=>'<span class="stat"><i style="background:var(--'+k+')"></i>'+ST[k].t+' '+c[k]+'</span>').join('');
+  $('#stats').innerHTML='<span class="stat">'+units.length+' căn · '+new Set(units.map(u=>u.floor)).size+' tầng</span>'+['ok','hold','sold'].map(k=>'<span class="stat"><i style="background:var(--'+k+')"></i>'+ST[k].t+' '+c[k]+'</span>').join('');
 }
 
 // bộ lọc
@@ -470,8 +472,8 @@ $('#bHome').onclick=()=>{setFloor(null);fly(homePos(),HOME.tgt.clone())};
 const fl=$('#floorList');
 function floorButtons(){
   fl.innerHTML='';const all=document.createElement('button');all.type='button';all.className='all';all.textContent='Tất cả';all.setAttribute('aria-pressed',String(!S.floor));all.onclick=()=>{setFloor(null);fly(homePos(),HOME.tgt.clone())};fl.append(all);
-  for(let f=P.topFloor;f>=P.firstRes;f--){const us=units.filter(u=>u.floor===f),ok=us.filter(u=>u.status==='ok').length;
-    const b=document.createElement('button');b.type='button';b.textContent=String(f).padStart(2,'0');b.title='Tầng '+f+': còn '+ok+'/'+us.length+' căn';b.setAttribute('aria-pressed',String(S.floor===f));
+  for(let f=P.topFloor;f>=P.firstRes;f--){const us=units.filter(u=>u.floor===f),ok=us.filter(u=>u.status==='ok').length;if(!us.length)continue;
+    const b=document.createElement('button');b.type='button';b.textContent=us[0].floorName;b.title='Tầng '+us[0].floorName+': còn '+ok+'/'+us.length+' căn';b.setAttribute('aria-pressed',String(S.floor===f));
     b.innerHTML+='<span class="bar" style="transform:scaleX('+(us.length?ok/us.length:0).toFixed(2)+');transform-origin:left"></span>';b.onclick=()=>setFloor(f,true);fl.append(b)}
 }
 function setFloor(f,move){
@@ -698,7 +700,7 @@ function buildOutside(u){
   const out=new THREE.Group();sc.add(out);IN.outside=out;const Y=-(floorY(u.floor));const face=u.real?'TN':u.faces[0];
   const S2=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.9},o||{}));
   const gp=(x0,z0,x1,z1,m,y=Y)=>{const me=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,z1-z0),m);me.rotation.x=-Math.PI/2;me.position.set((x0+x1)/2,y,(z0+z1)/2);me.receiveShadow=true;out.add(me);return me};
-  const r=rng(u.floor*31+u.no);
+  const r=rng(u.floor*31+u.idx);
   gp(-2000,-2000,2000,2000,S2(0x7f7b6f));
   // mặt đứng tòa nhà phía dưới và hai bên (sàn, lan can các căn khác)
   const slab=S2(0xf1ebdc,{roughness:.7}),gl=new THREE.MeshStandardMaterial({color:0x9fb6c4,roughness:.1,metalness:.4,envMapIntensity:1.2});
@@ -734,7 +736,7 @@ function enterTour(u){
   u=u||units.find(x=>x.real);const tpl=TPL[u.type];if(!tpl)return;
   if(!IN.ready)buildInterior();IN.unit=u;const vn=buildOutside(u);
   $('#tTitle').textContent=u.code+' · '+tpl.label+' · '+String(u.real?68.3:u.area).replace('.',',')+' m²';
-  $('#tSub').textContent='Tầng '+String(u.floor).padStart(2,'0')+' · Hướng '+u.dir+' · View: '+(u.real?'phố, đường Lê Đức Thọ':vn)+(u.real?'':' · bố trí theo căn mẫu 2PN');
+  $('#tSub').textContent='Tầng '+u.floorName+' · Hướng '+u.dir+' · View: '+(u.real?'phố, đường Lê Đức Thọ':vn)+(u.real?'':' · bố trí theo căn mẫu 2PN');
   const rb=$('#tRooms');rb.innerHTML='';tpl.views.forEach(v=>{const b=document.createElement('button');b.type='button';b.textContent=v[0];b.onclick=()=>{stopAuto();goView(v)};rb.append(b)});
   IN.active=true;IN.exp0=renderer.toneMappingExposure;renderer.toneMappingExposure=.82;app.classList.add('touring');tour.hidden=false;controls.enabled=false;
   const v0=tpl.views[0];IN.pos.set(v0[1],EYE,v0[2]);IN.yaw=v0[3];IN.pitch=v0[4];IN.glide=null;setTourView('walk');resize();
