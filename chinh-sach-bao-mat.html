@@ -8,9 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script>
-  // Dùng lại lựa chọn sáng/tối khách đã chọn ở trang chủ; mặc định nền tối.
-  (function(){var t=null;try{t=localStorage.getItem('bydeso-theme-v2')}catch(e){}
-  document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark')})();
+  // Trang luôn dùng nền tối
+  document.documentElement.setAttribute('data-theme','dark');
 </script>
 <style>
   :root{
@@ -20,11 +19,10 @@
     --header-bg:rgba(255,255,255,.96);
   }
   :root[data-theme="dark"]{
-    --bg:#120f06; --bg-soft:#1d190a; --card:#231e0e; --border:#3d351a;
-    --text:#f5f5f2; --muted:#a3a39c;
-    --accent-ink:#fde68a; --accent-wash:#312a12; --header-bg:#ffffff;
+    --bg:#111111; --bg-soft:#1b1b1b; --card:#171717; --border:#2e2e2e;
+    --text:#f5f5f5; --muted:#a3a3a3;
+    --accent:#facc15; --accent-ink:#facc15; --accent-wash:#2b2511; --header-bg:#111111;
   }
-  :root[data-theme="dark"] header{--text:#141414;--muted:#5f5f5a;--border:#ecdba6;color-scheme:light}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;scroll-padding-top:84px}
   body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background-color:var(--bg);color:var(--text);line-height:1.7}
@@ -84,7 +82,7 @@
   <div class="wrap nav">
     <a href="index.html" class="logo" aria-label="Bydeso trang chủ">
       <svg viewBox="0 0 59 40" aria-hidden="true">
-        <rect width="59" height="40" rx="11" fill="#fde68a"/>
+        <rect width="59" height="40" rx="11" fill="var(--accent)"/>
         <path d="M8 19 20 9l12 10" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M14 17v14h7.5a4 4 0 0 0 0-8H14m0 0h6a3.5 3.5 0 0 0 0-7" fill="none" stroke="#141414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="27.6" y="31.2" font-family="'Be Vietnam Pro',system-ui,sans-serif" font-size="8.7" font-weight="800" letter-spacing="-.2" fill="#141414">ydeso</text>
       </svg>
