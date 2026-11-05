@@ -367,6 +367,16 @@
   a.dt-back{text-decoration:none}
   .pj-full[hidden]{display:none}
   .pj-types-t{width:100%;border-collapse:collapse;font-size:14px}
+  .pj-loc-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:10px 0 14px}
+  .pj-loc-h b{display:block;font-size:15px}.pj-loc-h small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+  .pj-loc-go{flex-shrink:0;font-size:13.5px;font-weight:700;color:var(--accent-ink);white-space:nowrap}
+  .pj-map{position:relative;display:block;height:280px;border-radius:16px;overflow:hidden;background:#e9e5dc;isolation:isolate}
+  .pj-map img{position:absolute;width:256px;height:256px;max-width:none;user-select:none;pointer-events:none}
+  .pj-map .pin{position:absolute;left:50%;top:50%;width:38px;height:48px;margin:-46px 0 0 -19px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));z-index:2}
+  .pj-map .hint{position:absolute;left:12px;top:12px;z-index:2;background:rgba(17,17,17,.82);color:#fff;font-size:12.5px;font-weight:700;padding:7px 11px;border-radius:10px;transition:background .2s}
+  .pj-map:hover .hint{background:var(--accent);color:var(--on-accent)}
+  .pj-map .attr{position:absolute;right:0;bottom:0;z-index:2;background:rgba(255,255,255,.8);color:#333;font-size:11px;padding:2px 6px;border-top-left-radius:6px}
+  @media (max-width:560px){.pj-map{height:220px}}
   .pj-types-t th,.pj-types-t td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border)}
   .pj-types-t th{font-size:12px;color:var(--muted);font-weight:600}
   .pj-types-t td:first-child{font-weight:700}
@@ -1813,6 +1823,18 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
     // Mẫu căn 3 phòng ngủ có layout và mô hình 3D (số liệu theo Salekit: diện tích thông thủy, tim tường)
     const PLANS={'The Camellia Sơn Trà':[['ch-03','CH-xx03',89.3,100],['ch-11','CH-xx11',88.7,97.9],['ch-19','CH-xx19',103.6,114.8],['ch-20','CH-xx20',84.2,93.7]]};
     const TYPE_EN={'Studio':'Studio','1.5PN':'1.5BR','2PN':'2BR','3PN':'3BR'};
+    // Vị trí dự án: tọa độ và link Google Maps do chủ đầu tư công khai
+    const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536,url:'https://maps.app.goo.gl/7haw2jTFRanYu8hG7'}};
+    // bản đồ tĩnh: ghép vài ô ảnh OpenStreetMap quanh điểm, không tải thư viện bản đồ
+    function mapTiles(lat,lng,z){
+      const n=2**z,fx=(lng+180)/360*n,r=lat*Math.PI/180,fy=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n;
+      const cx=Math.floor(fx),cy=Math.floor(fy);let h='';
+      for(let dy=-1;dy<=1;dy++)for(let dx=-2;dx<=2;dx++){
+        const ox=Math.round((cx+dx-fx)*256),oy=Math.round((cy+dy-fy)*256);
+        h+='<img src="https://tile.openstreetmap.org/'+z+'/'+(cx+dx)+'/'+(cy+dy)+'.png" alt="" loading="lazy" decoding="async" style="left:calc(50% + '+ox+'px);top:calc(50% + '+oy+'px)">';
+      }
+      return h;
+    }
     let gal=[], gi=0, cur=null;
     const find=s=>PJ.projects.find(x=>window.bydeso3D.hash(x.n).slice(3)===s);
 
@@ -1842,7 +1864,7 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
       const x=find(decodeURIComponent(h.slice(3))), E=en();
       if(!x){root.innerHTML='<a href="#du-an" class="dt-back">'+back+L('Danh sách dự án','All projects')+'</a><p style="margin-top:20px">'+L('Không tìm thấy dự án này. Có thể dự án đã được cập nhật.','This project was not found. It may have been updated.')+'</p>';return}
       cur=x; document.title=x.n+' | Bydeso';
-      const has3d=window.bydeso3D.has(x.n), fa=PJ.facts[x.n], plans=PLANS[x.n]||[], cover=(window.BYDESO_PIMG||{})[x.n]||x.img, lang=E?'&lang=en':'';
+      const has3d=window.bydeso3D.has(x.n), fa=PJ.facts[x.n], mp=MAPS[x.n], plans=PLANS[x.n]||[], cover=(window.BYDESO_PIMG||{})[x.n]||x.img, lang=E?'&lang=en':'';
       gal=[{img:cover,cap:L('Phối cảnh dự án','Project perspective'),th:L('Phối cảnh','Perspective')}];
       if(plans.length){
         plans.forEach(([k,c])=>gal.push({img:'layout/'+k+'-3d.jpg',model:'can-3d.html?embed=1&plan='+k+lang,cap:L('Mô hình 3D căn ','3D model of unit ')+c,th:'3D '+c.slice(-2),plan:k}));
@@ -1873,6 +1895,11 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
           '</div></aside>'+
           '<div class="dt-main">'+
             '<section class="dt-sec"><h2>'+L('Tổng quan dự án','Project overview')+'</h2><dl class="dt-specs">'+specs.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl>'+(has3d?'':'<p class="dt-desc">'+L('Layout căn hộ, mặt bằng và sa bàn 3D của dự án đang được cập nhật.','Unit layouts, floor plans and the 3D model are being updated.')+'</p>')+'</section>'+
+            (mp?'<section class="dt-sec"><h2>'+L('Vị trí dự án','Location')+'</h2>'+
+              '<div class="pj-loc-h"><div><b>'+esc(fa?fa[E?3:2]:x.n)+'</b><small>'+esc((x.a&&x.a!==x.p?x.a+', ':'')+(E?'Da Nang':x.p))+'</small></div><a class="pj-loc-go" href="'+mp.url+'" target="_blank" rel="noopener">'+L('Mở Google Maps ↗','Open Google Maps ↗')+'</a></div>'+
+              '<a class="pj-map" href="'+mp.url+'" target="_blank" rel="noopener" aria-label="'+L('Xem vị trí ','See the location of ')+esc(x.n)+L(' trên Google Maps',' on Google Maps')+'">'+mapTiles(mp.lat,mp.lng,16)+
+              '<svg class="pin" viewBox="0 0 38 48" aria-hidden="true"><path d="M19 47C19 47 2 29.5 2 18.5a17 17 0 0 1 34 0C36 29.5 19 47 19 47z" fill="var(--accent)" stroke="#141414" stroke-width="2"/><circle cx="19" cy="18" r="6.5" fill="#141414"/></svg>'+
+              '<span class="hint">'+L('Bấm để xem trên Google Maps','Tap to view on Google Maps')+'</span><span class="attr">© OpenStreetMap</span></a></section>':'')+
             (types?'<section class="dt-sec"><h2>'+L('Các loại căn hộ','Unit types')+'</h2><p class="dt-sub">'+L('Diện tích thông thủy theo Salekit dự án.','Net area from the project sales kit.')+'</p><table class="pj-types-t"><thead><tr><th>'+L('Loại căn','Type')+'</th><th>'+L('Diện tích','Area')+'</th><th class="num">'+L('Căn/tầng','Units/floor')+'</th></tr></thead><tbody>'+types+'</tbody></table></section>':'')+
             (plans.length?'<section class="dt-sec"><h2>'+L('Mẫu căn 3 phòng ngủ','3-bedroom units')+'</h2><p class="dt-sub">'+L('Bấm vào một mẫu để xem mô hình 3D xoay 360°. Mô hình mang tính minh họa.','Pick a unit to see its 360° 3D model. Models are illustrative.')+'</p><div class="pj-plans">'+
               plans.map(([k,c,a,g])=>'<article class="pj-plan"><button type="button" class="pj-plan-img" data-plan="'+k+'" data-kind="model" style="background-image:url(\'layout/'+k+'-3d.jpg\')" aria-label="'+L('Xem 3D căn ','View 3D of unit ')+c+'"></button><div class="pj-plan-b"><b>'+c+' · 3PN</b><span>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</span><div class="pj-plan-act"><button type="button" class="btn btn-primary" data-plan="'+k+'" data-kind="model">'+L('Xem 3D 360°','View 3D 360°')+'</button></div></div></article>').join('')+'</div></section>':'')+

@@ -29,6 +29,7 @@ Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(
 2. **Dữ liệu căn**: tạo file kiểu `camellia-units.js` từ Salekit: số tầng, các căn của tầng điển hình (`slots` theo mét), loại căn, diện tích thông thủy và tim tường, hướng.
 3. **Sa bàn**: sao chép `camellia-3d.html`, đổi hình khối (`slots`, `cores`, `slabs`) và file dữ liệu, rồi đăng ký trong `window.bydeso3D` ở `index.html`.
 4. **Trang dự án**: thêm các mẫu căn vào `PLANS` trong `index.html` (`[khóa, mã căn, DT thông thủy, DT tim tường]`).
+   Vị trí: thêm vào `MAPS` (`lat`, `lng`, `url` = link Google Maps chủ trang gửi). Lấy tọa độ bằng `curl -sI <link maps.app.goo.gl>` rồi đọc `@lat,lng` trong dòng Location. Khối "Vị trí dự án" vẽ bản đồ tĩnh từ ô ảnh OpenStreetMap (không dùng thư viện), bấm vào mở thẳng Google Maps ở tab mới.
 5. **3D từng mẫu căn** trong `can-3d.html`:
    - thêm vào `METAS` (rộng `w`, sâu `d` theo mét, mã, diện tích);
    - viết hàm `planXX()` dùng `draft(ox, oy, k)`: đổi tọa độ pixel trên ảnh layout ra mét (`k` = số pixel mỗi mét). Có sẵn:
