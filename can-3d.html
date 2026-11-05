@@ -24,6 +24,11 @@
   .hint{font-size:12px;color:#6b6456;text-align:center;background:rgba(255,255,255,.8);padding:5px 10px;border-radius:8px}
   .lab{position:fixed;left:0;top:0;transform:translate(-50%,-50%);background:rgba(42,36,18,.82);color:#fff;font-size:11.5px;font-weight:600;padding:4px 8px;border-radius:7px;white-space:nowrap;pointer-events:none;will-change:transform}
   body.nolab .lab{display:none}
+  body.embed .head,body.embed #views,body.embed #tools{display:none}
+  body.embed .bar{left:10px;right:auto;top:10px;bottom:auto;padding:0;align-items:flex-start}
+  body.embed .hint{font-size:11.5px;padding:4px 8px;background:rgba(255,255,255,.88)}
+  body.embed .zoom{top:10px;right:10px;transform:none;flex-direction:row}
+  body.embed .zoom button{width:34px;height:34px;font-size:18px}
   #err{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:24px;font-size:15px}
   #load{position:fixed;inset:0;display:grid;place-items:center;font-size:14px;color:#6b6456;pointer-events:none}
   @media(max-width:560px){.hint{font-size:11px}.head b{font-size:15px}.lab{font-size:10.5px;padding:3px 6px}}
@@ -44,18 +49,19 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 
 const Q=new URLSearchParams(location.search),EN=Q.get('lang')==='en',L=(v,e)=>EN?e:v,$=s=>document.querySelector(s);
-const TOUCH=matchMedia('(pointer:coarse)').matches;
+const TOUCH=matchMedia('(pointer:coarse)').matches,EMBED=Q.has('embed');
+if(EMBED)document.body.classList.add('embed');
 $('#load').textContent=L('Đang dựng mô hình…','Building the model…');
 $('#ttl').textContent=(Q.get('code')||'CH-xx11')+' · 3PN · '+L('88,7 m²','88.7 m²');
 $('#sub').textContent=L('Mô hình minh họa theo layout Salekit, nội thất mang tính tương đối','Illustrative model from the sales kit layout; furnishing is indicative');
-$('#hint').textContent=TOUCH?L('Một ngón để xoay · Hai ngón để phóng to và di chuyển','One finger to rotate · Two fingers to zoom and move'):L('Kéo chuột để xoay · Cuộn để phóng to · Chuột phải để di chuyển','Drag to rotate · Scroll to zoom · Right-drag to move');
+$('#hint').textContent=EMBED?L('Kéo để xoay 360°','Drag to rotate 360°'):TOUCH?L('Một ngón để xoay · Hai ngón để phóng to và di chuyển','One finger to rotate · Two fingers to zoom and move'):L('Kéo chuột để xoay · Cuộn để phóng to · Chuột phải để di chuyển','Drag to rotate · Scroll to zoom · Right-drag to move');
 
 let renderer;
 try{renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,powerPreference:'high-performance'})}
 catch(e){$('#load').style.display='none';const m=$('#err');m.style.display='grid';m.textContent=L('Thiết bị này chưa hiển thị được mô hình 3D. Bạn vui lòng xem ảnh layout trên trang căn hộ.','This device cannot show the 3D model. Please see the layout images on the unit page.');throw e}
 renderer.setPixelRatio(Math.min(devicePixelRatio,TOUCH?1.6:2));
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.86;renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.92;renderer.outputColorSpace=THREE.SRGBColorSpace;
 
 const sc=new THREE.Scene();sc.background=new THREE.Color(0xefeeec);
 sc.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(renderer),.04).texture;
@@ -68,14 +74,14 @@ sun.position.set(-7,17,3);sun.target.position.set(3.8,0,7.1);sc.add(sun,sun.targ
 // ---------- vật liệu vẽ bằng canvas ----------
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 const canvasTex=(w,h,draw,rw=true)=>{const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;if(rw)t.wrapS=t.wrapT=THREE.RepeatWrapping;return t};
-const oakTex=()=>canvasTex(1024,1024,(g,w,h)=>{const n=8,pw=w/n;for(let i=0;i<n;i++){let y=-rnd()*h*.6;while(y<h){const l=h*(.45+rnd()*.3),v=rnd()*16-8;g.fillStyle=`rgb(${203+v},${177+v},${142+v})`;g.fillRect(i*pw,y,pw,l);
+const oakTex=()=>canvasTex(1024,1024,(g,w,h)=>{const n=8,pw=w/n;for(let i=0;i<n;i++){let y=-rnd()*h*.6;while(y<h){const l=h*(.45+rnd()*.3),v=rnd()*16-8;g.fillStyle=`rgb(${192+v},${158+v},${118+v})`;g.fillRect(i*pw,y,pw,l);
   for(let k=0;k<26;k++){g.fillStyle=`rgba(120,88,54,${.03+rnd()*.05})`;g.fillRect(i*pw+rnd()*pw,y,1+rnd()*1.5,l)}g.fillStyle='rgba(90,66,40,.3)';g.fillRect(i*pw,y+l-1,pw,2);y+=l}g.fillStyle='rgba(90,66,40,.3)';g.fillRect(i*pw,0,1.5,h)}});
 const tileTex=(a,b)=>canvasTex(512,512,(g,w,h)=>{g.fillStyle=a;g.fillRect(0,0,w,h);for(let k=0;k<90;k++){g.strokeStyle=`rgba(120,110,95,${.02+rnd()*.05})`;g.lineWidth=1+rnd()*3;g.beginPath();const x=rnd()*w,y=rnd()*h;g.moveTo(x,y);g.bezierCurveTo(x+rnd()*90,y+rnd()*90,x-rnd()*90,y+rnd()*90,x+rnd()*120,y+rnd()*120);g.stroke()}g.strokeStyle=b;g.lineWidth=3;g.strokeRect(0,0,w,h)});
 const marbleTex=(bg,vein)=>canvasTex(512,512,(g,w,h)=>{g.fillStyle=bg;g.fillRect(0,0,w,h);for(let k=0;k<22;k++){g.strokeStyle=vein;g.globalAlpha=.15+rnd()*.5;g.lineWidth=.6+rnd()*2.4;g.beginPath();let x=rnd()*w,y=rnd()*h;g.moveTo(x,y);for(let i=0;i<6;i++){x+=rnd()*90-30;y+=rnd()*70-35;g.lineTo(x,y)}g.stroke()}g.globalAlpha=1});
 const rugTex=()=>canvasTex(768,512,(g,w,h)=>{g.fillStyle='#dcd8d2';g.fillRect(0,0,w,h);for(let i=0;i<9;i++){g.strokeStyle=i%2?'#4a4845':'#8b8782';g.lineWidth=14+rnd()*16;g.beginPath();for(let x=-20;x<=w+20;x+=20){const y=i*62+Math.sin(x/80+i*.6)*42;x<0?g.moveTo(x,y):g.lineTo(x,y)}g.stroke()}},false);
 const S=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.75,envMapIntensity:.55},o||{}));
 const oak=oakTex(),tile=tileTex('#d8d0c4','#b8ae9f'),tileB=tileTex('#e6e0d7','#c4bbad');
-const M={wall:S(0xf3eeed,{roughness:.95}),cap:S(0xffffff,{roughness:.9}),oak:S(0xffffff,{map:oak,roughness:.55}),tile:S(0xffffff,{map:tile,roughness:.35}),balc:S(0xffffff,{map:tileB,roughness:.5}),clad:S(0xffffff,{map:tile,roughness:.3}),
+const M={wall:S(0xefe4e4,{roughness:.95}),cap:S(0xffffff,{roughness:.9}),oak:S(0xffffff,{map:oak,roughness:.55}),tile:S(0xffffff,{map:tile,roughness:.35}),balc:S(0xffffff,{map:tileB,roughness:.5}),clad:S(0xffffff,{map:tile,roughness:.3}),
   marble:S(0xffffff,{map:marbleTex('#efedea','#8d8880'),roughness:.2,envMapIntensity:1}),black:S(0xffffff,{map:marbleTex('#1d1b19','#b9a98f'),roughness:.15,envMapIntensity:1}),
   wood:S(0xc9a981,{roughness:.55}),door:S(0xb58f62,{roughness:.55}),cab:S(0xe4dfd6,{roughness:.5}),dark:S(0x26262a,{roughness:.4}),frame:S(0x34343a,{roughness:.35,metalness:.55}),steel:S(0xc4c7cb,{roughness:.25,metalness:.9}),
   white:S(0xfafaf8,{roughness:.2,envMapIntensity:1}),sofa:S(0xc6c1b8,{roughness:1}),pil:S(0x9e968a,{roughness:1}),bed:S(0xece8e0,{roughness:1}),duvet:S(0xbdb5a8,{roughness:1}),band:S(0x8d857a,{roughness:1}),head:S(0xc3b7a4,{roughness:1}),chair:S(0xcfc8ba,{roughness:1}),
@@ -185,7 +191,7 @@ const labels=ROOMS.map(([t,x,z])=>{const d=document.createElement('div');d.class
 // ---------- điều khiển ----------
 const ctl=new OrbitControls(cam,renderer.domElement);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.maxPolarAngle=Math.PI*.49;ctl.minDistance=2.5;ctl.maxDistance=48;ctl.screenSpacePanning=false;ctl.autoRotateSpeed=1.1;
 const fit=()=>Math.max(1,1.15/(innerWidth/innerHeight));
-const VIEWS=[[L('Toàn cảnh','Overview'),[3.9,.2,7.15],[-8.5,20,7.15],1],[L('Từ trên xuống','Top down'),[3.9,0,7.15],[3.9,29,7.17],1],[L('Phòng khách','Living'),[4.9,.3,3.2],[.6,6.2,3.6],0],[L('Bếp','Kitchen'),[3.8,.3,10.3],[.9,5.6,8],0],[L('Phòng ngủ 1','Bedroom 1'),[1.7,.3,2.3],[-2.2,5.6,2.6],0],[L('Phòng ngủ 2','Bedroom 2'),[1.7,.3,7.7],[-2.2,5.6,7.9],0],[L('Phòng ngủ 3','Bedroom 3'),[2.2,.3,12.8],[-1.6,5.6,12.4],0]];
+const VIEWS=[[L('Toàn cảnh','Overview'),[3.9,.2,7.15],[-9.5,18,7.15],1],[L('Từ trên xuống','Top down'),[3.9,0,7.15],[3.9,29,7.17],1],[L('Phòng khách','Living'),[4.9,.3,3.2],[.6,6.2,3.6],0],[L('Bếp','Kitchen'),[3.8,.3,10.3],[.9,5.6,8],0],[L('Phòng ngủ 1','Bedroom 1'),[1.7,.3,2.3],[-2.2,5.6,2.6],0],[L('Phòng ngủ 2','Bedroom 2'),[1.7,.3,7.7],[-2.2,5.6,7.9],0],[L('Phòng ngủ 3','Bedroom 3'),[2.2,.3,12.8],[-1.6,5.6,12.4],0]];
 let anim=null,auto=false;
 function go(v,btn,now){const[,t0,p0,sc0]=v,tall=innerWidth/innerHeight<.9,ov=v===VIEWS[0]&&tall,t=ov?[4.1,.2,8]:t0,p=ov?[4.1,34,27]:p0,s=sc0&&!tall?fit():1,to=new THREE.Vector3(...t),tp=new THREE.Vector3(...p).sub(to).multiplyScalar(s).add(to);
   document.querySelectorAll('#views button').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
@@ -195,10 +201,12 @@ const views=$('#views');VIEWS.forEach((v,i)=>{const b=document.createElement('bu
 const tools=$('#tools'),tool=(t,fn,on)=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.setAttribute('aria-pressed',String(!!on));b.onclick=()=>fn(b);tools.appendChild(b);return b};
 tool(L('Tự xoay','Auto-rotate'),b=>{auto=!auto;ctl.autoRotate=auto;b.setAttribute('aria-pressed',String(auto))});
 tool(L('Tên phòng','Room names'),b=>{const on=document.body.classList.toggle('nolab');b.setAttribute('aria-pressed',String(!on))},!TOUCH);
-if(TOUCH)document.body.classList.add('nolab');
+if(TOUCH||EMBED)document.body.classList.add('nolab');
 const zoom=f=>{anim=null;cam.position.sub(ctl.target).multiplyScalar(f).clampLength(ctl.minDistance,ctl.maxDistance).add(ctl.target)};
 $('#zi').onclick=()=>zoom(.82);$('#zo').onclick=()=>zoom(1.22);$('#zi').setAttribute('aria-label',L('Phóng to','Zoom in'));$('#zo').setAttribute('aria-label',L('Thu nhỏ','Zoom out'));
-ctl.addEventListener('start',()=>{anim=null;$('#hint').style.display='none';document.querySelectorAll('#views button').forEach(b=>b.setAttribute('aria-pressed','false'))});
+// khi nhúng trong trang: tự xoay đến lần chạm đầu tiên; trên máy tính chỉ nhận con lăn sau khi bấm vào mô hình để không chặn cuộn trang
+if(EMBED){auto=true;ctl.autoRotate=true;if(!TOUCH){ctl.enableZoom=false;renderer.domElement.addEventListener('pointerdown',()=>{ctl.enableZoom=true});renderer.domElement.addEventListener('pointerleave',()=>{ctl.enableZoom=false})}}
+ctl.addEventListener('start',()=>{anim=null;if(EMBED){auto=false;ctl.autoRotate=false}$('#hint').style.display='none';document.querySelectorAll('#views button').forEach(b=>b.setAttribute('aria-pressed','false'))});
 ctl.addEventListener('change',()=>{ctl.target.x=THREE.MathUtils.clamp(ctl.target.x,-1,9);ctl.target.z=THREE.MathUtils.clamp(ctl.target.z,-1,15);ctl.target.y=THREE.MathUtils.clamp(ctl.target.y,0,1.5)});
 
 const size=()=>{const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()};

@@ -475,6 +475,7 @@
   .dt-lb p{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:#fff;font-size:13px;font-weight:600}
   .dt-lb .lb-x{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer}
   .dt-lb .lb-x svg{width:18px;height:18px}
+  .dt-frame{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#efeeec}
   .dt-3d{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px 16px;border:0;border-radius:12px;background:#ffe08a;color:#2a2412;font:700 15px/1.2 inherit;font-family:inherit;cursor:pointer}
   .dt-model{position:fixed;inset:0;z-index:10000;background:#efeeec}
   .dt-model iframe{width:100%;height:100%;border:0;display:block}
@@ -1479,13 +1480,14 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
     // ---- Thư viện ảnh ----
     function showSlide(i){
       gi=(i+gal.length)%gal.length; const s=gal[gi], st=root.querySelector('.dt-stage');
-      st.querySelectorAll('.cv-wrap,img,.dt-cap').forEach(e=>e.remove());
+      st.querySelectorAll('.cv-wrap,img,.dt-cap,.dt-frame').forEach(e=>e.remove());
       if(s.cover){const w=document.createElement('div');w.className='cv-wrap';w.style.backgroundImage="url('"+s.bg+"')";w.append(window.bydesoCover(s.it));st.prepend(w)}
+      else if(s.model){const fr=document.createElement('iframe');fr.className='dt-frame';fr.title=s.cap;fr.src=s.model;st.prepend(fr);const c=document.createElement('span');c.className='dt-cap';c.textContent=s.cap;st.append(c)}
       else{const im=document.createElement('img');im.src=s.img;im.alt=s.cap;im.onclick=()=>openLb(s.img);st.prepend(im);const c=document.createElement('span');c.className='dt-cap';c.textContent=s.cap;st.append(c)}
       const ct=st.querySelector('.dt-count');if(ct)ct.textContent=(gi+1)+' / '+gal.length;
       root.querySelectorAll('.dt-thumbs button').forEach((b,k)=>b.setAttribute('aria-current',String(k===gi)));
     }
-    function openLb(src){lbItems=gal.filter(s=>!s.cover);li=Math.max(0,lbItems.findIndex(s=>s.img===src));drawLb();lb.hidden=false;document.body.style.overflow='hidden';lb.querySelector('.lb-x').focus()}
+    function openLb(src){lbItems=gal.filter(s=>!s.cover&&!s.model);li=Math.max(0,lbItems.findIndex(s=>s.img===src));drawLb();lb.hidden=false;document.body.style.overflow='hidden';lb.querySelector('.lb-x').focus()}
     function drawLb(){const s=lbItems[li];lb.innerHTML='<button type="button" class="lb-x" aria-label="'+L('Đóng','Close')+'">'+I.x+'</button>'+(lbItems.length>1?'<button type="button" class="dt-nav p" aria-label="'+L('Ảnh trước','Previous')+'"><span style="transform:scaleX(-1);display:grid">'+I.next+'</span></button><button type="button" class="dt-nav n" aria-label="'+L('Ảnh sau','Next')+'">'+I.next+'</button>':'')+'<img alt=""><p></p>';
       lb.querySelector('img').src=s.img;lb.querySelector('img').alt=s.cap;lb.querySelector('p').textContent=s.cap+' ('+(li+1)+'/'+lbItems.length+')';
       lb.querySelector('.lb-x').onclick=closeLb;const p=lb.querySelector('.dt-nav.p'),n=lb.querySelector('.dt-nav.n');if(p){p.onclick=()=>{li=(li-1+lbItems.length)%lbItems.length;drawLb()};n.onclick=()=>{li=(li+1)%lbItems.length;drawLb()}}}
@@ -1532,7 +1534,7 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
       document.title=name+(it.pj?' · '+it.pj:'')+' | Bydeso';
       gal=[{cover:true,it,bg,cap:L('Ảnh bìa','Cover'),th:L('Ảnh bìa','Cover')}];
       if(u){gal.push({img:bg,cap:L('Phối cảnh dự án ','Project perspective ')+it.pj,th:L('Phối cảnh','Perspective')},{img:u.img.layout,cap:L('Layout căn ','Unit layout ')+u.code,th:'Layout'},{img:u.img.plate,cap:L('Mặt bằng tầng '+u.floor+' – vị trí '+u.code,'Floor '+u.floor+' plan – location of '+u.code),th:L('Mặt bằng','Floor plan')},{img:u.img.poster,cap:L('Tờ thông tin căn ','Unit flyer ')+u.code,th:L('Tờ thông tin','Flyer')})}
-      else if(d3.plan){const k='layout/'+d3.plan.key;gal.push({img:k+'-layout.jpg',cap:L('Layout căn ','Unit layout ')+d3.code,th:'Layout'},{img:k+'-3d.jpg',cap:L('Phối cảnh 3D bóc mái căn ','3D cutaway of unit ')+d3.code,th:L('3D bóc mái','3D view')},{img:k+'-vi-tri.jpg',cap:L('Vị trí căn trên mặt bằng tầng','Unit location on the floor plan'),th:L('Vị trí căn','Location')},{img:'layout/mat-bang-tang-dien-hinh.jpg',cap:L('Mặt bằng tầng điển hình','Typical floor plan'),th:L('Mặt bằng','Floor plan')})}
+      else if(d3.plan){const k='layout/'+d3.plan.key;gal.push({img:k+'-layout.jpg',cap:L('Layout căn ','Unit layout ')+d3.code,th:'Layout'},(d3.plan.key==='ch-11'?{img:k+'-3d.jpg',model:'can-3d.html?embed=1&code='+encodeURIComponent(d3.code)+(E?'&lang=en':''),cap:L('Mô hình 3D căn ','3D model of unit ')+d3.code,th:L('3D xoay 360°','3D 360°')}:{img:k+'-3d.jpg',cap:L('Phối cảnh 3D bóc mái căn ','3D cutaway of unit ')+d3.code,th:L('3D bóc mái','3D view')}),{img:k+'-vi-tri.jpg',cap:L('Vị trí căn trên mặt bằng tầng','Unit location on the floor plan'),th:L('Vị trí căn','Location')},{img:'layout/mat-bang-tang-dien-hinh.jpg',cap:L('Mặt bằng tầng điển hình','Typical floor plan'),th:L('Mặt bằng','Floor plan')})}
       else gal.push({img:it.img,cap:L('Hình ảnh minh họa','Illustrative photo'),th:L('Minh họa','Photo')});
       const has3d=!u&&d3&&d3.plan&&d3.plan.key==='ch-11';
       const best=u?u.methods.reduce((a,b)=>b.total<a.total?b:a):null;
@@ -1541,7 +1543,7 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
         '<nav class="dt-crumb" aria-label="breadcrumb"><button type="button" data-go="home">'+L('Trang chủ','Home')+'</button><span>›</span>'+(it.pj?'<button type="button" data-go="proj">'+esc(it.pj)+'</button><span>›</span>':'')+'<span>'+esc(u?u.code:name)+'</span></nav>'+
         '<div class="dt-grid">'+
           '<div class="dt-gal"><div class="dt-stage">'+(gal.length>1?'<button type="button" class="dt-nav p" aria-label="'+L('Ảnh trước','Previous')+'"><span style="transform:scaleX(-1);display:grid">'+I.next+'</span></button><button type="button" class="dt-nav n" aria-label="'+L('Ảnh sau','Next')+'">'+I.next+'</button><span class="dt-count"></span>':'')+'</div>'+
-            '<div class="dt-thumbs">'+gal.map((s,k)=>'<button type="button" data-k="'+k+'" style="background-image:url(\''+(s.cover?s.bg:s.img)+'\')"><span>'+esc(s.th)+'</span></button>').join('')+'</div>'+(has3d?'<button type="button" class="dt-3d">'+L('Xem mô hình 3D, xoay và phóng to','View the 3D model: rotate and zoom')+'</button>':'')+'</div>'+
+            '<div class="dt-thumbs">'+gal.map((s,k)=>'<button type="button" data-k="'+k+'" style="background-image:url(\''+(s.cover?s.bg:s.img)+'\')"><span>'+esc(s.th)+'</span></button>').join('')+'</div>'+(has3d?'<button type="button" class="dt-3d">'+L('Mở mô hình 3D toàn màn hình','Open the 3D model full screen')+'</button>':'')+'</div>'+
           '<aside class="dt-side"><div class="dt-card">'+
             '<div class="dt-badges">'+(u?'<span class="b-ok">'+esc(F.statusOf(it))+'</span><span>'+esc(u.policy)+'</span>':'<span class="b-demo">'+esc(F.statusOf(it))+'</span>')+'<span>'+esc(E?it.te:it.t)+'</span></div>'+
             '<h1 class="dt-title">'+esc(name)+'</h1>'+
