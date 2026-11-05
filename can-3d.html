@@ -51,9 +51,11 @@ import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 
 const Q=new URLSearchParams(location.search),EN=Q.get('lang')==='en',L=(v,e)=>EN?e:v,$=s=>document.querySelector(s);
 const TOUCH=matchMedia('(pointer:coarse)').matches,EMBED=Q.has('embed');
+const METAS={'ch-11':{w:8.1,d:14.3,code:'CH-xx11',area:L('88,7 m²','88.7 m²')},'ch-03':{w:13.85,d:10.3,code:'CH-xx03',area:L('89,3 m²','89.3 m²')},'ch-19':{w:14.5,d:8.57,code:'CH-xx19',area:L('103,6 m²','103.6 m²')},'ch-20':{w:9.6,d:10.1,code:'CH-xx20',area:L('84,2 m²','84.2 m²')}};
+const PK=METAS[Q.get('plan')]?Q.get('plan'):'ch-11',META=METAS[PK];
 if(EMBED)document.body.classList.add('embed');
 $('#load').textContent=L('Đang dựng mô hình…','Building the model…');
-$('#ttl').textContent=(Q.get('code')||'CH-xx11')+' · 3PN · '+L('88,7 m²','88.7 m²');
+$('#ttl').textContent=(Q.get('code')||META.code)+' · 3PN · '+META.area;
 $('#sub').textContent=L('Mô hình minh họa theo layout Salekit, nội thất mang tính tương đối','Illustrative model from the sales kit layout; furnishing is indicative');
 $('#hint').textContent=EMBED?L('Kéo để xoay 360°','Drag to rotate 360°'):TOUCH?L('Một ngón để xoay · Hai ngón để phóng to và di chuyển','One finger to rotate · Two fingers to zoom and move'):L('Kéo chuột để xoay · Cuộn để phóng to · Chuột phải để di chuyển','Drag to rotate · Scroll to zoom · Right-drag to move');
 
@@ -70,7 +72,7 @@ const cam=new THREE.PerspectiveCamera(36,1,.1,200);
 sc.add(new THREE.HemisphereLight(0xfff6ea,0xb8ab98,.4));
 const sun=new THREE.DirectionalLight(0xfff0dc,1.7);sun.castShadow=true;sun.shadow.mapSize.set(TOUCH?1024:2048,TOUCH?1024:2048);
 Object.assign(sun.shadow.camera,{left:-11,right:11,top:11,bottom:-11,near:1,far:50});sun.shadow.bias=-.0004;sun.shadow.normalBias=.02;
-sun.position.set(-7,17,3);sun.target.position.set(3.8,0,7.1);sc.add(sun,sun.target);
+sun.position.set(META.w/2-10.8,17,META.d/2-4.1);sun.target.position.set(META.w/2,0,META.d/2);sc.add(sun,sun.target);
 
 // ---------- vật liệu vẽ bằng canvas ----------
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
@@ -115,6 +117,18 @@ function leaf(hx,hz,len,ang){const g=new THREE.Group();g.position.set(hx,0,hz);g
 const glow=new THREE.MeshBasicMaterial({map:canvasTex(128,128,(g,w,h)=>{const r=g.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);r.addColorStop(0,'rgba(255,190,110,.75)');r.addColorStop(1,'rgba(255,190,110,0)');g.fillStyle=r;g.fillRect(0,0,w,h)},false),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
 function led(x0,z0,x1,z1,y){box(x0,z0,x1,z1,y,.012,M.led,{cast:false});if(y>.2)return;const g=new THREE.PlaneGeometry(Math.abs(x1-x0)+.9,Math.abs(z1-z0)+.9);g.rotateX(-Math.PI/2);put(g,glow,(x0+x1)/2,.012,(z0+z1)/2,{cast:false})}
 
+// ---------- nội thất dùng chung ----------
+function bed(cx,cz,ry,w=1.6,l=1.95){const g=new THREE.Group();g.position.set(cx,0,cz);g.rotation.y=ry;sc.add(g);const P=(gm,m,x,y,z)=>put(gm,m,x,y,z,{parent:g});
+  P(rb(w+.1,.24,l,.03),M.wood,0,.12,0);P(rb(w,.2,l-.04,.06),M.bed,0,.34,0);P(rb(w+.04,.12,l*.68,.05),M.duvet,0,.46,l*.15);P(rb(w+.05,.05,.48,.02),M.band,0,.51,l*.3);P(rb(w+.22,1.05,.1,.03),M.head,0,.52,-l/2-.04);
+  [-.38,.38].forEach(x=>{P(rb(.66,.16,.42,.07),M.bed,x*w/1.6,.52,-l/2+.3);P(rb(.46,.15,.3,.07),M.pil,x*w/1.6,.6,-l/2+.48)})}
+function night(x,z){box(x-.22,z-.2,x+.22,z+.2,0,.5,M.wood,{r:.015});put(new THREE.CylinderGeometry(.05,.07,.2,14),M.white,x,.6,z);put(new THREE.CylinderGeometry(.08,.13,.16,18,1,true),M.shade,x,.77,z,{cast:false})}
+function ward(x0,z0,x1,z1,h=2.3,n=4){box(x0,z0,x1,z1,.02,h,M.cab,{r:.008});const alongX=x1-x0>z1-z0;for(let i=1;i<n;i++){const t=i/n;alongX?box(x0+(x1-x0)*t,z0-.002,x0+(x1-x0)*t+.005,z1+.002,.06,h-.08,M.dark,{cast:false}):box(x0-.002,z0+(z1-z0)*t,x1+.002,z0+(z1-z0)*t+.005,.06,h-.08,M.dark,{cast:false})}}
+function chair(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;sc.add(g);put(rb(.44,.07,.44,.03),M.chair,0,.46,0,{parent:g});put(rb(.44,.42,.06,.03),M.chair,0,.71,-.2,{parent:g});[[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]].forEach(([a,b])=>put(new THREE.CylinderGeometry(.014,.012,.44,6),M.frame,a,.22,b,{parent:g,cast:false}))}
+function plant(x,z,s=1){put(new THREE.CylinderGeometry(.17*s,.13*s,.34*s,18),M.pot,x,.17*s,z);for(let i=0;i<10;i++){const a=i*2.4,r=(.05+rnd()*.15)*s;put(new THREE.IcosahedronGeometry((.13+rnd()*.09)*s,0),i%2?M.leaf:M.leaf2,x+Math.cos(a)*r,(.48+rnd()*.6)*s,z+Math.sin(a)*r)}}
+function toilet(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;sc.add(g);put(rb(.36,.4,.48,.12),M.white,0,.2,.08,{parent:g});put(rb(.38,.05,.5,.1),M.white,0,.42,.08,{parent:g});put(rb(.38,.34,.15,.04),M.white,0,.58,-.2,{parent:g})}
+function vanity(x0,z0,x1,z1){box(x0,z0,x1,z1,.42,.42,M.wood,{r:.01});box(x0,z0,x1,z1,.84,.03,M.marble);put(new THREE.CylinderGeometry(.17,.12,.1,20),M.white,(x0+x1)/2,.92,(z0+z1)/2)}
+
+function build11(){
 // ---------- sàn, theo layout CH-xx11 (đơn vị mét; x theo cạnh 8,1 m, z theo cạnh 14,3 m) ----------
 [[-.02,-.02,6.71,7.62],[-.02,7.6,6.6,11.64],[6.55,9.73,8.12,11.64],[-.02,11.6,6.59,14.31]].forEach(([a,b,c,d])=>box(a,b,c,d,-.28,.27,M.cap,{cast:false}));
 floor(.29,1.5,6.45,11.45,M.oak);floor(.29,.24,3.33,1.52,M.oak);floor(.29,11.6,5.25,14.06,M.oak);floor(5.25,11.6,6.3,12.65,M.oak);floor(6.55,9.75,8.1,11.42,M.oak);
@@ -142,17 +156,6 @@ wall('x',14.05,14.29,0,6.57,[[3.8,4.7,'small']]);
 // cửa đi
 leaf(3.36,3.82,.78,Math.PI*.82);leaf(3.36,5.68,.76,Math.PI*.82+Math.PI*.36);leaf(3.36,6.42,.78,-Math.PI*.82);leaf(2.2,10.05,.77,-Math.PI*.32);leaf(5.22,12.5,.82,Math.PI*.82+Math.PI*.36);leaf(5.36,12.74,.76,-Math.PI*.3);
 box(7.92,10.25,7.97,11.2,0,2.12,M.door);box(7.86,11.05,7.9,11.1,.95,.04,M.dark,{cast:false});
-
-// ---------- nội thất dùng chung ----------
-function bed(cx,cz,ry,w=1.6,l=1.95){const g=new THREE.Group();g.position.set(cx,0,cz);g.rotation.y=ry;sc.add(g);const P=(gm,m,x,y,z)=>put(gm,m,x,y,z,{parent:g});
-  P(rb(w+.1,.24,l,.03),M.wood,0,.12,0);P(rb(w,.2,l-.04,.06),M.bed,0,.34,0);P(rb(w+.04,.12,l*.68,.05),M.duvet,0,.46,l*.15);P(rb(w+.05,.05,.48,.02),M.band,0,.51,l*.3);P(rb(w+.22,1.05,.1,.03),M.head,0,.52,-l/2-.04);
-  [-.38,.38].forEach(x=>{P(rb(.66,.16,.42,.07),M.bed,x*w/1.6,.52,-l/2+.3);P(rb(.46,.15,.3,.07),M.pil,x*w/1.6,.6,-l/2+.48)})}
-function night(x,z){box(x-.22,z-.2,x+.22,z+.2,0,.5,M.wood,{r:.015});put(new THREE.CylinderGeometry(.05,.07,.2,14),M.white,x,.6,z);put(new THREE.CylinderGeometry(.08,.13,.16,18,1,true),M.shade,x,.77,z,{cast:false})}
-function ward(x0,z0,x1,z1,h=2.3,n=4){box(x0,z0,x1,z1,.02,h,M.cab,{r:.008});const alongX=x1-x0>z1-z0;for(let i=1;i<n;i++){const t=i/n;alongX?box(x0+(x1-x0)*t,z0-.002,x0+(x1-x0)*t+.005,z1+.002,.06,h-.08,M.dark,{cast:false}):box(x0-.002,z0+(z1-z0)*t,x1+.002,z0+(z1-z0)*t+.005,.06,h-.08,M.dark,{cast:false})}}
-function chair(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;sc.add(g);put(rb(.44,.07,.44,.03),M.chair,0,.46,0,{parent:g});put(rb(.44,.42,.06,.03),M.chair,0,.71,-.2,{parent:g});[[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]].forEach(([a,b])=>put(new THREE.CylinderGeometry(.014,.012,.44,6),M.frame,a,.22,b,{parent:g,cast:false}))}
-function plant(x,z,s=1){put(new THREE.CylinderGeometry(.17*s,.13*s,.34*s,18),M.pot,x,.17*s,z);for(let i=0;i<10;i++){const a=i*2.4,r=(.05+rnd()*.15)*s;put(new THREE.IcosahedronGeometry((.13+rnd()*.09)*s,0),i%2?M.leaf:M.leaf2,x+Math.cos(a)*r,(.48+rnd()*.6)*s,z+Math.sin(a)*r)}}
-function toilet(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;sc.add(g);put(rb(.36,.4,.48,.12),M.white,0,.2,.08,{parent:g});put(rb(.38,.05,.5,.1),M.white,0,.42,.08,{parent:g});put(rb(.38,.34,.15,.04),M.white,0,.58,-.2,{parent:g})}
-function vanity(x0,z0,x1,z1){box(x0,z0,x1,z1,.42,.42,M.wood,{r:.01});box(x0,z0,x1,z1,.84,.03,M.marble);put(new THREE.CylinderGeometry(.17,.12,.1,20),M.white,(x0+x1)/2,.92,(z0+z1)/2)}
 
 // ---------- phòng khách, ăn, ban công ----------
 const rug=new THREE.Mesh(new THREE.PlaneGeometry(2.5,2.3),M.rug);rug.rotation.x=-Math.PI/2;rug.position.set(4.95,.006,2.95);rug.receiveShadow=true;sc.add(rug);
@@ -186,6 +189,228 @@ toilet(1.85,5.92,Math.PI);vanity(2.4,5.6,3.28,6.15);box(.8,5.5,.82,5.54,1.2,.9,M
 box(3.65,13.05,4.6,14.03,0,.03,M.white,{cast:false});box(4.58,13.05,4.62,14.03,.03,2,M.glass);
 toilet(4.95,13.78,Math.PI);vanity(5.4,13.5,6.24,14.03);
 
+}
+
+// ---------- công cụ dựng theo điểm ảnh trên ảnh layout: đổi ra mét bằng gốc (ox,oy) và tỉ lệ k (điểm ảnh mỗi mét) ----------
+function draft(ox,oy,k){
+  const X=p=>(p-ox)/k,Y=p=>(p-oy)/k,rect=(a,b,c,d)=>[X(a),Y(b),X(c),Y(d)];
+  const PI=Math.PI,DIR={e:0,n:PI/2,w:PI,s:-PI/2};
+  const T={X,Y,
+    WZ:(a,b,c,d,ops=[])=>wall('z',X(a),X(b),Y(c),Y(d),ops.map(([p,q,t,n])=>[Y(p),Y(q),t,n])),
+    WX:(a,b,c,d,ops=[])=>wall('x',Y(a),Y(b),X(c),X(d),ops.map(([p,q,t,n])=>[X(p),X(q),t,n])),
+    solid:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);box(x0,z0,x1,z1,0,H,M.wall)},
+    slab:l=>l.forEach(r=>{const[x0,z0,x1,z1]=rect(...r);box(x0,z0,x1,z1,-.28,.27,M.cap,{cast:false})}),
+    oak:l=>l.forEach(r=>{const[x0,z0,x1,z1]=rect(...r);floor(x0,z0,x1,z1,M.oak)}),
+    tile:l=>l.forEach(r=>{const[x0,z0,x1,z1]=rect(...r);floor(x0,z0,x1,z1,M.tile,.003,.6)}),
+    balc:l=>l.forEach(r=>{const[x0,z0,x1,z1]=rect(...r);floor(x0,z0,x1,z1,M.balc,.003,.6)}),
+    door:(hx,hy,len,d)=>leaf(X(hx),Y(hy),len/k,DIR[d]),
+    clad:(a,b,c,d,sides)=>{const[x0,z0,x1,z1]=rect(a,b,c,d),t=.02;[...sides].forEach(s=>{const r={n:[x0,z0,x1,z0+t],s:[x0,z1-t,x1,z1],w:[x0,z0,x0+t,z1],e:[x1-t,z0,x1,z1]}[s];box(r[0],r[1],r[2],r[3],.02,2.3,M.clad,{cast:false})})},
+    bed:(x,y,ry,w,l)=>bed(X(x),Y(y),ry,w,l),
+    night:(x,y)=>night(X(x),Y(y)),
+    ward:(a,b,c,d,n)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);ward(x0,z0,x1,z1,2.3,n||4)},
+    chair:(x,y,ry)=>chair(X(x),Y(y),ry),
+    plant:(x,y,s)=>plant(X(x),Y(y),s||1),
+    toilet:(x,y,ry)=>toilet(X(x),Y(y),ry),
+    vanity:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);vanity(x0,z0,x1,z1)},
+    // khay tắm đứng và vách kính ở một cạnh
+    shower:(a,b,c,d,side)=>{const[x0,z0,x1,z1]=rect(a,b,c,d),t=.02;box(x0,z0,x1,z1,0,.03,M.white,{cast:false});const r={n:[x0,z0,x1,z0+t],s:[x0,z1-t,x1,z1],w:[x0,z0,x0+t,z1],e:[x1-t,z0,x1,z1]}[side];box(r[0],r[1],r[2],r[3],.03,2,M.glass)},
+    // sofa theo khung chữ nhật, side là cạnh tựa lưng
+    sofa:(a,b,c,d,side)=>{const[x0,z0,x1,z1]=rect(a,b,c,d),ver=side==='w'||side==='e',bk=.28,ar=.18;
+      box(x0,z0,x1,z1,.1,.3,M.sofa,{r:.05});
+      const back=side==='w'?[x0,z0,x0+bk,z1]:side==='e'?[x1-bk,z0,x1,z1]:side==='n'?[x0,z0,x1,z0+bk]:[x0,z1-bk,x1,z1];box(back[0],back[1],back[2],back[3],.4,.46,M.sofa,{r:.07});
+      (ver?[[x0,z0,x1,z0+ar],[x0,z1-ar,x1,z1]]:[[x0,z0,x0+ar,z1],[x1-ar,z0,x1,z1]]).forEach(r=>box(r[0],r[1],r[2],r[3],.4,.22,M.sofa,{r:.06}));
+      const n=3,s0=(ver?z0:x0)+ar,s1=(ver?z1:x1)-ar,st=(s1-s0)/n;for(let i=0;i<n;i++){const p=s0+st*i+.01,q=s0+st*(i+1)-.01;if(ver){const a0=side==='w'?x0+bk:x0,a1=side==='w'?x1:x1-bk;box(a0,p,a1,q,.4,.13,M.sofa,{r:.05})}else{const a0=side==='n'?z0+bk:z0,a1=side==='n'?z1:z1-bk;box(p,a0,q,a1,.4,.13,M.sofa,{r:.05})}}},
+    // kệ tivi thấp và màn hình áp vào tường ở cạnh side
+    tv:(a,b,c,d,side)=>{const[x0,z0,x1,z1]=rect(a,b,c,d),ver=side==='w'||side==='e',t=.04;box(x0,z0,x1,z1,.12,.3,M.wood,{r:.015});
+      if(ver){const m=(z0+z1)/2,h=Math.min(.62,(z1-z0)*.42),x=side==='e'?x1-t:x0;box(x,m-h,x+t,m+h,1,.72,M.tv,{cast:false})}else{const m=(x0+x1)/2,h=Math.min(.62,(x1-x0)*.42),z=side==='s'?z1-t:z0;box(m-h,z,m+h,z+t,1,.72,M.tv,{cast:false})}},
+    rug:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);const r=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0,z1-z0),M.rug);r.rotation.x=-PI/2;r.position.set((x0+x1)/2,.006,(z0+z1)/2);r.receiveShadow=true;sc.add(r)},
+    tables:(x,y)=>{[[X(x),Y(y),.42,.44,M.marble],[X(x)+.33,Y(y)+.5,.27,.34,M.black]].forEach(([a,b,r,h,m])=>{put(new THREE.CylinderGeometry(r,r,.03,36),m,a,h,b);put(new THREE.CylinderGeometry(.025,.025,h,10),M.frame,a,h/2,b)})},
+    table:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);box(x0,z0,x1,z1,.73,.04,M.marble,{r:.012});[[x0+.08,z0+.08],[x1-.08,z0+.08],[x0+.08,z1-.08],[x1-.08,z1-.08]].forEach(([p,q])=>box(p-.03,q-.03,p+.03,q+.03,0,.73,M.frame))},
+    counter:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);box(x0,z0,x1,z1,0,.1,M.dark,{cast:false});box(x0,z0,x1,z1,.1,.8,M.cab);box(x0,z0,x1,z1,.9,.04,M.black)},
+    hob:(x,y)=>box(X(x)-.3,Y(y)-.22,X(x)+.3,Y(y)+.22,.942,.006,M.dark,{cast:false}),
+    sink:(x,y)=>box(X(x)-.25,Y(y)-.2,X(x)+.25,Y(y)+.2,.942,.012,M.steel,{cast:false}),
+    fridge:(a,b,c,d)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);box(x0,z0,x1,z1,0,1.9,M.steel,{r:.02})},
+    washer:(x,y,n)=>{box(X(x)-.3,Y(y)-.3,X(x)+.3,Y(y)+.3,0,.85,M.white,{r:.03});put(new THREE.CylinderGeometry(.2,.2,.02,24),M.dark,X(x),.86,Y(y),{cast:false})},
+    led:(a,b,c,d,y)=>{const[x0,z0,x1,z1]=rect(a,b,c,d);led(x0,z0,x1,z1,y)}
+  };
+  return T;
+}
+const PI_2=Math.PI/2;
+const roomView=(T,name,x,y)=>[name,[T.X(x),.3,T.Y(y)],[T.X(x),5.8,T.Y(y)+3.6],0];
+const planViews=(list)=>{const m=META,cx=m.w/2,cz=m.d/2;return [[L('Toàn cảnh','Overview'),[cx,.2,cz],[cx,17,cz+10],1],[L('Từ trên xuống','Top down'),[cx,0,cz],[cx,29,cz+.02],1],...list]};
+const planTall=()=>[[META.w/2,.2,META.d/2],[META.w/2-18,36,META.d/2]];
+
+// ---------- CH-xx03: theo ảnh layout ch-03 ----------
+function plan03(){
+  const T=draft(83,145,40.3);
+  T.slab([[143,145,641,284],[85,232,160,291],[85,285,110,316],[255,284,392,560],[388,284,641,438],[388,430,525,560]]);
+  T.oak([[150,153,360,285],[92,240,152,285],[268,285,388,500],[360,284,437,392],[364,233,450,278],[451,153,585,278],[441,284,636,430],[392,395,517,553]]);
+  T.tile([[364,153,446,229],[441,352,513,430]]);
+  T.balc([[268,506,373,555],[590,153,636,278]]);
+  // tường ngoài và cửa chính
+  T.WX(145,153,143,360,[[297,358,'win',3]]);
+  T.WZ(152,160,153,240);
+  T.WX(232,240,85,160,[[105,146,'door']]);
+  T.WZ(85,90,232,316);T.WX(285,291,85,268);T.WX(311,316,85,110);T.WZ(105,110,291,316);
+  T.WZ(255,268,285,560);
+  // ban công phòng khách
+  T.WX(500,506,268,392,[[285,370,'full',3]]);
+  T.WX(555,560,268,373,[[268,373,'rail']]);
+  T.solid(373,506,392,560);
+  // khối phòng ngủ và WC
+  T.WZ(388,392,345,506);
+  T.WX(390,395,392,437,[[397,432,'door']]);
+  T.WZ(437,441,284,433,[[310,345,'door']]);
+  T.WX(348,352,441,517,[[480,513,'door']]);
+  T.WZ(513,517,352,433);
+  T.WX(430,436,437,641,[[588,637,'win',2]]);
+  T.WZ(636,641,284,436,[[340,428,'win',3]]);
+  T.WX(278,284,360,641,[[397,435,'door']]);
+  T.WZ(360,364,153,284);
+  T.WX(229,233,364,451,[[405,445,'door']]);
+  T.WZ(446,451,153,233);
+  T.WX(145,153,360,641);
+  T.WZ(585,590,153,278,[[165,262,'full',3]]);
+  T.WZ(636,641,153,278,[[153,278,'rail']]);
+  T.WZ(517,525,436,560);
+  T.WX(553,560,392,525,[[398,490,'win',3]]);
+  T.clad(364,153,446,229,'nw');T.clad(441,352,513,430,'sw');
+  T.door(397,278,38,'n');T.door(437,345,34,'e');T.door(397,395,35,'s');T.door(405,229,38,'n');T.door(513,352,33,'w');
+  // bếp, phòng ăn
+  T.counter(160,155,268,183);T.counter(160,183,185,200);T.fridge(160,200,185,238);T.sink(210,169);T.hob(245,169);T.led(160,184,268,186,.09);
+  T.table(304,160,333,226);[172,192,212].forEach(y=>{T.chair(294,y,PI_2);T.chair(343,y,-PI_2)});
+  // phòng khách, ban công
+  T.rug(302,382,378,445);T.sofa(268,368,302,475,'w');T.tables(330,405);T.tv(375,385,388,460,'e');T.led(372,385,374,460,.26);T.plant(280,352);
+  T.plant(280,522);T.plant(358,522);
+  // phòng ngủ 1
+  T.bed(516,200,0);T.night(470,168);T.night(563,168);T.tv(488,265,545,278,'s');T.ward(364,235,392,278,2);T.washer(612,258);
+  // WC 1
+  T.toilet(392,205,PI_2);T.vanity(415,155,445,180);T.shower(365,155,395,188,'s');
+  // phòng ngủ 2
+  T.bed(578,385,Math.PI);T.night(530,418);T.night(626,418);T.ward(441,285,518,306);T.tv(550,285,620,296,'n');
+  // WC 2
+  T.toilet(458,397,PI_2);T.vanity(488,354,512,385);T.shower(472,398,512,429,'n');
+  // phòng ngủ 3
+  T.bed(470,497,-PI_2);T.night(505,450);T.night(505,545);T.ward(393,455,407,550);T.led(408,455,410,550,.05);
+  return T;
+}
+// ---------- CH-xx19: theo ảnh layout ch-19 ----------
+function plan19(){
+  const T=draft(33,165,43.75);
+  T.slab([[118,165,668,330],[33,235,125,272],[33,265,325,540],[318,323,668,381],[318,378,525,540],[505,323,668,515]]);
+  T.oak([[125,213,198,272],[205,175,318,272],[42,272,318,473],[318,330,505,378],[392,175,605,323],[508,330,660,508],[325,381,450,533]]);
+  T.tile([[325,175,385,323],[458,381,518,510]]);
+  T.balc([[62,481,293,533],[612,195,662,318]]);
+  // tường ngoài và cửa chính
+  T.WX(165,175,118,668);
+  T.WZ(118,125,165,272,[[213,262,'door']]);
+  T.WX(208,213,125,198);T.WZ(198,205,175,272);
+  T.WX(265,272,33,125);T.WZ(33,42,235,475);
+  // ban công phòng khách
+  T.WX(473,481,33,318,[[88,293,'full',4]]);
+  T.solid(33,475,62,540);T.WX(533,540,62,293,[[62,293,'rail']]);T.solid(293,481,318,540);
+  // khối WC 1, phòng ngủ 1
+  T.WZ(318,325,175,381);
+  T.WZ(385,392,172,325,[[228,262,'door']]);
+  T.WX(323,330,318,668,[[398,432,'door']]);
+  T.WZ(605,612,195,323,[[210,297,'full',3]]);
+  T.solid(605,165,668,195);
+  T.WZ(662,668,195,323,[[195,323,'rail']]);
+  // phòng ngủ 3, WC 2, phòng ngủ 2
+  T.WX(375,381,318,525,[[410,447,'door'],[465,498,'door']]);
+  T.WZ(318,325,381,478);
+  T.WX(533,540,318,458,[[335,432,'win',3]]);
+  T.WZ(448,458,378,540);
+  T.WZ(518,525,381,512);
+  T.WX(510,515,450,525);
+  T.WZ(487,492,512,540);T.WX(535,540,450,492);
+  T.WZ(503,508,328,378,[[333,373,'door']]);
+  T.WZ(660,668,323,515);
+  T.WX(508,514,492,668,[[540,635,'win',3]]);
+  T.clad(325,175,385,323,'nw');T.clad(458,381,518,510,'se');
+  T.door(125,213,49,'e');T.door(385,228,34,'w');T.door(398,323,34,'n');T.door(410,381,37,'s');T.door(465,381,33,'s');T.door(508,333,40,'e');
+  // bếp
+  T.counter(205,175,318,205);T.counter(288,205,318,262);T.fridge(205,175,235,205);T.sink(258,190);T.hob(303,235);T.counter(250,270,315,305);T.led(236,206,288,208,.09);
+  [266,298].forEach(x=>T.chair(x,316,Math.PI));
+  // phòng khách, phòng ăn, ban công
+  T.rug(67,352,128,448);T.sofa(130,342,165,458,'e');T.tables(95,385);T.tv(42,365,56,432,'w');T.led(57,365,59,432,.26);
+  T.table(222,378,256,458);[392,418,444].forEach(y=>{T.chair(212,y,PI_2);T.chair(266,y,-PI_2)});
+  T.plant(248,462,.8);T.plant(80,505);T.washer(280,508);
+  // phòng ngủ 1
+  T.bed(541,213,0);T.night(498,183);T.night(585,183);T.ward(392,178,472,198);T.ward(445,198,472,262,3);T.tv(465,308,560,322,'s');T.plant(598,313,.8);T.plant(632,208);T.washer(638,300);
+  // WC 1
+  T.toilet(358,190,0);T.vanity(327,226,352,256);T.shower(345,268,384,322,'n');
+  // phòng ngủ 3
+  T.bed(358,472,PI_2);T.night(337,430);T.night(337,515);T.ward(325,382,410,405,3);T.tv(436,440,448,510,'e');T.plant(440,520,.8);
+  // WC 2
+  T.toilet(492,442,-PI_2);T.vanity(480,383,516,408);T.shower(462,470,516,508,'n');
+  // phòng ngủ 2
+  T.bed(612,450,-PI_2);T.night(643,408);T.night(643,492);T.ward(632,333,658,390,3);T.tv(526,413,540,485,'w');T.plant(532,398,.8);
+  return T;
+}
+// ---------- CH-xx20: theo ảnh layout ch-20 ----------
+function plan20(){
+  const T=draft(48,42,58.2);
+  T.slab([[48,42,603,627]]);
+  T.oak([[62,62,296,218],[62,230,296,360],[62,368,250,615],[250,368,362,425],[303,160,593,535],[470,62,593,160]]);
+  T.tile([[268,62,445,153],[275,432,362,525],[275,525,345,615]]);
+  T.balc([[385,542,595,620]]);
+  // tường ngoài và cửa chính
+  T.WX(45,62,48,253);T.WX(55,62,253,603);T.solid(578,40,603,62);
+  T.WZ(593,603,62,535,[[72,130,'door']]);
+  T.WZ(48,62,45,218,[[70,205,'win',3]]);
+  T.WZ(48,62,218,368,[[235,345,'win',3]]);
+  T.WZ(48,62,368,625);
+  // phòng ngủ 1, phòng ngủ 2
+  T.WX(218,230,48,298);
+  T.WZ(296,303,158,368,[[165,213,'door'],[237,282,'door']]);
+  // WC 1
+  T.WZ(262,268,62,160);T.WX(153,160,262,470,[[328,368,'door']]);T.solid(445,62,470,160);
+  // phòng ngủ 3, WC 2
+  T.WX(360,368,48,372,[[312,360,'door']]);
+  T.WZ(362,372,368,530);
+  T.WX(425,432,250,372,[[282,330,'door']]);
+  T.WZ(250,275,428,625);
+  T.WX(615,625,48,385,[[62,232,'rail']]);
+  T.WX(525,532,275,372);
+  T.WZ(345,352,532,625);T.WZ(378,385,532,625);T.WX(532,540,345,410);
+  // ban công
+  T.WX(532,542,372,603,[[410,565,'full',3]]);
+  T.WX(618,625,385,603,[[385,603,'rail']]);T.WZ(596,603,542,625,[[542,625,'rail']]);
+  T.clad(268,62,445,153,'n');T.clad(275,432,362,525,'e');
+  T.door(600,72,58,'w');T.door(296,165,48,'w');T.door(296,237,45,'w');T.door(312,368,44,'s');T.door(282,432,44,'s');T.door(368,153,40,'n');
+  // bếp, phòng ăn
+  T.counter(560,162,593,300);T.fridge(555,300,593,350);T.hob(576,210);T.sink(576,265);T.led(558,162,560,300,.09);
+  T.table(418,210,465,312);[227,262,297].forEach(y=>{T.chair(405,y,PI_2);T.chair(478,y,-PI_2)});
+  // phòng khách, ban công
+  T.rug(422,383,530,510);T.sofa(377,372,422,522,'w');T.tables(455,430);T.chair(508,405,-Math.PI*.75);T.tv(570,405,593,510,'e');T.led(568,405,570,510,.26);T.plant(578,390);
+  T.plant(562,582);T.washer(405,578);
+  // phòng ngủ 1
+  T.bed(146,115,0);T.night(88,73);T.night(205,73);T.ward(226,64,262,160,3);T.tv(100,204,192,218,'s');T.plant(85,206,.8);
+  // WC 1
+  T.toilet(292,120,PI_2);T.vanity(335,64,378,90);T.shower(388,64,444,152,'w');
+  // phòng ngủ 2
+  T.bed(142,300,Math.PI);T.night(84,348);T.night(205,348);T.ward(190,332,296,360,4);
+  // phòng ngủ 3
+  T.bed(118,497,PI_2);T.night(82,440);T.night(82,552);T.ward(62,369,197,403);T.tv(236,450,250,530,'e');T.plant(240,545,.8);
+  // WC 2
+  T.toilet(345,512,-PI_2);T.vanity(330,436,361,478);T.shower(276,526,344,614,'n');
+  return T;
+}
+const PLANS={
+  'ch-11':{build:build11,rooms:()=>ROOMS11,views:()=>VIEWS11,tall:[[4.1,.2,8],[4.1,34,27]]},
+  'ch-03':{build:plan03,
+    rooms:T=>[[L('Phòng khách','Living room'),330,440],[L('Phòng ăn','Dining'),318,200],[L('Bếp','Kitchen'),220,210],[L('Ban công','Balcony'),320,530],[L('Phòng ngủ 1','Bedroom 1'),520,250],[L('WC 1','Bath 1'),415,200],[L('Phòng ngủ 2','Bedroom 2'),540,320],[L('WC 2','Bath 2'),478,380],[L('Phòng ngủ 3','Bedroom 3'),430,420],[L('Lối vào','Entry'),120,262]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),330,410),roomView(T,L('Bếp','Kitchen'),230,200),roomView(T,L('Phòng ngủ 1','Bedroom 1'),520,215),roomView(T,L('Phòng ngủ 2','Bedroom 2'),545,360),roomView(T,L('Phòng ngủ 3','Bedroom 3'),455,490)])},
+  'ch-19':{build:plan19,
+    rooms:T=>[[L('Phòng khách','Living room'),115,320],[L('Phòng ăn','Dining'),238,345],[L('Bếp','Kitchen'),258,235],[L('Ban công','Balcony'),180,508],[L('Phòng ngủ 1','Bedroom 1'),520,280],[L('WC 1','Bath 1'),355,250],[L('Phòng ngủ 2','Bedroom 2'),590,370],[L('WC 2','Bath 2'),488,425],[L('Phòng ngủ 3','Bedroom 3'),395,425],[L('Lối vào','Entry'),160,245]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),120,380),roomView(T,L('Bếp','Kitchen'),265,235),roomView(T,L('Phòng ngủ 1','Bedroom 1'),525,240),roomView(T,L('Phòng ngủ 2','Bedroom 2'),590,435),roomView(T,L('Phòng ngủ 3','Bedroom 3'),385,460)])},
+  'ch-20':{build:plan20,
+    rooms:T=>[[L('Phòng khách','Living room'),480,450],[L('Phòng ăn','Dining'),440,190],[L('Bếp','Kitchen'),530,230],[L('Ban công','Balcony'),480,580],[L('Phòng ngủ 1','Bedroom 1'),230,190],[L('WC 1','Bath 1'),350,110],[L('Phòng ngủ 2','Bedroom 2'),240,290],[L('WC 2','Bath 2'),310,480],[L('Phòng ngủ 3','Bedroom 3'),190,440],[L('Lối vào','Entry'),520,100]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),470,440),roomView(T,L('Bếp','Kitchen'),500,230),roomView(T,L('Phòng ngủ 1','Bedroom 1'),150,140),roomView(T,L('Phòng ngủ 2','Bedroom 2'),150,290),roomView(T,L('Phòng ngủ 3','Bedroom 3'),130,490)])}
+};
+const PL=PLANS[PK],TT=PL.build()||null;
+
 // ---------- gộp khối theo vật liệu: cảnh đứng yên nên chỉ cần vài chục lần vẽ mỗi khung hình ----------
 sc.updateMatrixWorld(true);
 {const gs=new Map(),old=[];sc.traverse(o=>{if(!o.isMesh)return;old.push(o);const k=o.material.uuid+(o.castShadow?'c':'')+(o.receiveShadow?'r':'');if(!gs.has(k))gs.set(k,{m:o.material,c:o.castShadow,r:o.receiveShadow,g:[]});
@@ -194,15 +419,16 @@ sc.updateMatrixWorld(true);
   gs.forEach(({m,c,r,g})=>{const me=new THREE.Mesh(mergeGeometries(g),m);me.castShadow=c;me.receiveShadow=r;sc.add(me);g.forEach(x=>x.dispose())})}
 
 // ---------- nhãn phòng ----------
-const ROOMS=[[L('Phòng khách','Living room'),4.8,2.6],[L('Phòng ăn','Dining'),5.3,7.8],[L('Ban công','Balcony'),4.8,.75],[L('Bếp','Kitchen'),4,10.4],[L('Lô gia','Loggia'),1.1,10],[L('Phòng ngủ 1','Bedroom 1'),2.3,2.4],[L('WC 1','Bath 1'),2,5.3],[L('Phòng ngủ 2','Bedroom 2'),2.4,7],[L('Phòng ngủ 3','Bedroom 3'),3.6,12.2],[L('WC 2','Bath 2'),4.9,13.2],[L('Lối vào','Entry'),7.2,10.6]];
-const labels=ROOMS.map(([t,x,z])=>{const d=document.createElement('div');d.className='lab';d.textContent=t;document.body.appendChild(d);return {d,p:new THREE.Vector3(x,1.1,z)}});
+const ROOMS11=[[L('Phòng khách','Living room'),4.8,2.6],[L('Phòng ăn','Dining'),5.3,7.8],[L('Ban công','Balcony'),4.8,.75],[L('Bếp','Kitchen'),4,10.4],[L('Lô gia','Loggia'),1.1,10],[L('Phòng ngủ 1','Bedroom 1'),2.3,2.4],[L('WC 1','Bath 1'),2,5.3],[L('Phòng ngủ 2','Bedroom 2'),2.4,7],[L('Phòng ngủ 3','Bedroom 3'),3.6,12.2],[L('WC 2','Bath 2'),4.9,13.2],[L('Lối vào','Entry'),7.2,10.6]];
+const labels=PL.rooms(TT).map(([t,x,z])=>{const d=document.createElement('div');d.className='lab';d.textContent=t;document.body.appendChild(d);return {d,p:new THREE.Vector3(TT?TT.X(x):x,1.1,TT?TT.Y(z):z)}});
 
 // ---------- điều khiển ----------
-const ctl=new OrbitControls(cam,renderer.domElement);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.maxPolarAngle=Math.PI*.49;ctl.minDistance=2.5;ctl.maxDistance=48;ctl.screenSpacePanning=false;ctl.autoRotateSpeed=1.1;
+const ctl=new OrbitControls(cam,renderer.domElement);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.maxPolarAngle=Math.PI*.49;ctl.minDistance=2.5;ctl.maxDistance=60;ctl.screenSpacePanning=false;ctl.autoRotateSpeed=1.1;
 const fit=()=>Math.max(1,1.15/(innerWidth/innerHeight));
-const VIEWS=[[L('Toàn cảnh','Overview'),[3.9,.2,7.15],[-9.5,18,7.15],1],[L('Từ trên xuống','Top down'),[3.9,0,7.15],[3.9,29,7.17],1],[L('Phòng khách','Living'),[4.9,.3,3.2],[.6,6.2,3.6],0],[L('Bếp','Kitchen'),[3.8,.3,10.3],[.9,5.6,8],0],[L('Phòng ngủ 1','Bedroom 1'),[1.7,.3,2.3],[-2.2,5.6,2.6],0],[L('Phòng ngủ 2','Bedroom 2'),[1.7,.3,7.7],[-2.2,5.6,7.9],0],[L('Phòng ngủ 3','Bedroom 3'),[2.2,.3,12.8],[-1.6,5.6,12.4],0]];
+const VIEWS11=[[L('Toàn cảnh','Overview'),[3.9,.2,7.15],[-9.5,18,7.15],1],[L('Từ trên xuống','Top down'),[3.9,0,7.15],[3.9,29,7.17],1],[L('Phòng khách','Living'),[4.9,.3,3.2],[.6,6.2,3.6],0],[L('Bếp','Kitchen'),[3.8,.3,10.3],[.9,5.6,8],0],[L('Phòng ngủ 1','Bedroom 1'),[1.7,.3,2.3],[-2.2,5.6,2.6],0],[L('Phòng ngủ 2','Bedroom 2'),[1.7,.3,7.7],[-2.2,5.6,7.9],0],[L('Phòng ngủ 3','Bedroom 3'),[2.2,.3,12.8],[-1.6,5.6,12.4],0]];
+const VIEWS=PL.views(TT),TALL=PL.tall||planTall();
 let anim=null,auto=false,dirty=true,last=0;
-function go(v,btn,now){const[,t0,p0,sc0]=v,tall=innerWidth/innerHeight<.9,ov=v===VIEWS[0]&&tall,t=ov?[4.1,.2,8]:t0,p=ov?[4.1,34,27]:p0,s=sc0&&!tall?fit():1,to=new THREE.Vector3(...t),tp=new THREE.Vector3(...p).sub(to).multiplyScalar(s).add(to);
+function go(v,btn,now){const[,t0,p0,sc0]=v,tall=innerWidth/innerHeight<.9,ov=v===VIEWS[0]&&tall,t=ov?TALL[0]:t0,p=ov?TALL[1]:p0,s=!sc0?1:!tall?fit():ov?1:Math.max(1,META.w/8.5),to=new THREE.Vector3(...t),tp=new THREE.Vector3(...p).sub(to).multiplyScalar(s).add(to);
   document.querySelectorAll('#views button').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
   if(now){ctl.target.copy(to);cam.position.copy(tp);ctl.update();return}
   anim={t0:performance.now(),a:cam.position.clone(),b:tp,ta:ctl.target.clone(),tb:to}}
@@ -216,7 +442,7 @@ $('#zi').onclick=()=>zoom(.82);$('#zo').onclick=()=>zoom(1.22);$('#zi').setAttri
 // khi nhúng trong trang: tự xoay đến lần chạm đầu tiên; trên máy tính chỉ nhận con lăn sau khi bấm vào mô hình để không chặn cuộn trang
 if(EMBED){auto=true;ctl.autoRotate=true;if(!TOUCH){ctl.enableZoom=false;renderer.domElement.addEventListener('pointerdown',()=>{ctl.enableZoom=true});renderer.domElement.addEventListener('pointerleave',()=>{ctl.enableZoom=false})}}
 ctl.addEventListener('start',()=>{anim=null;if(EMBED){auto=false;ctl.autoRotate=false}$('#hint').style.display='none';document.querySelectorAll('#views button').forEach(b=>b.setAttribute('aria-pressed','false'))});
-ctl.addEventListener('change',()=>{ctl.target.x=THREE.MathUtils.clamp(ctl.target.x,-1,9);ctl.target.z=THREE.MathUtils.clamp(ctl.target.z,-1,15);ctl.target.y=THREE.MathUtils.clamp(ctl.target.y,0,1.5)});
+ctl.addEventListener('change',()=>{ctl.target.x=THREE.MathUtils.clamp(ctl.target.x,-1,META.w+1);ctl.target.z=THREE.MathUtils.clamp(ctl.target.z,-1,META.d+1);ctl.target.y=THREE.MathUtils.clamp(ctl.target.y,0,1.5)});
 
 ctl.addEventListener('change',()=>{dirty=true});
 const size=()=>{dirty=true;const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()};
