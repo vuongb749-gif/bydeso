@@ -372,7 +372,7 @@
   .pj-types-t .num{text-align:right}
   .pj-plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
   .pj-plan{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg-soft);display:flex;flex-direction:column}
-  .pj-plan-img{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;background:#fff center/contain no-repeat;cursor:pointer}
+  .pj-plan-img{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;background:#f1f1f1 center/cover no-repeat;cursor:pointer}
   .pj-plan-b{padding:12px;display:flex;flex-direction:column;gap:4px}
   .pj-plan-b b{font-size:15px}.pj-plan-b span{font-size:12.5px;color:var(--muted)}
   .pj-plan-act{display:flex;gap:8px;margin-top:8px}.pj-plan-act .btn{font-size:13px;padding:8px 12px}
@@ -1861,8 +1861,7 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
       const has3d=window.bydeso3D.has(x.n), fa=PJ.facts[x.n], plans=PLANS[x.n]||[], cover=(window.BYDESO_PIMG||{})[x.n]||x.img, lang=E?'&lang=en':'';
       gal=[{img:cover,cap:L('Phối cảnh dự án','Project perspective'),th:L('Phối cảnh','Perspective')}];
       if(plans.length){
-        gal.push({img:'layout/mat-bang-tang-dien-hinh.jpg',cap:L('Mặt bằng tầng điển hình','Typical floor plan'),th:L('Mặt bằng','Floor plan')});
-        plans.forEach(([k,c])=>gal.push({img:'layout/'+k+'-layout.jpg',cap:L('Layout căn ','Unit layout ')+c,th:'Layout '+c.slice(-2),plan:k},{img:'layout/'+k+'-3d.jpg',model:'can-3d.html?embed=1&plan='+k+lang,cap:L('Mô hình 3D căn ','3D model of unit ')+c,th:'3D '+c.slice(-2),plan:k}));
+        plans.forEach(([k,c])=>gal.push({img:'layout/'+k+'-3d.jpg',model:'can-3d.html?embed=1&plan='+k+lang,cap:L('Mô hình 3D căn ','3D model of unit ')+c,th:'3D '+c.slice(-2),plan:k}));
       }
       // loại căn theo dữ liệu Salekit đã có: diện tích nhỏ nhất – lớn nhất và số căn trên một tầng điển hình
       let types='';
@@ -1891,8 +1890,8 @@ const PRICE={"Sun Symphony Residence":["Từ 3,2 tỷ","From 3.2B VND","≈ 62 t
           '<div class="dt-main">'+
             '<section class="dt-sec"><h2>'+L('Tổng quan dự án','Project overview')+'</h2><dl class="dt-specs">'+specs.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl>'+(has3d?'':'<p class="dt-desc">'+L('Layout căn hộ, mặt bằng và sa bàn 3D của dự án đang được cập nhật.','Unit layouts, floor plans and the 3D model are being updated.')+'</p>')+'</section>'+
             (types?'<section class="dt-sec"><h2>'+L('Các loại căn hộ','Unit types')+'</h2><p class="dt-sub">'+L('Diện tích thông thủy theo Salekit dự án.','Net area from the project sales kit.')+'</p><table class="pj-types-t"><thead><tr><th>'+L('Loại căn','Type')+'</th><th>'+L('Diện tích','Area')+'</th><th class="num">'+L('Căn/tầng','Units/floor')+'</th></tr></thead><tbody>'+types+'</tbody></table></section>':'')+
-            (plans.length?'<section class="dt-sec"><h2>'+L('Mẫu căn 3 phòng ngủ','3-bedroom layouts')+'</h2><p class="dt-sub">'+L('Bấm vào một mẫu để xem layout hoặc mô hình 3D xoay 360°. Mô hình mang tính minh họa.','Pick a layout to see the plan or the 360° 3D model. Models are illustrative.')+'</p><div class="pj-plans">'+
-              plans.map(([k,c,a,g])=>'<article class="pj-plan"><button type="button" class="pj-plan-img" data-plan="'+k+'" data-kind="img" style="background-image:url(\'layout/'+k+'-layout.jpg\')" aria-label="'+L('Xem layout ','View layout ')+c+'"></button><div class="pj-plan-b"><b>'+c+' · 3PN</b><span>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</span><div class="pj-plan-act"><button type="button" class="btn btn-primary" data-plan="'+k+'" data-kind="model">'+L('Xem 3D 360°','View 3D 360°')+'</button><button type="button" class="btn" data-plan="'+k+'" data-kind="img">Layout</button></div></div></article>').join('')+'</div></section>':'')+
+            (plans.length?'<section class="dt-sec"><h2>'+L('Mẫu căn 3 phòng ngủ','3-bedroom units')+'</h2><p class="dt-sub">'+L('Bấm vào một mẫu để xem mô hình 3D xoay 360°. Mô hình mang tính minh họa.','Pick a unit to see its 360° 3D model. Models are illustrative.')+'</p><div class="pj-plans">'+
+              plans.map(([k,c,a,g])=>'<article class="pj-plan"><button type="button" class="pj-plan-img" data-plan="'+k+'" data-kind="model" style="background-image:url(\'layout/'+k+'-3d.jpg\')" aria-label="'+L('Xem 3D căn ','View 3D of unit ')+c+'"></button><div class="pj-plan-b"><b>'+c+' · 3PN</b><span>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</span><div class="pj-plan-act"><button type="button" class="btn btn-primary" data-plan="'+k+'" data-kind="model">'+L('Xem 3D 360°','View 3D 360°')+'</button></div></div></article>').join('')+'</div></section>':'')+
             '<p class="dt-fine">'+L('Thông tin quy mô theo công bố của dự án; loại căn, diện tích và layout theo Salekit. Hình 3D là minh họa, nội thất mang tính tương đối.','Scale as published by the project; unit types, areas and layouts from the sales kit. 3D images are illustrative.')+'</p>'+
           '</div>'+
         '</div>';
