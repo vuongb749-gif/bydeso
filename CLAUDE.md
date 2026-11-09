@@ -7,7 +7,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - Chủ trang nói tiếng Việt, không phải lập trình viên: trả lời tiếng Việt, đơn giản, không thuật ngữ.
 - Chỉ commit và đẩy lên khi chủ trang bảo ("đẩy lên"). Hỏi trước khi đẩy.
 - Phong cách mong muốn: 3D phải giống bản vẽ/phối cảnh kiến trúc, thật, không kiểu hoạt hình hay game.
-- Giao diện luôn nền tối kiểu moso.vn (không có nút sáng/tối): nền `#111111`, thẻ `#171717`, viền `#2e2e2e`, chữ `#f5f5f5`, chữ phụ `#a3a3a3`, màu nhấn vàng dịu `#d8b737` với chữ đen trên nút (đã thử chữ trắng, chủ trang không thích) (nút, khối nhấn; giảm khoảng 30% độ rực theo yêu cầu), chữ vàng `#facc15` (Moso dùng cam, Bydeso dùng vàng). Nền phẳng, không quầng sáng màu. Riêng phần "Loại hình" (`#loai-hinh`) ở trang chủ nền trắng theo yêu cầu chủ trang.
+- Giao diện luôn nền trắng (không có nút sáng/tối; đã thử nền tối kiểu moso.vn rồi chủ trang đổi lại): nền `#ffffff`, nền phụ `#f5f5f3`, viền `#e6e6e1`, chữ `#141414`, chữ phụ `#5f5f5a`, màu nhấn vàng dịu `#d8b737` với chữ đen trên nút (đã thử chữ trắng, chủ trang không thích), chữ vàng trên nền trắng `#8a6100`. Nền phẳng, có họa tiết trống đồng mờ.
 - Khối chữ trên sa bàn không có nền mờ tối phía sau (áp dụng cho mọi dự án).
 - Thẻ dự án ở trang chủ không ghi giá. Bấm thẻ mở trang thông tin dự án, sa bàn chỉ mở qua nút riêng.
 - Thư viện ảnh trang dự án chỉ hiện ảnh phối cảnh và mô hình 3D, không có layout hay mặt bằng 2D.
