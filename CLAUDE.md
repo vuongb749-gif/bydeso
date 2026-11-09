@@ -15,7 +15,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 ## Các file
 - `index.html`: trang chính, khoảng 2 MB, JS và ảnh base64 viết thẳng trong file. Sửa bằng script node thay chuỗi đúng một chỗ, giữ nguyên CRLF; không mở cả file ra đọc.
 - `camellia-3d.html`: sa bàn tòa nhà (three.js 0.160 qua importmap jsdelivr), nhúng bằng iframe, nói chuyện với trang chính bằng postMessage (`b3d-back`...).
-- `camellia-units.js`: dữ liệu căn (`window.BYDESO_3D = {P, DIR, VIEW, VF, ST, TYPES, rng, units}`). Trang chủ và sa bàn cùng đọc nên số liệu luôn khớp. `P.slots` là các căn của tầng điển hình theo Salekit.
+- `camellia-units.js`: dữ liệu căn (`window.BYDESO_3D = {P, DIR, VIEW, VF, ST, TYPES, rng, units}`). Trang chủ và sa bàn cùng đọc nên số liệu luôn khớp. `P.slots` là các căn của tầng điển hình theo Salekit, tọa độ đo đúng từ `layout/mat-bang-tang-dien-hinh.jpg` (17,3 điểm ảnh = 1 mét, tòa nhà hình chữ H, rộng 55,5 m, sâu 48 m).
 - `can-3d.html`: mô hình 3D xoay 360° của từng mẫu căn. Tham số `?plan=ch-03|ch-11|ch-19|ch-20&code=&embed=1&lang=en`.
 - `layout/`: ảnh theo mẫu căn: `ch-XX-layout.jpg` (layout 2D, dùng để dựng 3D), `ch-XX-3d.jpg` (phối cảnh Salekit, làm ảnh bìa), `ch-XX-vi-tri.jpg`, cùng `mat-bang-tang-dien-hinh.jpg`.
 - `bydeso-sheet.js` và `google-apps-script.gs`: gửi form về Google Sheet. Khi thử form, thay `window.bydesoSend` bằng hàm giả để không ghi vào Sheet thật.
@@ -38,6 +38,15 @@ Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(
      - nội thất: `bed`, `night`, `ward`, `chair`, `plant`, `toilet`, `vanity`, `shower`, `sofa`, `tv`, `art`, `rug`, `tables`, `table`, `counter`, `hob`, `sink`, `fridge`, `washer`, `led`
    - thêm vào bảng `PLANS` (tên phòng, các góc nhìn qua `roomView`).
    Mở ảnh `ch-XX-layout.jpg`, đọc tọa độ tường và cửa bằng pixel, dựng giống các mẫu ch-03, ch-19, ch-20 đã có.
+
+## Phối cảnh sa bàn (`camellia-3d.html`)
+Chủ trang muốn mô hình 3D **dựng mới dựa theo ảnh sa bàn**, không dùng ảnh chụp ghép lại (đã thử ảnh xoay 360° và chủ trang không chọn).
+- Mặt ngoài tính tự động từ `P.slots` + `P.cores` (`outerWalls`): dự án mới chỉ cần nhập đúng mặt bằng là có hình khối đúng.
+- Mỗi ô cửa lấy từ bảng vật liệu vẽ bằng canvas (`facadeMaps`): kính, kính sáng đèn, ban công, tấm đặc, lam. Đổi màu, tỉ lệ các loại ô qua `PATTERN`.
+- Theo ảnh sa bàn: gờ tầng bo góc chạy quanh mặt ngoài (`outline`, `ring`), khung viền bo cong ôm mặt tháp nối với vòm mái (`portal`), các tầng sát khối đế ốp tối (`darkFloor`), khối kỹ thuật và vườn mái, mái sảnh đua sâu ở mặt trước (`CANOPY`). Màu giữ tông tự nhiên: kem nhạt, xám ấm, đồng nâu, kính xám xanh, đèn LED dịu.
+- Khối căn trong suốt, chỉ hiện màu khi xem Trạng thái, lọc, chọn tầng hoặc rê chuột. Chọn căn dò theo hộp bao `userData.b3`, không dò hình.
+- Mở ra ở chế độ Phối cảnh. Bóng chỉ tính lại khi đổi tầng (`shadowDirty`) để máy yếu chạy nhẹ.
+- Muốn xem hình khi khung trình duyệt bị ẩn: dừng vòng vẽ bằng tin `b3d-pause`, tự gọi `renderer.render` rồi `toDataURL` ngay (có sẵn `renderer`, `scene`, `camera` trong `window.__b3dState`).
 
 ## Chất lượng hình 3D (đã chỉnh, giữ nguyên khi thêm mẫu mới)
 - Hậu kỳ: EffectComposer + RenderPass + GTAOPass (che khuất môi trường) + OutputPass. Chỉ vẽ lại khi cảnh thay đổi.
