@@ -9,7 +9,7 @@ const P=(window.BYDESO_3D||{}).P||{slots:[]},SL=P.slots;
 
 // ---- Hiện dần khi cuộn tới ----
 if(!calm)root.classList.add('sx-on');
-const rv=['#loai-hinh .center','.types .type','#du-an-noi-bat .feed-head','#homeGrid','#dang-ky .cta'].flatMap(s=>$$(s));
+const rv=['#loai-hinh .types-head','.types .type','#du-an-noi-bat .feed-head','#homeGrid','#dang-ky .cta'].flatMap(s=>$$(s));
 rv.forEach(e=>e.classList.add('sx-r'));
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
 $$('.sx-r').forEach(e=>io.observe(e));
