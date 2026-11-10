@@ -31,6 +31,8 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 
 - Trang dự án `#da/<slug>`: hàm `render` trong `index.html`, CSS trong khối `/* ===== PD ===== */`. Thứ tự: ảnh và nút chính, thanh mục dính `.pd-nav`, ô số liệu, chọn loại căn sáng trên mặt bằng, mẫu căn 3D, vị trí, liên hệ. Không dùng thẻ `<header>` trong nội dung vì CSS của trang làm nó dính lên đầu màn hình. Hiệu ứng hiện dần và đếm số chạy cả khi máy tắt hiệu ứng, vì máy chủ trang đang tắt.
 
+- Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.
+
 ## Đường dẫn trong trang (hash)
 `#du-an` danh sách dự án · `#da/<slug>` trang thông tin dự án · `#3d/<slug>` sa bàn · `#sp/<id>` trang căn · `#da-luu`, `#quan-tam`.
 Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(n)`), `window.bydeso3D` (`has`, `hash`, `open`, `stats`...), `window.bydesoFeed`, `window.bydesoDetail`.

@@ -2,6 +2,16 @@
 <html lang="vi" data-theme="light">
 <head>
 <meta charset="utf-8">
+<script>
+  // Bấm tải lại trang thì về đầu trang (quay lại từ trang khác vẫn giữ vị trí cũ)
+  (function(){
+    const n=performance.getEntriesByType('navigation')[0];
+    if(!n||n.type!=='reload'||!('scrollRestoration' in history))return;
+    history.scrollRestoration='manual';
+    if(/^#(loai-hinh|van-hanh|du-an-noi-bat|xoay-3d|phan-mem|dang-ky|lien-he)$/.test(location.hash))history.replaceState(null,'',location.pathname+location.search);
+    addEventListener('load',()=>{scrollTo(0,0);setTimeout(()=>{history.scrollRestoration='auto'},0)});
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="only light">
 <title>Bydeso — Dịch vụ bất động sản thông minh</title>
