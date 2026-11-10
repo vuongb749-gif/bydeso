@@ -1140,8 +1140,8 @@ body.in-view .sx-bar{display:none}
 .btn-primary,.btn.cta-green{background:var(--gold);border-color:var(--gold)}
 .btn-primary:hover,.btn.cta-green:hover{background:var(--gold-hover);border-color:var(--gold-hover)}
 .btn[hidden]{display:none}
-.srch-go.btn-primary{background:var(--ink);border-color:var(--ink);color:#fff}
-.srch-go.btn-primary:hover{background:#000;border-color:#000;color:var(--accent)}
+.hero .btn-primary{background:var(--accent);border-color:transparent}
+.hero .btn-primary:hover{background:var(--accent-strong);border-color:transparent}
 .lang-switch button[aria-pressed="true"],.feed-chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .fl-ch button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:none}
 .saved-count{background:var(--son)}
@@ -1149,25 +1149,10 @@ body.in-view .sx-bar{display:none}
 .pj-price .pp-val,.prod-price{color:var(--son)}
 .pm-tag span:first-child{background:var(--son-wash);color:var(--son)}
 .home-title::before{content:"";display:block;width:48px;height:5px;margin-bottom:12px;border-radius:9px;background:linear-gradient(90deg,var(--gold) 68%,var(--son) 68%)}
-.lead,.feed-sub,.hero-tag,.pk-c p{text-shadow:0 0 14px #fff,0 0 5px #fff}
-.lead{font-size:17px}
-.hero{padding:56px 0 36px}
-.hero-tag{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--son);margin-bottom:12px}
-.hero-tag::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--son)}
-.hero h1{font-size:clamp(30px,3.7vw,50px);line-height:1.22;margin-bottom:12px}
-.hero h1 span{display:inline-block;background:var(--gold);padding:0 .2em;margin-bottom:.12em}
-.hero h1 .h1-mark{font-style:normal;background:linear-gradient(transparent 70%,var(--accent) 70% 94%,transparent 94%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
-.hero .srch{margin-top:22px}
-.hero-cta{margin-top:14px}
-.hero-cta .btn{min-height:44px;padding:8px 14px;font-size:14px;background:var(--card)}
-.gallery .g-info small{background:var(--ink)!important;border-color:var(--ink)!important;font-size:13px;letter-spacing:0;text-transform:none}
-.g-3d{background:var(--gold);padding:10px 16px;font-size:14px}
-.g-badge{display:none}
-.gallery.single .g-info{bottom:34px}
+.feed-sub,.pk-c p{text-shadow:0 0 14px #fff,0 0 5px #fff}
 .feed-chips{padding:10px 0 2px}
 .pj-types span{font-size:13px;background:var(--accent-wash);border-color:var(--accent);color:var(--ink)}
 .vp-cap,.vp-sub,.vp-ch span{font-size:13px}
-.g-slide .g-credit,.g-credit{font-size:11px}
 .types-head{text-align:left}
 .types{margin-top:20px;gap:16px}
 .type{min-height:330px;padding:12px;justify-content:flex-end;border:0}
@@ -1190,7 +1175,7 @@ body.in-view .sx-bar{display:none}
   .proj-grid>.pj-card:only-child .pj-body h3{font-size:26px}
   .proj-grid>.pj-card:only-child .pj-meta{flex:0 0 auto}
 }
-@media (max-width:768px){section{padding:48px 0}.hero{padding:32px 0 28px}}
+@media (max-width:768px){section{padding:48px 0}}
 @media (max-width:640px){
   .types{grid-template-columns:1fr}
   .type{min-height:280px}
@@ -1206,7 +1191,6 @@ body.in-view .sx-bar{display:none}
   .feed-chips button,.fl-ch button,.fl-btn,.dt-back{min-height:44px}
   .consent input[type=checkbox]{width:24px;height:24px}
 }
-@media (max-width:560px){.hero h1{font-size:30px!important;line-height:1.25;letter-spacing:-.02em}}
 @media (prefers-reduced-motion:reduce){.pk-c:not(:last-child){display:none}}
 </style>
 </head>
@@ -1252,20 +1236,20 @@ body.in-view .sx-bar{display:none}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="hero-tag">Đang thí điểm tại Đà Nẵng, sắp mở rộng nhiều tỉnh thành</p>
-        <h1><span>Bydeso</span><br><em class="h1-mark">Dịch vụ bất động sản thông minh</em></h1>
-        <p class="lead">Gõ điều bạn cần, xem dự án bằng 3D và chọn căn ngay trên phần mềm.</p>
         <div class="srch" id="srch">
           <div class="srch-box"><form class="srch-bar" id="srchForm" role="search" autocomplete="off">
-            <label class="srch-in"><svg class="srch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="srchQ" type="search" placeholder="VD: căn hộ Sơn Trà dưới 3 tỷ" aria-label="Tìm sản phẩm" aria-controls="srchPanel" aria-expanded="false" enterkeyhint="search"><button type="button" class="srch-x" id="srchX" aria-label="Xóa nội dung" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></label>
+            <label class="srch-in"><svg class="srch-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="srchQ" type="search" placeholder="Tìm dự án… VD: căn hộ Sơn Trà dưới 3 tỷ" aria-label="Tìm sản phẩm" aria-controls="srchPanel" aria-expanded="false" enterkeyhint="search"><button type="button" class="srch-x" id="srchX" aria-label="Xóa nội dung" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></label>
             <label class="srch-prov"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" fill="#f5b70a"/><circle cx="12" cy="10" r="2.6" fill="#fff"/></svg><select id="srchProv" aria-label="Tỉnh/thành"><option value="">Toàn quốc</option><option value="Đà Nẵng">Đà Nẵng</option><option value="Huế">Huế</option></select></label>
             <button type="submit" class="btn btn-primary srch-go">Tìm kiếm</button>
           </form>
           <div class="srch-panel" id="srchPanel" role="listbox" hidden></div></div>
+          <p class="srch-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 1.8Q11.2 9.8 19.2 11Q11.2 12.2 10 20.2Q8.8 12.2 .8 11Q8.8 9.8 10 1.8Z" fill="url(#aiG2)"/><path d="M19 15.2Q19.5 18.5 22.8 19Q19.5 19.5 19 22.8Q18.5 19.5 15.2 19Q18.5 18.5 19 15.2Z" fill="url(#aiG2)"/><defs><linearGradient id="aiG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a7a"/><stop offset=".5" stop-color="#e11d2a"/><stop offset="1" stop-color="#9f0d18"/></linearGradient></defs></svg><span>Tìm kiếm thông minh: gõ không dấu, sai chính tả vẫn hiểu loại hình, khu vực và mức giá bạn cần.</span></p>
         </div>
+        <h1><span>Bydeso</span> - DỊCH VỤ <em class="h1-grad">BẤT&nbsp;ĐỘNG&nbsp;SẢN THÔNG&nbsp;MINH</em></h1>
+        <p class="lead">Bydeso định hướng mong muốn triển khai đồng loạt trên nhiều tỉnh/thành phố, trước mắt chúng tôi đang dần hoàn thiện tốt hơn và tập trung phát triển thí điểm tại thị trường Đà Nẵng.</p>
         <div class="hero-cta">
-          <button type="button" class="btn btn-ghost" id="priceBtn" aria-haspopup="dialog" aria-controls="priceModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5h.01M18 14.5h.01"/></svg><span id="priceLbl">Chọn mức giá</span></button>
-          <button type="button" hidden class="btn btn-ghost" id="provBtn" aria-haspopup="dialog" aria-controls="provModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>Tỉnh/thành bạn quan tâm</button>
+          <button type="button" class="btn btn-primary" id="priceBtn" aria-haspopup="dialog" aria-controls="priceModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5h.01M18 14.5h.01"/></svg><span id="priceLbl">Chọn mức giá</span></button>
+          <button type="button" class="btn btn-ghost" id="provBtn" aria-haspopup="dialog" aria-controls="provModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>Tỉnh/thành bạn quan tâm</button>
         </div>
       </div>
 
