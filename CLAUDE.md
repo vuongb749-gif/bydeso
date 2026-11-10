@@ -30,6 +30,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - `#phan-mem` mới là ví dụ minh họa, ghi rõ "Sắp triển khai". Không tự viết đối tác, nhận xét khách hàng, chính sách hỗ trợ khi chủ trang chưa gửi.
 
 - Trang dự án `#da/<slug>`: hàm `render` trong `index.html`, CSS trong khối `/* ===== PD ===== */`. Thứ tự: ảnh và nút chính, thanh mục dính `.pd-nav`, ô số liệu, chọn loại căn sáng trên mặt bằng, mẫu căn 3D, vị trí, liên hệ. Không dùng thẻ `<header>` trong nội dung vì CSS của trang làm nó dính lên đầu màn hình. Hiệu ứng hiện dần và đếm số chạy cả khi máy tắt hiệu ứng, vì máy chủ trang đang tắt.
+- Nút "Một số căn hộ có sẵn" (`.pd-avail`, chỉ dự án có sa bàn) mở mục ẩn `#pd-co`: 9 căn còn hàng trải đều theo tầng và loại, căn có dữ liệu thật đứng đầu, lọc theo loại căn, thẻ căn dùng `bydesoFeed.card` nên bấm vào mở trang chi tiết `#sp/`.
 - Mục `#pd-yk` "Ý kiến về dự án": khách gửi qua form, về Google Sheet với Loại yêu cầu "Ý kiến về dự án". Chủ trang duyệt rồi mới thêm vào `OPINIONS` trong `index.html`. Chỉ đăng ý kiến thật, không viết thay khách, đăng cả khen lẫn chê như trang đã ghi.
 
 - Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.

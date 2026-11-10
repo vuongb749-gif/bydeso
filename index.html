@@ -933,6 +933,11 @@ button.pd-t:focus-visible,a.pd-t:focus-visible{outline:2px solid var(--pd-ink);o
 .pd-close p{margin:0;font-size:16px;line-height:1.55;color:#3f3a28;max-width:44ch}
 .pd-cbtn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .pd-cbtn .w{grid-column:1/3}
+.pd-co[hidden]{display:none}
+.pd-co-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+.pd-co-chips button{min-height:44px;padding:0 18px;border:1px solid var(--border);border-radius:999px;background:#fff;color:#141414;font:inherit;font-size:15px;font-weight:600;cursor:pointer}
+.pd-co-chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.pd-co-foot{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .pd-yk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;margin-top:22px;align-items:start}
 .pd-yk-list{display:grid;gap:12px}
 .pd-yk-empty{margin:0;padding:22px;border:1px solid var(--border);border-radius:16px;color:var(--muted);font-size:16px;line-height:1.55}
@@ -2420,8 +2425,9 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
         '<div class="pd-hero"><div class="pd-img"><img src="'+cover+'" alt="'+L('Phối cảnh dự án ','Perspective of ')+esc(x.n)+'"></div>'+
           '<aside class="pd-act"><h2>'+(has3d?L('Xem từng căn trên sa bàn 3D','See every unit on the 3D model'):L('Nhận thông tin dự án','Get the project details'))+'</h2><p>'+(has3d?L('Bấm vào từng căn để xem giá, diện tích, hướng và tình trạng.','Click any unit to see its price, area, view and availability.'):L('Liên hệ Bydeso để nhận bảng hàng và tình trạng căn mới nhất.','Contact Bydeso for the latest availability.'))+'</p>'+
             (has3d?open3d('pd-dark pd-shine',L('Mở sa bàn 3D, chọn căn','Open the 3D model to pick a unit')):adv('pd-dark pd-shine'))+
-            '<div class="pd-row2">'+call('pd-white')+zalo('pd-white')+'</div>'+(has3d?adv('pd-white'):'')+'<div class="pd-keep"></div></aside></div>'+
+            (has3d?'<button type="button" class="pd-btn pd-white pd-avail" aria-controls="pd-co" aria-expanded="false"><span>'+L('Một số căn hộ có sẵn','Available units')+'</span>'+GO+'</button>':'')+'<div class="pd-row2">'+call('pd-white')+zalo('pd-white')+'</div>'+(has3d?adv('pd-white'):'')+'<div class="pd-keep"></div></aside></div>'+
         '<nav class="pd-nav" aria-label="'+L('Các phần của trang','Page sections')+'">'+nav.map(([id,t])=>'<button type="button" data-j="'+id+'">'+t+'</button>').join('')+'<i class="pd-ind"></i></nav>'+
+        (has3d?'<section class="pd-sec pd-co" id="pd-co" hidden><h2 class="t">'+L('Một số căn hộ có sẵn','Available units')+'</h2><p class="s">'+L('Bydeso phân phối trực tiếp tại dự án. Bấm vào một căn để xem diện tích, hướng, giá và gửi yêu cầu giữ chỗ.','Sold directly by Bydeso. Open a unit to see its area, orientation and price, and to request a reservation.')+'</p><div class="pd-co-chips" role="group" aria-label="'+L('Lọc theo loại căn','Filter by unit type')+'"></div><div class="proj-grid pd-co-grid"></div><div class="pd-co-foot">'+open3d('pd-dark',L('Xem tất cả căn trên sa bàn 3D','See every unit on the 3D model'))+'<button type="button" class="pd-btn pd-white pd-co-x"><span>'+L('Thu gọn danh sách','Hide the list')+'</span></button></div><p class="pd-fine">'+L('Giá và tình trạng căn đang là minh họa, riêng căn CH-0301 là dữ liệu thật. Liên hệ Bydeso để nhận bảng hàng mới nhất.','Prices and availability are illustrative, except unit CH-0301. Contact Bydeso for the latest price list.')+'</p></section>':'')+
         '<section class="pd-sec" id="pd-tq"><h2 class="t pd-r">'+L('Dự án trong một cái nhìn','The project at a glance')+'</h2><div class="pd-bento">'+bento+'</div>'+(has3d?'':'<p class="s" style="margin-top:14px">'+L('Layout căn hộ, mặt bằng và sa bàn 3D của dự án đang được cập nhật.','Unit layouts, floor plans and the 3D model are being updated.')+'</p>')+'</section>'+
         (tl.length?'<section class="pd-sec" id="pd-loai"><div class="pd-band pd-types pd-r"><div><h2 class="t">'+L('Chọn loại căn, thấy ngay vị trí trên mặt bằng','Pick a unit type, see where it sits on the floor')+'</h2><p class="s">'+L('Diện tích thông thủy theo Salekit dự án.','Net area from the project sales kit.')+'</p><div class="pd-tlist">'+
           tl.map(t=>'<button type="button" class="pd-type" data-t="'+t.t+'" aria-pressed="false" style="--w:'+(t.hi/maxA).toFixed(3)+'"><b>'+esc(E?TYPE_EN[t.t]:t.t)+'</b><span>'+num(t.lo)+(t.hi>t.lo?' – '+num(t.hi):'')+' m²</span><em>'+t.n+L(' căn mỗi tầng điển hình',' units per typical floor')+'</em><i></i></button>').join('')+
@@ -2454,6 +2460,17 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
       const navEl=root.querySelector('.pd-nav'), ind=root.querySelector('.pd-ind'), navB=$$r('.pd-nav button'), hdH=()=>{const e=document.querySelector('header');return e?e.offsetHeight:68}, calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
       const jump=id=>{const s=root.querySelector('#'+id);if(s)window.scrollTo({top:s.getBoundingClientRect().top+scrollY-hdH()-navEl.offsetHeight-14,behavior:calm()?'instant':'smooth'})};
       $$r('[data-j]').forEach(b=>b.onclick=()=>jump(b.dataset.j));
+      // căn có sẵn: căn mẫu trải đều theo tầng, căn có dữ liệu thật đứng đầu
+      const coB=root.querySelector('.pd-avail'), co=root.querySelector('#pd-co');
+      if(coB&&co){const FD=window.bydesoFeed, av=FD.items.filter(it=>it.pj===x.n&&it.d3.status==='ok'), chipsEl=co.querySelector('.pd-co-chips'), grid=co.querySelector('.pd-co-grid');
+        const spread=(a,n)=>{a=[...a].sort((p,q)=>p.d3.floor-q.d3.floor||p.d3.idx-q.d3.idx);return a.length<=n?a:Array.from({length:n},(_,i)=>a[Math.floor((i+.5)*a.length/n)])};
+        const pick=t=>t?spread(av.filter(it=>it.d3.type===t),6):av.filter(it=>it.d3.real).concat(...['2PN','3PN','1.5PN','Studio'].map(k=>spread(av.filter(it=>it.d3.type===k&&!it.d3.real),2))).slice(0,9);
+        const kinds=[['',L('Tất cả','All')]].concat(['Studio','1.5PN','2PN','3PN'].filter(t=>av.some(it=>it.d3.type===t)).map(t=>[t,E?TYPE_EN[t]:t]));
+        chipsEl.innerHTML=kinds.map(([t,n])=>'<button type="button" data-t="'+t+'" aria-pressed="'+(t?'false':'true')+'">'+esc(n)+'</button>').join('');
+        const show=t=>{grid.replaceChildren(...pick(t).map(FD.card));chipsEl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)))};
+        chipsEl.onclick=e=>{const b=e.target.closest('button');if(b)show(b.dataset.t)};
+        coB.onclick=()=>{if(co.hidden){show('');co.hidden=false;coB.setAttribute('aria-expanded','true')}jump('pd-co')};
+        co.querySelector('.pd-co-x').onclick=()=>{co.hidden=true;coB.setAttribute('aria-expanded','false');window.scrollTo({top:0,behavior:calm()?'instant':'smooth'})}}
       let on=-1;const mark=i=>{if(i===on&&ind.dataset.w)return;on=i;navB.forEach((b,k)=>{b.classList.toggle('on',k===i);if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});const b=navB[i];ind.dataset.w=b.offsetWidth;ind.style.transform='translateX('+b.offsetLeft+'px) scaleX('+(b.offsetWidth/100)+')';if(navEl.scrollWidth>navEl.clientWidth)navEl.scrollTo({left:b.offsetLeft-40,behavior:'smooth'})};
       spy=force=>{if(!root.offsetHeight||!navB.length)return;if(force===true)delete ind.dataset.w;const line=hdH()+navEl.offsetHeight+innerHeight*.3;let c=0;navB.forEach((b,i)=>{const s=root.querySelector('#'+b.dataset.j);if(s&&s.getBoundingClientRect().top<=line)c=i});if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)c=navB.length-1;mark(c)};
       spy();
