@@ -933,6 +933,23 @@ button.pd-t:focus-visible,a.pd-t:focus-visible{outline:2px solid var(--pd-ink);o
 .pd-close p{margin:0;font-size:16px;line-height:1.55;color:#3f3a28;max-width:44ch}
 .pd-cbtn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .pd-cbtn .w{grid-column:1/3}
+.pd-yk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;margin-top:22px;align-items:start}
+.pd-yk-list{display:grid;gap:12px}
+.pd-yk-empty{margin:0;padding:22px;border:1px solid var(--border);border-radius:16px;color:var(--muted);font-size:16px;line-height:1.55}
+.pd-yk-item{margin:0;padding:18px 20px;border:1px solid var(--border);border-radius:16px;background:#fff}
+.pd-yk-item blockquote{margin:0;font-size:16px;line-height:1.55}
+.pd-yk-item figcaption{margin-top:10px;font-size:13.5px;color:var(--muted)}
+.pd-yk-item figcaption b{color:var(--text)}
+.pd-yk-form{display:grid;gap:13px;padding:22px;border-radius:16px;background:#f5f5f3}
+.pd-yk-form h3{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.pd-yk-form label:not(.consent){display:grid;gap:5px}
+.pd-yk-form label:not(.consent)>span{font-size:14px;font-weight:600}
+.pd-yk-form input:not([type=checkbox]),.pd-yk-form select,.pd-yk-form textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid rgba(20,20,20,.2);border-radius:11px;background:#fff;color:#141414;font:inherit;font-size:16px}
+.pd-yk-form textarea{resize:vertical;line-height:1.5}
+.pd-yk-form :is(input,select,textarea):focus-visible{outline:2px solid #141414;outline-offset:1px}
+.pd-yk-err{margin:0;color:var(--son);font-size:14px;font-weight:600}
+.pd-yk-ok{margin:0;padding:22px;border-radius:16px;background:#f5f5f3;font-size:16px;font-weight:600;line-height:1.5}
+@media (max-width:760px){.pd-yk{grid-template-columns:1fr}}
 .pd-fine{margin:18px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
 .pd-dock{display:none}
 .pd-r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
@@ -2335,6 +2352,8 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
     const PLANS={'The Camellia Sơn Trà':[['ch-03','CH-xx03',89.3,100],['ch-11','CH-xx11',88.7,97.9],['ch-19','CH-xx19',103.6,114.8],['ch-20','CH-xx20',84.2,93.7]]};
     const TYPE_EN={'Studio':'Studio','1.5PN':'1.5BR','2PN':'2BR','3PN':'3BR'};
     // Vị trí dự án: tọa độ lấy từ link Google Maps của chủ trang; mở bản đồ bằng tọa độ để điện thoại luôn có ghim
+    // Ý kiến khách đã duyệt: {n:'Tên',r:'Vai trò',d:'11/2026',t:'Nội dung'}. Chỉ thêm ý kiến thật lấy từ Google Sheet, không viết thay khách.
+    const OPINIONS={'The Camellia Sơn Trà':[]};
     const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536}};
     // bản đồ tĩnh: ghép vài ô ảnh OpenStreetMap quanh điểm, không tải thư viện bản đồ
     function mapTiles(lat,lng,z){
@@ -2380,6 +2399,7 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
       if(tl.length)nav.push(['pd-loai',L('Loại căn','Unit types')]);
       if(plans.length)nav.push(['pd-mau',L('Mẫu căn 3D','3D layouts')]);
       if(mp)nav.push(['pd-vt',L('Vị trí','Location')]);
+      nav.push(['pd-yk',L('Ý kiến','Opinions')]);
       nav.push(['pd-lh',L('Liên hệ','Contact')]);
       const gm=mp?'https://www.google.com/maps/search/?api=1&query='+mp.lat+'%2C'+mp.lng:'', gd=mp?'https://www.google.com/maps/dir/?api=1&destination='+mp.lat+'%2C'+mp.lng:'';
       const open3d=(c,t)=>'<button type="button" class="pd-btn '+c+' pj-open3d"><span>'+t+'</span>'+GO+'</button>';
@@ -2410,6 +2430,9 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
           plans.map(([k,c,a,g])=>'<button type="button" class="pd-m" data-k="'+k+'" aria-pressed="false"><span><b>'+c+'</b><small>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</small></span>'+GO+'</button>').join('')+'</div></div></section>':'')+
         (mp?'<section class="pd-sec" id="pd-vt"><div class="pd-loc pd-r"><div class="pd-linfo"><h2 class="t">'+L('Vị trí dự án','Location')+'</h2><address>'+esc(addr)+'</address><a class="pd-btn pd-dark" href="'+gm+'" target="_blank" rel="noopener"><span>'+L('Mở Google Maps','Open Google Maps')+'</span>'+GO+'</a><div class="pd-row2"><a class="pd-btn pd-white" href="'+gd+'" target="_blank" rel="noopener"><span>'+L('Chỉ đường','Directions')+'</span></a><button type="button" class="pd-btn pd-white pd-copy"><span>'+L('Sao chép địa chỉ','Copy address')+'</span></button></div></div>'+
           '<a class="pd-map" href="'+gm+'" target="_blank" rel="noopener" aria-label="'+L('Xem vị trí ','See the location of ')+esc(x.n)+L(' trên Google Maps',' on Google Maps')+'">'+mapTiles(mp.lat,mp.lng,16)+'<i class="ring"></i><svg class="pin" viewBox="0 0 38 48" aria-hidden="true"><path d="M19 47C19 47 2 29.5 2 18.5a17 17 0 0 1 34 0C36 29.5 19 47 19 47z" fill="var(--accent)" stroke="#141414" stroke-width="2"/><circle cx="19" cy="18" r="6.5" fill="#141414"/></svg><span class="hint">'+L('Bấm để mở Google Maps','Tap to open Google Maps')+'</span><span class="attr">© OpenStreetMap</span></a></div></section>':'')+
+        '<section class="pd-sec" id="pd-yk"><div class="pd-r"><h2 class="t">'+L('Ý kiến về dự án','Opinions on this project')+'</h2><p class="s">'+L('Bydeso đọc từng ý kiến trước khi đăng, cả khen lẫn chê, và chỉ loại nội dung quảng cáo hoặc xúc phạm.','Bydeso reads every opinion before publishing, positive or negative, and only removes ads or abuse.')+'</p></div><div class="pd-yk pd-r"><div class="pd-yk-list">'+
+          ((OPINIONS[x.n]||[]).length?OPINIONS[x.n].map(o=>'<figure class="pd-yk-item"><blockquote>'+esc(o.t)+'</blockquote><figcaption><b>'+esc(o.n)+'</b> · '+esc(o.r)+' · '+esc(o.d)+'</figcaption></figure>').join(''):'<p class="pd-yk-empty">'+L('Chưa có ý kiến nào được đăng. Bạn có thể là người đầu tiên chia sẻ.','No opinions published yet. You could be the first to share.')+'</p>')+
+          '</div><form class="pd-yk-form" novalidate><h3>'+L('Gửi ý kiến của bạn','Share your opinion')+'</h3><label><span>'+L('Bạn là','You are')+'</span><select name="vt">'+[["Đang tìm hiểu dự án","Researching the project"],["Đã đi xem dự án","Visited the project"],["Đã đặt mua","Reserved or bought"],["Môi giới","Broker"],["Sống gần khu vực","Living nearby"]].map(([v,en])=>'<option value="'+v+'">'+L(v,en)+'</option>').join('')+'</select></label><label><span>'+L('Tên hiển thị','Display name')+'</span><input name="ten" maxlength="60" autocomplete="name"></label><label><span>'+L('Số điện thoại (không đăng công khai)','Phone (never published)')+'</span><input name="sdt" type="tel" inputmode="tel" autocomplete="tel"></label><label><span>'+L('Ý kiến, tối đa 260 ký tự','Your opinion, up to 260 characters')+'</span><textarea name="yk" rows="4" maxlength="260"></textarea></label><label class="consent"><input type="checkbox" name="dy"><span>'+L('Tôi đồng ý để Bydeso lưu số điện thoại này và đăng tên hiển thị cùng ý kiến lên trang dự án, theo <a href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Chính sách bảo mật</a>.','I agree that Bydeso may store this number and publish my display name and opinion on this page, under the <a href="chinh-sach-bao-mat.html" target="_blank" rel="noopener">Privacy Policy</a>.')+'</span></label><p class="pd-yk-err" role="alert" hidden></p><button type="submit" class="pd-btn pd-dark"><span>'+L('Gửi ý kiến','Send opinion')+'</span></button></form><p class="pd-yk-ok" role="status" hidden>'+L('Cảm ơn bạn. Bydeso sẽ đọc ý kiến của bạn trước khi đăng lên trang.','Thank you. Bydeso will read your opinion before publishing it.')+'</p></div></section>'+
         '<section class="pd-sec" id="pd-lh"><div class="pd-close pd-r"><div class="cta-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><h2>'+L('Cần người tư vấn cho dự án này?','Want someone to advise you on this project?')+'</h2><p>'+L('Gọi trực tiếp, nhắn Zalo hoặc để lại số điện thoại, Bydeso sẽ liên hệ với bạn.','Call, message on Zalo or leave your number and Bydeso will contact you.')+'</p></div><div class="pd-cbtn">'+adv('pd-dark w')+call('pd-white')+zalo('pd-white')+'</div></div>'+
           '<p class="pd-fine">'+L('Thông tin quy mô theo công bố của dự án; loại căn, diện tích và layout theo Salekit. Hình 3D là minh họa, nội thất mang tính tương đối.','Scale as published by the project; unit types, areas and layouts from the sales kit. 3D images are illustrative.')+'</p></section>'+
         '<div class="pd-dock">'+call('pd-white',L('Gọi','Call'))+zalo('pd-white')+(has3d?open3d('pd-dark',L('Sa bàn 3D','3D model')):adv('pd-dark'))+'</div>';
@@ -2417,6 +2440,15 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
       root.querySelector('[data-go="home"]').onclick=()=>goHome();
       $$r('.pj-adv').forEach(a=>a.onclick=e=>{e.preventDefault();goHome(true)});
       $$r('.pj-open3d').forEach(b=>b.onclick=()=>window.bydeso3D.open(x.n));
+      // gửi ý kiến về Google Sheet, chủ trang duyệt rồi mới thêm vào OPINIONS
+      const ykF=root.querySelector('.pd-yk-form');
+      ykF.onsubmit=e=>{e.preventDefault();const g=n=>ykF.elements[n],er=ykF.querySelector('.pd-yk-err'),bad=(m,f)=>{er.textContent=m;er.hidden=false;f.focus()},name=g('ten').value.trim(),phone=g('sdt').value.replace(/[\s.\-]/g,''),text=g('yk').value.trim();
+        if(name.length<2)return bad(L('Vui lòng nhập tên hiển thị.','Please enter a display name.'),g('ten'));
+        if(!/^(\+?84|0)\d{9,10}$/.test(phone))return bad(L('Vui lòng nhập đúng số điện thoại (VD: 0905 123 456).','Please enter a valid phone number (e.g. 0905 123 456).'),g('sdt'));
+        if(text.length<10)return bad(L('Ý kiến cần ít nhất 10 ký tự.','Please write at least 10 characters.'),g('yk'));
+        if(!g('dy').checked)return bad(L('Vui lòng tích vào ô đồng ý để gửi.','Please tick the consent box to send.'),g('dy'));
+        er.hidden=true;const btn=ykF.querySelector('button[type=submit]'),lb=btn.querySelector('span'),old=lb.textContent;btn.disabled=true;lb.textContent=L('Đang gửi...','Sending...');
+        window.bydesoSend({loai:'Ý kiến về dự án',hoTen:name,sdt:phone,duAn:x.n,noiDung:'['+g('vt').value+'] '+text,dongY:window.BYDESO_DONG_Y}).then(ok=>{btn.disabled=false;lb.textContent=old;if(!ok)return bad(L('Chưa gửi được ý kiến. Vui lòng thử lại.','Your opinion could not be sent. Please try again.'),btn);ykF.style.display='none';const m=root.querySelector('.pd-yk-ok');m.hidden=false})};
       root.querySelector('.pd-keep').append(window.bydesoFollow.button(x.n),window.bydesoSaved.button('projects',x.n,x.n));
       // thanh mục dính: bấm để nhảy, gạch chân trượt theo phần đang xem
       const navEl=root.querySelector('.pd-nav'), ind=root.querySelector('.pd-ind'), navB=$$r('.pd-nav button'), hdH=()=>{const e=document.querySelector('header');return e?e.offsetHeight:68}, calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
