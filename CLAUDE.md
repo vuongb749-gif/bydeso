@@ -27,6 +27,8 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - `sa-ban-xoay/`: 48 khung `fNN.webp` và `floor.webp` chụp từ `camellia-3d.html`. Đổi mô hình thì phải chụp lại.
 - `#phan-mem` mới là ví dụ minh họa, ghi rõ "Sắp triển khai". Không tự viết đối tác, nhận xét khách hàng, chính sách hỗ trợ khi chủ trang chưa gửi.
 
+- Trang dự án `#da/<slug>`: hàm `render` trong `index.html`, CSS trong khối `/* ===== PD ===== */`. Thứ tự: ảnh và nút chính, thanh mục dính `.pd-nav`, ô số liệu, chọn loại căn sáng trên mặt bằng, mẫu căn 3D, vị trí, liên hệ. Không dùng thẻ `<header>` trong nội dung vì CSS của trang làm nó dính lên đầu màn hình. Hiệu ứng hiện dần và đếm số chạy cả khi máy tắt hiệu ứng, vì máy chủ trang đang tắt.
+
 ## Đường dẫn trong trang (hash)
 `#du-an` danh sách dự án · `#da/<slug>` trang thông tin dự án · `#3d/<slug>` sa bàn · `#sp/<id>` trang căn · `#da-luu`, `#quan-tam`.
 Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(n)`), `window.bydeso3D` (`has`, `hash`, `open`, `stats`...), `window.bydesoFeed`, `window.bydesoDetail`.
@@ -36,7 +38,7 @@ Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(
 2. **Dữ liệu căn**: tạo file kiểu `camellia-units.js` từ Salekit: số tầng, các căn của tầng điển hình (`slots` theo mét), loại căn, diện tích thông thủy và tim tường, hướng.
 3. **Sa bàn**: sao chép `camellia-3d.html`, đổi hình khối (`slots`, `cores`, `slabs`) và file dữ liệu, rồi đăng ký trong `window.bydeso3D` ở `index.html`.
 4. **Trang dự án**: thêm các mẫu căn vào `PLANS` trong `index.html` (`[khóa, mã căn, DT thông thủy, DT tim tường]`).
-   Vị trí: thêm vào `MAPS` (`lat`, `lng`, `url` = link Google Maps chủ trang gửi). Lấy tọa độ bằng `curl -sI <link maps.app.goo.gl>` rồi đọc `@lat,lng` trong dòng Location. Khối "Vị trí dự án" vẽ bản đồ tĩnh từ ô ảnh OpenStreetMap (không dùng thư viện), bấm vào mở thẳng Google Maps ở tab mới.
+   Vị trí: thêm vào `MAPS` (`lat`, `lng`). Lấy tọa độ bằng `curl -sI <link maps.app.goo.gl>` rồi đọc `@lat,lng` trong dòng Location. Không dùng thẳng link rút gọn đó: nó để trống tên địa điểm nên điện thoại mở ra không có thông tin; trang mở Google Maps bằng tọa độ. Khối "Vị trí" vẽ bản đồ tĩnh từ ô ảnh OpenStreetMap (không dùng thư viện).
 5. **3D từng mẫu căn** trong `can-3d.html`:
    - thêm vào `METAS` (rộng `w`, sâu `d` theo mét, mã, diện tích);
    - viết hàm `planXX()` dùng `draft(ox, oy, k)`: đổi tọa độ pixel trên ảnh layout ra mét (`k` = số pixel mỗi mét). Có sẵn:

@@ -794,6 +794,170 @@
     .fgrid{grid-template-columns:1fr}
     .nav-right .btn-primary{padding:10px 14px;font-size:14px}
   }
+/* ===== PD: trang thông tin dự án ===== */
+#pjRoot{--pd-y:#fde47f;--pd-deep:#f6c94f;--pd-cream:#fff6d6;--pd-ink:#141414;--pd-line:rgba(20,20,20,.1)}
+.pd-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px}
+.pd-top .dt-crumb{margin:0}
+.pd-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 40px;margin:16px 0 20px}
+.pd-head h1{font-size:clamp(34px,6vw,76px);font-weight:800;line-height:1.04;letter-spacing:-.035em;margin:10px 0 0}
+.pd-where{display:flex;align-items:flex-start;gap:6px;max-width:320px;padding-bottom:8px;color:var(--muted);font-size:15.5px;font-weight:600;line-height:1.4}
+.pd-where svg{flex:none;width:18px;height:18px;margin-top:2px}
+.pd-hero{display:grid;grid-template-columns:minmax(0,1fr) 372px;align-items:end}
+.pd-img{grid-area:1/1/2/3;height:min(66vh,600px);margin-right:150px;border-radius:26px;overflow:hidden;background:#e9e5dc}
+.pd-img img{display:block;width:100%;height:100%;object-fit:cover;animation:pdZoom 16s ease-out both}
+@keyframes pdZoom{from{transform:scale(1.09)}to{transform:none}}
+.pd-act{grid-area:1/2/2/3;position:relative;z-index:2;display:flex;flex-direction:column;gap:11px;margin-bottom:34px;padding:24px;background:var(--pd-y);border-radius:22px;box-shadow:0 24px 50px -22px rgba(90,62,0,.55)}
+.pd-act h2{font-size:25px;font-weight:800;line-height:1.2;letter-spacing:-.02em;margin:0}
+.pd-act p{margin:0;font-size:14.5px;line-height:1.5;color:#3f3a28}
+.pd-row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pd-keep{display:flex;gap:9px;align-items:center}
+.pd-keep .fl-btn{flex:1}
+.pd-keep .save-tg{position:static;flex:none;box-shadow:none;border:1px solid var(--pd-line)}
+.pd-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 18px;border:1px solid var(--pd-ink);border-radius:13px;overflow:hidden;font:inherit;font-size:15px;font-weight:700;line-height:1.2;text-align:center;text-decoration:none;cursor:pointer;transition:color .28s,transform .16s,border-color .28s}
+.pd-btn::before{content:"";position:absolute;inset:-1px;z-index:-1;transform:translateX(-102%);transition:transform .34s cubic-bezier(.3,.7,.2,1)}
+.pd-btn[hidden]{display:none}
+.pd-btn:focus-visible::before{transform:none}
+@media (hover:hover){.pd-btn:hover::before{transform:none}}
+.pd-btn:active{transform:scale(.965)}
+.pd-btn:focus-visible{outline:2px solid var(--pd-ink);outline-offset:2px}
+.pd-btn svg{flex:none;width:17px;height:17px;transition:transform .28s}
+.pd-btn:hover svg.go{transform:translateX(4px)}
+.pd-dark{background:var(--pd-ink);color:#fff}
+.pd-dark::before{background:var(--pd-deep)}
+.pd-dark:focus-visible{color:var(--pd-ink)}
+@media (hover:hover){.pd-dark:hover{color:var(--pd-ink)}}
+.pd-white{background:#fff;color:var(--pd-ink);border-color:rgba(20,20,20,.22)}
+.pd-white::before{background:var(--pd-y)}
+.pd-white:hover{border-color:var(--pd-ink)}
+.pd-shine::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:46px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);transform:translateX(-90px) skewX(-18deg);animation:pdShine 4.6s ease-in-out infinite}
+@keyframes pdShine{0%,62%{transform:translateX(-90px) skewX(-18deg)}100%{transform:translateX(440px) skewX(-18deg)}}
+.pd-nav{position:sticky;top:var(--hd,68px);z-index:20;display:flex;gap:4px;margin-top:26px;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.pd-nav::-webkit-scrollbar{display:none}
+.pd-nav button{flex:none;padding:15px 16px;background:none;border:0;font:inherit;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;transition:color .25s}
+.pd-nav button:hover,.pd-nav button.on{color:var(--text)}
+.pd-nav button:focus-visible{outline:2px solid var(--pd-ink);outline-offset:-2px}
+.pd-ind{position:absolute;left:0;bottom:0;width:100px;height:3px;background:var(--pd-ink);transform-origin:0 0;transition:transform .36s cubic-bezier(.3,.7,.2,1)}
+.pd-sec{margin-top:56px;padding:0}
+.pd-sec h2.t{font-size:clamp(27px,3.6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin:0 0 8px;text-wrap:balance}
+.pd-sec p.s{margin:0;max-width:52ch;color:var(--muted);font-size:16px;line-height:1.55;text-wrap:pretty}
+.pd-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:minmax(158px,auto);grid-auto-flow:dense;gap:14px;margin-top:22px}
+.pd-t{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:12px;grid-column:span 2;min-width:0;padding:22px;border:1px solid var(--pd-line);border-radius:22px;overflow:hidden;background:#fff;color:var(--pd-ink);font:inherit;text-align:left;text-decoration:none;transition:transform .3s cubic-bezier(.3,.7,.2,1),box-shadow .3s}
+button.pd-t,a.pd-t{cursor:pointer}
+button.pd-t:hover,a.pd-t:hover{transform:translateY(-5px);box-shadow:0 18px 36px -18px rgba(60,44,10,.42)}
+button.pd-t:focus-visible,a.pd-t:focus-visible{outline:2px solid var(--pd-ink);outline-offset:2px}
+.pd-t small{font-size:14.5px;font-weight:600;line-height:1.35}
+.pd-t b{font-size:clamp(40px,4.6vw,64px);font-weight:800;line-height:1;letter-spacing:-.04em}
+.pd-t .to{position:absolute;top:18px;right:18px;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--pd-ink);color:var(--pd-y);transition:transform .28s}
+.pd-t .to svg{width:16px;height:16px}
+.pd-t:hover .to{transform:rotate(-45deg)}
+.pd-t.big{grid-row:span 2;background:var(--pd-y);border-color:transparent}
+.pd-t.big b{font-size:clamp(68px,9.4vw,132px)}
+.pd-t.big small{font-size:18px}
+.pd-t.ink{background:var(--pd-ink);color:#fff;border-color:transparent}
+.pd-t.ink b{color:var(--pd-y)}
+.pd-t.cream{background:var(--pd-cream);border-color:transparent}
+.pd-t.txt b{font-size:clamp(20px,1.9vw,25px);line-height:1.25;letter-spacing:-.02em}
+.pd-t.pic{grid-row:span 2;justify-content:flex-end;padding:14px;border-color:transparent;background:#d9d4c6}
+.pd-t.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.pd-t.pic:hover img{transform:scale(1.07)}
+.pd-t.pic span.l{position:relative;align-self:flex-start;display:grid;gap:1px;padding:11px 14px;background:#fff;border-radius:13px;box-shadow:0 8px 22px rgba(20,20,20,.18);font-size:13.5px;font-weight:500}
+.pd-t.pic span.l em{font-size:17px;font-style:normal;font-weight:800}
+.pd-t.half{grid-column:span 3}
+.pd-band{padding:34px;border-radius:28px}
+.pd-types{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1fr);gap:36px;background:var(--pd-cream)}
+.pd-tlist{display:grid;gap:9px;margin-top:20px}
+.pd-type{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;padding:13px 16px 15px;border:1px solid var(--pd-line);border-radius:14px;background:#fff;color:var(--pd-ink);font:inherit;text-align:left;cursor:pointer;overflow:hidden;transition:transform .2s,border-color .25s,background .25s}
+.pd-type:hover{transform:translateX(5px);border-color:var(--pd-ink)}
+.pd-type:focus-visible{outline:2px solid var(--pd-ink);outline-offset:2px}
+.pd-type[aria-pressed="true"]{background:var(--pd-y);border-color:var(--pd-ink)}
+.pd-type b{font-size:18px;font-weight:800}
+.pd-type span{font-size:15px;font-weight:600;align-self:center}
+.pd-type em{grid-column:1/3;font-size:13.5px;font-style:normal;color:#4a4842}
+.pd-type i{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--pd-ink);transform-origin:0 0;transform:scaleX(var(--w));transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+.pd-plan{display:flex;flex-direction:column;gap:12px;padding:22px;background:#fff;border-radius:20px;box-shadow:0 22px 44px -24px rgba(90,62,0,.42)}
+.pd-plan .h{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;color:#8a6100}
+.pd-plan svg{display:block;width:100%;height:auto;max-height:400px}
+.pd-plan rect{fill:#f3f1ea;stroke:#bdbdb4;stroke-width:.18;cursor:pointer;transition:fill .3s,stroke .3s}
+.pd-plan rect.on{fill:var(--pd-y);stroke:var(--pd-ink);stroke-width:.3}
+.pd-plan rect.sel{fill:var(--pd-ink)}
+.pd-read{min-height:44px;font-size:15px;font-weight:600;line-height:1.45}
+.pd-mhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:10px 40px;margin-bottom:20px}
+.pd-models{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:stretch}
+.pd-mstage{position:relative;min-height:440px;border-radius:24px;overflow:hidden;background:#f2f2f2}
+.pd-mstage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:12px;transition:opacity .35s,transform .5s}
+.pd-mstage img.off{opacity:0;transform:scale(1.03)}
+.pd-mstage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.pd-mctl{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;gap:9px;pointer-events:none}
+.pd-mctl .pd-btn{pointer-events:auto}
+.pd-mlist{display:grid;gap:9px}
+.pd-m{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border:1px solid var(--pd-line);border-radius:16px;background:#fff;color:var(--pd-ink);font:inherit;text-align:left;cursor:pointer;transition:background .25s,border-color .25s,transform .2s}
+.pd-m:hover{transform:translateX(-5px);border-color:var(--pd-ink)}
+.pd-m:focus-visible{outline:2px solid var(--pd-ink);outline-offset:2px}
+.pd-m[aria-pressed="true"]{background:var(--pd-ink);color:#fff;border-color:var(--pd-ink)}
+.pd-m b{display:block;font-size:19px;font-weight:800;letter-spacing:-.015em}
+.pd-m small{display:block;margin-top:2px;font-size:13.5px;line-height:1.4;opacity:.78}
+.pd-m svg{flex:none;width:19px;height:19px;transition:transform .25s}
+.pd-m:hover svg{transform:translateX(3px)}
+.pd-m[aria-pressed="true"] svg{color:var(--pd-y)}
+.pd-loc{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:14px}
+.pd-linfo{display:flex;flex-direction:column;gap:10px;padding:26px;border-radius:24px;background:#fff;border:1px solid var(--pd-line)}
+.pd-linfo address{font-style:normal;font-size:18px;font-weight:700;line-height:1.4;margin:6px 0 auto}
+.pd-linfo .pd-btn{width:100%}
+.pd-linfo .pd-note{margin:2px 0 0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.pd-map{position:relative;display:block;min-height:400px;border-radius:24px;overflow:hidden;background:#e9e5dc;isolation:isolate}
+.pd-map img{position:absolute;width:256px;height:256px;max-width:none;user-select:none;pointer-events:none}
+.pd-map .pin{position:absolute;left:50%;top:50%;width:42px;height:54px;margin:-52px 0 0 -21px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));z-index:2}
+.pd-map .ring{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;background:rgba(246,201,79,.55);animation:pdRing 2.4s ease-out infinite;z-index:1}
+@keyframes pdRing{from{transform:scale(.25);opacity:1}to{transform:scale(1.5);opacity:0}}
+.pd-map .hint{position:absolute;left:14px;top:14px;z-index:2;padding:9px 13px;background:#fff;border-radius:11px;box-shadow:0 6px 18px rgba(20,20,20,.18);font-size:13.5px;font-weight:700;color:var(--pd-ink);transition:background .25s}
+.pd-map:hover .hint{background:var(--pd-y)}
+.pd-map .attr{position:absolute;right:0;bottom:0;z-index:2;padding:2px 6px;background:rgba(255,255,255,.82);color:#333;font-size:11px;border-top-left-radius:6px}
+.pd-close{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:center;padding:44px 40px;background:var(--pd-y);border-radius:28px}
+.pd-close>div:not(.cta-fx){position:relative}
+.pd-close h2{font-size:clamp(27px,3.6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin:0 0 8px;text-wrap:balance}
+.pd-close p{margin:0;font-size:16px;line-height:1.55;color:#3f3a28;max-width:44ch}
+.pd-cbtn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pd-cbtn .w{grid-column:1/3}
+.pd-fine{margin:18px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
+.pd-dock{display:none}
+.pd-r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.pd-r.in{opacity:1;transform:none}
+.pd-t.pd-r.in{transition:transform .3s cubic-bezier(.3,.7,.2,1),box-shadow .3s,opacity .6s ease}
+@media (max-width:980px){
+  .pd-hero{grid-template-columns:minmax(0,1fr)}
+  .pd-img{grid-area:auto;height:58vw;min-height:230px;max-height:480px;margin:0}
+  .pd-act{grid-area:auto;margin:-26px 12px 0}
+  .pd-types,.pd-models,.pd-loc,.pd-close{grid-template-columns:minmax(0,1fr)}
+  .pd-bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(132px,auto)}
+  .pd-t{grid-column:span 1}
+  .pd-t.big,.pd-t.pic,.pd-t.half{grid-column:span 2}
+  .pd-t.big{grid-row:span 1}
+  .pd-t.pic{grid-row:span 1;min-height:210px}
+  .pd-mstage{min-height:0;aspect-ratio:4/3;order:2}
+  .pd-mlist{order:1;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pd-m{padding:12px 13px}
+  .pd-m b{font-size:16px}
+  .pd-m small{font-size:12px}
+  .pd-m svg{display:none}
+  .pd-map{min-height:260px;order:-1}
+}
+@media (max-width:760px){
+  #pjRoot{padding-bottom:76px}
+  .pd-head{margin:10px 0 14px}
+  .pd-where{font-size:14.5px;padding:0}
+  .pd-nav{margin-top:18px}
+  .pd-nav button{padding:12px 11px;font-size:14px}
+  .pd-sec{margin-top:40px}
+  .pd-band{padding:22px 18px;border-radius:22px}
+  .pd-close{padding:28px 20px;border-radius:22px}
+  .pd-t{padding:17px;border-radius:18px}
+  .pd-t.txt b{font-size:18px}
+  .pd-t.big b{font-size:76px}
+  .pd-dock{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:7px;padding:9px 12px max(9px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--border);box-shadow:0 -8px 22px rgba(20,20,20,.08)}
+  .pd-dock .pd-btn{min-height:46px;padding:8px 6px;font-size:14px}
+  .pd-row2 .pd-btn,.pd-cbtn .pd-btn{padding:12px 8px}
+}
+/* ===== /PD ===== */
 /* ===== SX ===== */
 /* Hiệu ứng cuộn của trang chủ: dùng lại màu và chữ của index.html */
 body{overflow-x:clip}
@@ -2087,8 +2251,8 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
     // Mẫu căn 3 phòng ngủ có layout và mô hình 3D (số liệu theo Salekit: diện tích thông thủy, tim tường)
     const PLANS={'The Camellia Sơn Trà':[['ch-03','CH-xx03',89.3,100],['ch-11','CH-xx11',88.7,97.9],['ch-19','CH-xx19',103.6,114.8],['ch-20','CH-xx20',84.2,93.7]]};
     const TYPE_EN={'Studio':'Studio','1.5PN':'1.5BR','2PN':'2BR','3PN':'3BR'};
-    // Vị trí dự án: tọa độ và link Google Maps do chủ đầu tư công khai
-    const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536,url:'https://maps.app.goo.gl/7haw2jTFRanYu8hG7'}};
+    // Vị trí dự án: tọa độ lấy từ link Google Maps của chủ trang; mở bản đồ bằng tọa độ để điện thoại luôn có ghim
+    const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536}};
     // bản đồ tĩnh: ghép vài ô ảnh OpenStreetMap quanh điểm, không tải thư viện bản đồ
     function mapTiles(lat,lng,z){
       const n=2**z,fx=(lng+180)/360*n,r=lat*Math.PI/180,fy=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n;
@@ -2099,22 +2263,12 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
       }
       return h;
     }
-    let gal=[], gi=0, cur=null;
+    let cur=null, io=null, spy=null;
     const find=s=>PJ.projects.find(x=>window.bydeso3D.hash(x.n).slice(3)===s);
 
     function goHome(toForm){
       history.pushState('',document.title,location.pathname+location.search);window.dispatchEvent(new HashChangeEvent('hashchange'));
       if(toForm)setTimeout(()=>{const s=document.getElementById('dang-ky');s&&s.scrollIntoView({behavior:'smooth'});const p=document.getElementById('suPhone');p&&setTimeout(()=>p.focus({preventScroll:true}),450)},80);
-    }
-    function show(i){
-      gi=(i+gal.length)%gal.length; const s=gal[gi], st=root.querySelector('.dt-stage');
-      st.querySelectorAll('img,.dt-cap,.dt-frame').forEach(e=>e.remove());
-      if(s.model){const fr=document.createElement('iframe');fr.className='dt-frame';fr.title=s.cap;fr.src=s.model;st.prepend(fr)}
-      else{const im=document.createElement('img');im.src=s.img;im.alt=s.cap;im.style.cursor='default';st.prepend(im)}
-      const c=document.createElement('span');c.className='dt-cap';c.textContent=s.cap;st.append(c);
-      const ct=st.querySelector('.dt-count');if(ct)ct.textContent=(gi+1)+' / '+gal.length;
-      root.querySelectorAll('.dt-thumbs button').forEach((b,k)=>b.setAttribute('aria-current',String(k===gi)));
-      const fs=root.querySelector('.pj-full');if(fs)fs.hidden=!s.model;
     }
     function full(src,title){
       const w=document.createElement('div');w.className='dt-model';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');
@@ -2129,57 +2283,95 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
       if(!x){root.innerHTML='<a href="#du-an" class="dt-back">'+back+L('Danh sách dự án','All projects')+'</a><p style="margin-top:20px">'+L('Không tìm thấy dự án này. Có thể dự án đã được cập nhật.','This project was not found. It may have been updated.')+'</p>';return}
       cur=x; document.title=x.n+' | Bydeso';
       const has3d=window.bydeso3D.has(x.n), fa=PJ.facts[x.n], mp=MAPS[x.n], plans=PLANS[x.n]||[], cover=(window.BYDESO_PIMG||{})[x.n]||x.img, lang=E?'&lang=en':'';
-      gal=[{img:cover,cap:L('Phối cảnh dự án','Project perspective'),th:L('Phối cảnh','Perspective')}];
-      if(plans.length){
-        plans.forEach(([k,c])=>gal.push({img:'layout/'+k+'-3d.jpg',model:'can-3d.html?embed=1&plan='+k+lang,cap:L('Mô hình 3D căn ','3D model of unit ')+c,th:'3D '+c.slice(-2),plan:k}));
-      }
-      // loại căn theo dữ liệu Salekit đã có: diện tích nhỏ nhất – lớn nhất và số căn trên một tầng điển hình
-      let types='';
-      if(has3d){const U=window.BYDESO_3D.units,typ=Math.max(...U.map(u=>u.floor));const order=['Studio','1.5PN','2PN','3PN'];
-        types=order.filter(t=>U.some(u=>u.type===t)).map(t=>{const a=U.filter(u=>u.type===t).map(u=>u.area),lo=Math.min(...a),hi=Math.max(...a),n=U.filter(u=>u.type===t&&u.floor===typ).length;
-          return '<tr><td>'+esc(E?TYPE_EN[t]:t)+'</td><td>'+num(lo)+(hi>lo?' – '+num(hi):'')+' m²</td><td class="num">'+n+'</td></tr>'}).join('')}
-      const specs=[[L('Vị trí','Location'),(x.a&&x.a!==x.p?x.a+', ':'')+(E?'Da Nang':x.p)],[L('Loại hình','Property type'),x.t.map(t=>E?({'Căn hộ chung cư':'Apartments','BĐS nghỉ dưỡng':'Resort'}[t]||t):t).join(', ')]];
-      if(fa)specs.push([L('Quy mô','Scale'),fa[E?1:0]],[L('Địa điểm','Address'),fa[E?3:2]]);
-      if(has3d)specs.push([L('Căn mỗi tầng điển hình','Units per typical floor'),'22'],[L('Sa bàn 3D','3D model'),L('Đã có, chọn được từng căn','Available, pick any unit')]);
+      const GO="<svg class=\"go\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>", PH="<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z\"/></svg>";
+      const tn=t=>E?({'Căn hộ chung cư':'Apartments','BĐS nghỉ dưỡng':'Resort'}[t]||t):t;
+      const place=(x.a&&x.a!==x.p?x.a+', ':'')+(E?'Da Nang':x.p), addr=(fa?fa[E?3:2]+', ':'')+place;
+      const SL=has3d?window.BYDESO_3D.P.slots:[], FACE={TN:['Tây Nam','Southwest'],'ĐN':['Đông Nam','Southeast'],'ĐB':['Đông Bắc','Northeast'],TB:['Tây Bắc','Northwest'],SAN:['Sân trong','Courtyard']};
+      // loại căn theo dữ liệu Salekit: diện tích nhỏ nhất, lớn nhất và số căn trên tầng điển hình
+      let tl=[];
+      if(has3d){const U=window.BYDESO_3D.units;tl=['Studio','1.5PN','2PN','3PN'].filter(t=>U.some(u=>u.type===t)).map(t=>{const a=U.filter(u=>u.type===t).map(u=>u.area);return {t,lo:Math.min(...a),hi:Math.max(...a),n:SL.filter(s=>s[4]===t).length}})}
+      const maxA=Math.max(1,...tl.map(t=>t.hi));
+      const stats=[];if(fa)fa[E?1:0].split('·').forEach(s=>{const m=s.trim().match(/^(\d+)\s+(.*)$/);if(m)stats.push([+m[1],m[2]])});
+      const big=stats.find(s=>s[0]>=100), floors=stats.find(s=>s[0]<100);
+      const nav=[['pd-tq',L('Tổng quan','Overview')]];
+      if(tl.length)nav.push(['pd-loai',L('Loại căn','Unit types')]);
+      if(plans.length)nav.push(['pd-mau',L('Mẫu căn 3D','3D layouts')]);
+      if(mp)nav.push(['pd-vt',L('Vị trí','Location')]);
+      nav.push(['pd-lh',L('Liên hệ','Contact')]);
+      const gm=mp?'https://www.google.com/maps/search/?api=1&query='+mp.lat+'%2C'+mp.lng:'', gd=mp?'https://www.google.com/maps/dir/?api=1&destination='+mp.lat+'%2C'+mp.lng:'';
+      const open3d=(c,t)=>'<button type="button" class="pd-btn '+c+' pj-open3d"><span>'+t+'</span>'+GO+'</button>';
+      const call=(c,t)=>'<a href="tel:0325982512" class="pd-btn '+c+'">'+PH+'<span>'+(t||L('Gọi hotline','Call hotline'))+'</span></a>', zalo=c=>'<a href="https://zalo.me/0325982512" target="_blank" rel="noopener" class="pd-btn '+c+'"><span>Zalo</span></a>';
+      const adv=c=>'<a href="#dang-ky" class="pd-btn '+c+' pj-adv"><span>'+L('Nhận tư vấn dự án này','Get advice on this project')+'</span>'+GO+'</a>';
+      const tile=(c,d,inner,j)=>j?'<button type="button" class="pd-t '+c+' pd-r" style="--d:'+d+'ms" data-j="'+j+'"><span class="to">'+GO+'</span>'+inner+'</button>':'<div class="pd-t '+c+' pd-r" style="--d:'+d+'ms">'+inner+'</div>';
+      let d=0;const nd=()=>(d+=70);
+      const bento=
+        (big?tile('big',0,'<small>'+esc(big[1])+(floors?L(' trên ',' across ')+floors[0]+' '+esc(floors[1]):'')+'</small><b class="pd-n" data-n="'+big[0]+'">'+big[0]+'</b>'):'')+
+        (has3d?'<button type="button" class="pd-t pic pd-r pj-open3d" style="--d:'+nd()+'ms"><img src="sa-ban-xoay/f06.webp" alt="" loading="lazy"><span class="l"><em>'+L('Sa bàn 3D','3D model')+'</em>'+L('Đã có, chọn được từng căn','Available, pick any unit')+'</span></button>':'')+
+        (has3d?tile('ink',nd(),'<small>'+L('căn mỗi tầng điển hình','units per typical floor')+'</small><b class="pd-n" data-n="'+SL.length+'">'+SL.length+'</b>'):'')+
+        tile('cream txt',nd(),'<small>'+L('Loại hình','Property type')+'</small><b>'+esc(x.t.map(tn).join(', '))+'</b>')+
+        (mp?tile('half txt',nd(),'<small>'+L('Địa điểm','Address')+'</small><b>'+esc(addr)+'</b>','pd-vt'):tile('half txt',nd(),'<small>'+L('Địa điểm','Address')+'</small><b>'+esc(addr)+'</b>'))+
+        (plans.length?tile('half cream',nd(),'<small>'+L('mẫu căn 3 phòng ngủ có mô hình 3D','3-bedroom layouts with a 3D model')+'</small><b class="pd-n" data-n="'+plans.length+'">'+plans.length+'</b>','pd-mau'):'');
       root.innerHTML=
-        '<a href="#du-an" class="dt-back">'+back+L('Danh sách dự án','All projects')+'</a>'+
-        '<nav class="dt-crumb" aria-label="breadcrumb"><button type="button" data-go="home">'+L('Trang chủ','Home')+'</button><span>›</span><a href="#du-an" style="color:inherit">'+L('Dự án','Projects')+'</a><span>›</span><span>'+esc(x.n)+'</span></nav>'+
-        '<div class="dt-grid">'+
-          '<div class="dt-gal"><div class="dt-stage">'+(gal.length>1?'<button type="button" class="dt-nav p" aria-label="'+L('Ảnh trước','Previous')+'"><span style="transform:scaleX(-1);display:grid">'+next+'</span></button><button type="button" class="dt-nav n" aria-label="'+L('Ảnh sau','Next')+'">'+next+'</button><span class="dt-count"></span>':'')+'</div>'+
-            (gal.length>1?'<div class="dt-thumbs">'+gal.map((s,k)=>'<button type="button" data-k="'+k+'" style="background-image:url(\''+s.img+'\')"><span>'+esc(s.th)+'</span></button>').join('')+'</div>':'')+
-            '<button type="button" class="dt-3d pj-full" hidden>'+L('Mở mô hình 3D toàn màn hình','Open the 3D model full screen')+'</button></div>'+
-          '<aside class="dt-side"><div class="dt-card">'+
-            '<div class="dt-badges">'+x.t.map(t=>'<span>'+esc(E?({'Căn hộ chung cư':'Apartments','BĐS nghỉ dưỡng':'Resort'}[t]||t):t)+'</span>').join('')+(has3d?'<span class="b-ok">'+L('Có sa bàn 3D','3D model')+'</span>':'')+'</div>'+
-            '<h1 class="dt-title">'+esc(x.n)+'</h1>'+
-            '<div class="dt-loc">'+pin+esc((x.a&&x.a!==x.p?x.a+', ':'')+(E?'Da Nang':x.p))+'</div>'+
-            (fa?'<div class="pj-facts"><b>'+esc(fa[E?1:0])+'</b><span>'+esc(fa[E?3:2])+'</span></div>':'')+
-            '<div class="dt-cta">'+(has3d?'<button type="button" class="btn btn-primary dt-adv pj-open3d">'+L('Mở sa bàn 3D, chọn căn','Open the 3D model to pick a unit')+'</button>':'<p class="dt-fine" style="flex:1 1 100%">'+L('Sa bàn 3D của dự án này đang được dựng.','The 3D model of this project is being built.')+'</p>')+
-              '<a href="#dang-ky" class="btn dt-adv pj-adv">'+L('Nhận tư vấn dự án này','Get advice on this project')+'</a><a href="tel:0325982512" class="btn dt-call">'+L('Gọi hotline','Call hotline')+'</a><a href="https://zalo.me/0325982512" target="_blank" rel="noopener" class="btn dt-zalo">Zalo</a></div>'+
-            '<p class="dt-fine">'+(has3d?L('Trên sa bàn, bấm vào từng căn để xem giá, diện tích, hướng và tình trạng.','On the 3D model, click any unit to see its price, area, view and availability.'):L('Liên hệ Bydeso để nhận bảng hàng và tình trạng căn mới nhất.','Contact Bydeso for the latest availability.'))+'</p>'+
-          '</div>'+
-          (mp?'<div class="dt-card pj-loc"><div class="pj-loc-h"><div><b>'+L('Vị trí dự án','Location')+'</b><small>'+esc(fa?fa[E?3:2]:x.n)+', '+esc((x.a&&x.a!==x.p?x.a+', ':'')+(E?'Da Nang':x.p))+'</small></div><a class="pj-loc-go" href="'+mp.url+'" target="_blank" rel="noopener">'+L('Google Maps ↗','Google Maps ↗')+'</a></div>'+
-            '<a class="pj-map" href="'+mp.url+'" target="_blank" rel="noopener" aria-label="'+L('Xem vị trí ','See the location of ')+esc(x.n)+L(' trên Google Maps',' on Google Maps')+'">'+mapTiles(mp.lat,mp.lng,16)+
-            '<svg class="pin" viewBox="0 0 38 48" aria-hidden="true"><path d="M19 47C19 47 2 29.5 2 18.5a17 17 0 0 1 34 0C36 29.5 19 47 19 47z" fill="var(--accent)" stroke="#141414" stroke-width="2"/><circle cx="19" cy="18" r="6.5" fill="#141414"/></svg>'+
-            '<span class="hint">'+L('Bấm để mở Google Maps','Tap to open Google Maps')+'</span><span class="attr">© OpenStreetMap</span></a></div>':'')+
-          '</aside>'+
-          '<div class="dt-main">'+
-            '<section class="dt-sec"><h2>'+L('Tổng quan dự án','Project overview')+'</h2><dl class="dt-specs">'+specs.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl>'+(has3d?'':'<p class="dt-desc">'+L('Layout căn hộ, mặt bằng và sa bàn 3D của dự án đang được cập nhật.','Unit layouts, floor plans and the 3D model are being updated.')+'</p>')+'</section>'+
-            (types?'<section class="dt-sec"><h2>'+L('Các loại căn hộ','Unit types')+'</h2><p class="dt-sub">'+L('Diện tích thông thủy theo Salekit dự án.','Net area from the project sales kit.')+'</p><table class="pj-types-t"><thead><tr><th>'+L('Loại căn','Type')+'</th><th>'+L('Diện tích','Area')+'</th><th class="num">'+L('Căn/tầng','Units/floor')+'</th></tr></thead><tbody>'+types+'</tbody></table></section>':'')+
-            (plans.length?'<section class="dt-sec"><h2>'+L('Mẫu căn 3 phòng ngủ','3-bedroom units')+'</h2><p class="dt-sub">'+L('Bấm vào một mẫu để xem mô hình 3D xoay 360°. Mô hình mang tính minh họa.','Pick a unit to see its 360° 3D model. Models are illustrative.')+'</p><div class="pj-plans">'+
-              plans.map(([k,c,a,g])=>'<article class="pj-plan"><button type="button" class="pj-plan-img" data-plan="'+k+'" data-kind="model" style="background-image:url(\'layout/'+k+'-3d.jpg\')" aria-label="'+L('Xem 3D căn ','View 3D of unit ')+c+'"></button><div class="pj-plan-b"><b>'+c+' · 3PN</b><span>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</span><div class="pj-plan-act"><button type="button" class="btn btn-primary" data-plan="'+k+'" data-kind="model">'+L('Xem 3D 360°','View 3D 360°')+'</button></div></div></article>').join('')+'</div></section>':'')+
-            '<p class="dt-fine">'+L('Thông tin quy mô theo công bố của dự án; loại căn, diện tích và layout theo Salekit. Hình 3D là minh họa, nội thất mang tính tương đối.','Scale as published by the project; unit types, areas and layouts from the sales kit. 3D images are illustrative.')+'</p>'+
-          '</div>'+
-        '</div>';
-      root.querySelectorAll('.dt-thumbs button').forEach(b=>b.onclick=()=>show(+b.dataset.k));
-      const p=root.querySelector('.dt-nav.p'),n=root.querySelector('.dt-nav.n');if(p){p.onclick=()=>show(gi-1);n.onclick=()=>show(gi+1)}
-      root.querySelectorAll('[data-plan]').forEach(b=>b.onclick=()=>{const k=gal.findIndex(s=>s.plan===b.dataset.plan&&(b.dataset.kind==='model')===!!s.model);if(k>=0){show(k);root.querySelector('.dt-gal').scrollIntoView({behavior:'smooth',block:'start'})}});
-      root.querySelector('.pj-full').onclick=()=>{const s=gal[gi];if(s.model)full(s.model,s.cap)};
+        '<div class="pd-top"><a href="#du-an" class="dt-back">'+back+L('Danh sách dự án','All projects')+'</a><nav class="dt-crumb" aria-label="breadcrumb"><button type="button" data-go="home">'+L('Trang chủ','Home')+'</button><span>›</span><a href="#du-an" style="color:inherit">'+L('Dự án','Projects')+'</a><span>›</span><span>'+esc(x.n)+'</span></nav></div>'+
+        '<div class="pd-head"><div><div class="dt-badges">'+x.t.map(t=>'<span>'+esc(tn(t))+'</span>').join('')+(has3d?'<span class="b-demo">'+L('Có sa bàn 3D','3D model')+'</span>':'')+'</div><h1>'+esc(x.n)+'</h1></div><div class="pd-where">'+pin+'<span>'+esc(addr)+'</span></div></div>'+
+        '<div class="pd-hero"><div class="pd-img"><img src="'+cover+'" alt="'+L('Phối cảnh dự án ','Perspective of ')+esc(x.n)+'"></div>'+
+          '<aside class="pd-act"><h2>'+(has3d?L('Xem từng căn trên sa bàn 3D','See every unit on the 3D model'):L('Nhận thông tin dự án','Get the project details'))+'</h2><p>'+(has3d?L('Bấm vào từng căn để xem giá, diện tích, hướng và tình trạng.','Click any unit to see its price, area, view and availability.'):L('Liên hệ Bydeso để nhận bảng hàng và tình trạng căn mới nhất.','Contact Bydeso for the latest availability.'))+'</p>'+
+            (has3d?open3d('pd-dark pd-shine',L('Mở sa bàn 3D, chọn căn','Open the 3D model to pick a unit')):adv('pd-dark pd-shine'))+
+            '<div class="pd-row2">'+call('pd-white')+zalo('pd-white')+'</div>'+(has3d?adv('pd-white'):'')+'<div class="pd-keep"></div></aside></div>'+
+        '<nav class="pd-nav" aria-label="'+L('Các phần của trang','Page sections')+'">'+nav.map(([id,t])=>'<button type="button" data-j="'+id+'">'+t+'</button>').join('')+'<i class="pd-ind"></i></nav>'+
+        '<section class="pd-sec" id="pd-tq"><h2 class="t pd-r">'+L('Dự án trong một cái nhìn','The project at a glance')+'</h2><div class="pd-bento">'+bento+'</div>'+(has3d?'':'<p class="s" style="margin-top:14px">'+L('Layout căn hộ, mặt bằng và sa bàn 3D của dự án đang được cập nhật.','Unit layouts, floor plans and the 3D model are being updated.')+'</p>')+'</section>'+
+        (tl.length?'<section class="pd-sec" id="pd-loai"><div class="pd-band pd-types pd-r"><div><h2 class="t">'+L('Chọn loại căn, thấy ngay vị trí trên mặt bằng','Pick a unit type, see where it sits on the floor')+'</h2><p class="s">'+L('Diện tích thông thủy theo Salekit dự án.','Net area from the project sales kit.')+'</p><div class="pd-tlist">'+
+          tl.map(t=>'<button type="button" class="pd-type" data-t="'+t.t+'" aria-pressed="false" style="--w:'+(t.hi/maxA).toFixed(3)+'"><b>'+esc(E?TYPE_EN[t.t]:t.t)+'</b><span>'+num(t.lo)+(t.hi>t.lo?' – '+num(t.hi):'')+' m²</span><em>'+t.n+L(' căn mỗi tầng điển hình',' units per typical floor')+'</em><i></i></button>').join('')+
+          '</div></div><div class="pd-plan"><div class="h"><span>'+L('Mặt bằng tầng điển hình','Typical floor plan')+'</span></div><svg viewBox="-.5 -.5 56.5 49" role="img" aria-label="'+L('Mặt bằng tầng điển hình','Typical floor plan')+'">'+SL.map((s,i)=>'<rect x="'+s[0]+'" y="'+s[1]+'" width="'+(s[2]-s[0])+'" height="'+(s[3]-s[1])+'" rx=".35" data-i="'+i+'" style="transition-delay:'+(i*16)+'ms"></rect>').join('')+'</svg><div class="pd-read" aria-live="polite"></div></div></div></section>':'')+
+        (plans.length?'<section class="pd-sec" id="pd-mau"><div class="pd-mhead pd-r"><h2 class="t">'+L('Mẫu căn 3 phòng ngủ','3-bedroom units')+'</h2><p class="s">'+L('Chọn một mẫu, rồi bấm để xoay mô hình 3D 360°. Mô hình mang tính minh họa.','Pick a layout, then rotate its 3D model 360°. Models are illustrative.')+'</p></div><div class="pd-models pd-r"><div class="pd-mstage"><img alt=""><div class="pd-mctl"><button type="button" class="pd-btn pd-dark pd-play"><span>'+L('Xem 3D 360°','View 3D 360°')+'</span>'+GO+'</button><button type="button" class="pd-btn pd-white pd-full" hidden><span>'+L('Toàn màn hình','Full screen')+'</span></button></div></div><div class="pd-mlist">'+
+          plans.map(([k,c,a,g])=>'<button type="button" class="pd-m" data-k="'+k+'" aria-pressed="false"><span><b>'+c+'</b><small>'+num(a)+' m² '+L('thông thủy','net')+' · '+num(g)+' m² '+L('tim tường','gross')+'</small></span>'+GO+'</button>').join('')+'</div></div></section>':'')+
+        (mp?'<section class="pd-sec" id="pd-vt"><div class="pd-loc pd-r"><div class="pd-linfo"><h2 class="t">'+L('Vị trí dự án','Location')+'</h2><address>'+esc(addr)+'</address><a class="pd-btn pd-dark" href="'+gm+'" target="_blank" rel="noopener"><span>'+L('Mở Google Maps','Open Google Maps')+'</span>'+GO+'</a><div class="pd-row2"><a class="pd-btn pd-white" href="'+gd+'" target="_blank" rel="noopener"><span>'+L('Chỉ đường','Directions')+'</span></a><button type="button" class="pd-btn pd-white pd-copy"><span>'+L('Sao chép địa chỉ','Copy address')+'</span></button></div></div>'+
+          '<a class="pd-map" href="'+gm+'" target="_blank" rel="noopener" aria-label="'+L('Xem vị trí ','See the location of ')+esc(x.n)+L(' trên Google Maps',' on Google Maps')+'">'+mapTiles(mp.lat,mp.lng,16)+'<i class="ring"></i><svg class="pin" viewBox="0 0 38 48" aria-hidden="true"><path d="M19 47C19 47 2 29.5 2 18.5a17 17 0 0 1 34 0C36 29.5 19 47 19 47z" fill="var(--accent)" stroke="#141414" stroke-width="2"/><circle cx="19" cy="18" r="6.5" fill="#141414"/></svg><span class="hint">'+L('Bấm để mở Google Maps','Tap to open Google Maps')+'</span><span class="attr">© OpenStreetMap</span></a></div></section>':'')+
+        '<section class="pd-sec" id="pd-lh"><div class="pd-close pd-r"><div class="cta-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div><h2>'+L('Cần người tư vấn cho dự án này?','Want someone to advise you on this project?')+'</h2><p>'+L('Gọi trực tiếp, nhắn Zalo hoặc để lại số điện thoại, Bydeso sẽ liên hệ với bạn.','Call, message on Zalo or leave your number and Bydeso will contact you.')+'</p></div><div class="pd-cbtn">'+adv('pd-dark w')+call('pd-white')+zalo('pd-white')+'</div></div>'+
+          '<p class="pd-fine">'+L('Thông tin quy mô theo công bố của dự án; loại căn, diện tích và layout theo Salekit. Hình 3D là minh họa, nội thất mang tính tương đối.','Scale as published by the project; unit types, areas and layouts from the sales kit. 3D images are illustrative.')+'</p></section>'+
+        '<div class="pd-dock">'+call('pd-white',L('Gọi','Call'))+zalo('pd-white')+(has3d?open3d('pd-dark',L('Sa bàn 3D','3D model')):adv('pd-dark'))+'</div>';
+      const $$r=s=>[...root.querySelectorAll(s)];
       root.querySelector('[data-go="home"]').onclick=()=>goHome();
-      root.querySelector('.pj-adv').onclick=e=>{e.preventDefault();goHome(true)};
-      const o3=root.querySelector('.pj-open3d');if(o3)o3.onclick=()=>window.bydeso3D.open(x.n);
-      const cta=root.querySelector('.dt-cta');cta.append(window.bydesoFollow.button(x.n));const sv=window.bydesoSaved.button('projects',x.n,x.n);cta.append(sv);
-      show(0);
+      $$r('.pj-adv').forEach(a=>a.onclick=e=>{e.preventDefault();goHome(true)});
+      $$r('.pj-open3d').forEach(b=>b.onclick=()=>window.bydeso3D.open(x.n));
+      root.querySelector('.pd-keep').append(window.bydesoFollow.button(x.n),window.bydesoSaved.button('projects',x.n,x.n));
+      // thanh mục dính: bấm để nhảy, gạch chân trượt theo phần đang xem
+      const navEl=root.querySelector('.pd-nav'), ind=root.querySelector('.pd-ind'), navB=$$r('.pd-nav button'), hdH=()=>{const e=document.querySelector('header');return e?e.offsetHeight:68}, calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const jump=id=>{const s=root.querySelector('#'+id);if(s)window.scrollTo({top:s.getBoundingClientRect().top+scrollY-hdH()-navEl.offsetHeight-14,behavior:calm()?'instant':'smooth'})};
+      $$r('[data-j]').forEach(b=>b.onclick=()=>jump(b.dataset.j));
+      let on=-1;const mark=i=>{if(i===on&&ind.dataset.w)return;on=i;navB.forEach((b,k)=>{b.classList.toggle('on',k===i);if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});const b=navB[i];ind.dataset.w=b.offsetWidth;ind.style.transform='translateX('+b.offsetLeft+'px) scaleX('+(b.offsetWidth/100)+')';if(navEl.scrollWidth>navEl.clientWidth)navEl.scrollTo({left:b.offsetLeft-40,behavior:'smooth'})};
+      spy=force=>{if(!root.offsetHeight||!navB.length)return;if(force===true)delete ind.dataset.w;const line=hdH()+navEl.offsetHeight+innerHeight*.3;let c=0;navB.forEach((b,i)=>{const s=root.querySelector('#'+b.dataset.j);if(s&&s.getBoundingClientRect().top<=line)c=i});if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)c=navB.length-1;mark(c)};
+      spy();
+      // chọn loại căn: mặt bằng sáng đúng các căn thuộc loại đó
+      const rects=$$r('.pd-plan rect'), read=root.querySelector('.pd-read'), typeB=$$r('.pd-type');
+      if(typeB.length){
+        const sayT=t=>{const it=tl.find(v=>v.t===t);read.textContent=(E?TYPE_EN[t]:t)+': '+it.n+L(' căn mỗi tầng. Bấm vào một ô để xem căn đó.',' units per floor. Click a cell to see that unit.')};
+        const setT=t=>{typeB.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)));rects.forEach((r,i)=>{r.classList.remove('sel');r.classList.toggle('on',SL[i][4]===t)});sayT(t)};
+        typeB.forEach(b=>b.onclick=()=>setT(b.dataset.t));
+        root.querySelector('.pd-plan svg').onclick=e=>{if(e.target.tagName!=='rect')return;const i=+e.target.dataset.i,s=SL[i];rects.forEach((r,k)=>r.classList.toggle('sel',k===i));typeB.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===s[4])));rects.forEach((r,k)=>r.classList.toggle('on',SL[k][4]===s[4]));read.textContent=L('Căn ','Unit ')+s[7]+' · '+(E?TYPE_EN[s[4]]:s[4])+' · '+num(s[5])+L(' m² thông thủy · Hướng ',' m² net · Facing ')+s[6].map(f=>FACE[f][E?1:0]).join(', ')};
+        setT(tl.slice().sort((a,b)=>b.n-a.n)[0].t);
+      }
+      // chọn mẫu căn: đổi ảnh, bấm nút mới tải mô hình 3D để trang nhẹ
+      const stage=root.querySelector('.pd-mstage'), mB=$$r('.pd-m');
+      if(stage){
+        const im=stage.querySelector('img'), play=stage.querySelector('.pd-play'), fs=stage.querySelector('.pd-full');let mk='';
+        const src=k=>'can-3d.html?embed=1&plan='+k+lang, cap=k=>plans.find(p=>p[0]===k)[1];
+        const setM=k=>{mk=k;mB.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===k)));const f=stage.querySelector('iframe');if(f)f.remove();play.hidden=false;fs.hidden=true;im.alt=L('Phối cảnh mẫu căn ','Layout ')+cap(k);im.classList.add('off');setTimeout(()=>{im.src='layout/'+k+'-3d.jpg';im.classList.remove('off')},im.getAttribute('src')?170:0)};
+        mB.forEach(b=>b.onclick=()=>setM(b.dataset.k));
+        play.onclick=()=>{const f=document.createElement('iframe');f.title=L('Mô hình 3D căn ','3D model of unit ')+cap(mk);f.src=src(mk);stage.insertBefore(f,stage.querySelector('.pd-mctl'));play.hidden=true;fs.hidden=false};
+        fs.onclick=()=>full(src(mk),L('Mô hình 3D căn ','3D model of unit ')+cap(mk));
+        setM(plans[0][0]);
+      }
+      const cp=root.querySelector('.pd-copy');
+      if(cp)cp.onclick=()=>{const t=x.n+', '+addr,ok=()=>window.bydesoSaved.toast(L('Đã sao chép địa chỉ','Address copied'));if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,ok);else ok()};
+      // hiện dần và đếm số khi cuộn tới, chạy cả khi máy tắt hiệu ứng theo ý chủ trang
+      const count=e=>{const v=+e.dataset.n,t0=performance.now(),f=t=>{const k=Math.min(1,(t-t0)/950);e.textContent=Math.round(v*(1-(1-k)**3));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+      if(io)io.disconnect();
+      const rv=$$r('.pd-r');
+      if('IntersectionObserver' in window){io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('.pd-n').forEach(count);io.unobserve(e.target)}),{rootMargin:'0px 0px -7% 0px'});rv.forEach(e=>io.observe(e))}else rv.forEach(e=>e.classList.add('in'));
     }
+    window.addEventListener('scroll',()=>{if(spy)spy()},{passive:true});
+    window.addEventListener('resize',()=>{if(spy)spy(true)},{passive:true});
     window.addEventListener('hashchange',render);
     document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',()=>{if(location.hash.startsWith('#da/'))render()}));
     render();
