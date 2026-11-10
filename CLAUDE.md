@@ -21,6 +21,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - `bydeso-sheet.js` và `google-apps-script.gs`: gửi form về Google Sheet. Khi thử form, thay `window.bydesoSend` bằng hàm giả để không ghi vào Sheet thật.
 
 - `scroll-fx.js`: hiệu ứng cuộn ở trang chủ (bốn bước `#van-hanh`, xoay 360° `#xoay-3d`, thanh tiến độ, hiện dần). CSS nằm trong khối `/* ===== SX ===== */` của `index.html`.
+- `#van-hanh`: bốn thẻ xếp chồng theo video mẫu chủ trang gửi (`.vk-tabs` dính trên cùng, `.vk-card` dính, thẻ sau đè thẻ trước, mỗi thẻ một nền). Khoảng cách giữa thẻ đặt ở mốc `.vk-at`, không dùng `margin` trên thẻ vì sẽ làm thẻ trước bị đẩy lên sớm. Màn hình thấp quá thì `fitStack` thêm `.vk-flow` để các thẻ nằm nối tiếp.
 - Họa tiết trống đồng: hình nằm ở biến `--drum` trong `index.html`, các lớp `.dr-wrap`, `.dr`, `.dr-lit`; `scroll-fx.js` xoay ngược chiều kim đồng hồ (`SPEED` độ mỗi giây) và làm sáng chỗ con trỏ đi qua. Chủ trang chọn cho họa tiết chạy cả khi Windows tắt hiệu ứng hoạt hình (các hiệu ứng cuộn khác vẫn tắt theo).
 - Khối vàng `#dang-ky`: nền động là `.cta-fx` trong `index.html` (bốn vùng ánh vàng trôi chậm, vòng trống đồng xoay), chỉ dùng CSS, cũng chạy cả khi máy tắt hiệu ứng. Không đặt `overflow`/`transform` lên `.cta` vì hộp thông báo `.su-modal` nằm trong đó.
 - `sa-ban-xoay/`: 48 khung `fNN.webp` và `floor.webp` chụp từ `camellia-3d.html`. Đổi mô hình thì phải chụp lại.

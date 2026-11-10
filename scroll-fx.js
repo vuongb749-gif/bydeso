@@ -15,7 +15,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 $$('.sx-r').forEach(e=>io.observe(e));
 
 // ---- Bốn bước vận hành ----
-const steps=$$('.vh-step'),panels=$$('.vh-p'),Q='căn hộ sơn trà dưới 3 tỷ';
+const ats=$$('.vk-at'),cards=$$('.vk-card'),tabs=$$('.vk-tabs button'),tabBar=$('.vk-tabs'),stack=$('.vk-stack'),Q='căn hộ sơn trà dưới 3 tỷ';
 const qEl=$('#vpQ'),chips=$$('#vpChips>span'),topics=$$('#vpTopics li'),read=$('#vpRead');
 const svg=$('#vpPlan');let hover=-1,slot=-1;
 const sayS=i=>{if(!read||!SL[i])return;const s=SL[i];read.textContent=T('Căn ','Unit ')+s[7]+' · '+(root.lang==='en'?TYPE[s[4]]||s[4]:s[4])+' · '+String(s[5]).replace('.',root.lang==='en'?'.':',')+T(' m² thông thủy · Hướng ',' m² net · Facing ')+s[6].map(f=>T(FACE[f][0],FACE[f][1])).join(', ')};
@@ -28,17 +28,25 @@ if(svg&&SL.length){
 }
 const vpTry=$('#vpTry');
 if(vpTry)vpTry.onclick=()=>{const i=$('#srchQ');if(!i)return;i.value=Q;i.dispatchEvent(new Event('input',{bubbles:true}));window.scrollTo({top:0,behavior:calm?'instant':'smooth'});i.focus({preventScroll:true})};
+const stuckTop=()=>hd+(tabBar?tabBar.offsetHeight:0)+10;
+tabs.forEach((b,i)=>b.onclick=()=>window.scrollTo({top:ats[i].getBoundingClientRect().bottom+scrollY-stuckTop(),behavior:calm?'instant':'smooth'}));
+// Thẻ cao hơn chỗ trống trên màn hình thì không xếp chồng, để không bị thẻ sau che mất chữ
+function fitStack(){
+  if(!stack||!tabBar||!tabBar.offsetHeight)return;root.style.setProperty('--vk-tabs',tabBar.offsetHeight+'px');
+  const room=innerHeight-stuckTop()-8;stack.classList.toggle('vk-flow',cards.some(c=>c.offsetHeight>room));
+}
+if(window.ResizeObserver&&cards.length){const ro=new ResizeObserver(fitStack);cards.forEach(c=>ro.observe(c))}
 function stepsFrame(){
-  if(!steps.length||!steps[0].offsetHeight)return;
-  const stage=$('.vh-stage'),ph=matchMedia('(max-width:860px)').matches;
-  const line=ph?stage.getBoundingClientRect().bottom+110:innerHeight*.5;
-  let cur=0,loc=0;steps.forEach((s,i)=>{const r=s.getBoundingClientRect();if(r.top<=line){cur=i;loc=clamp((line-r.top)/r.height)}});
-  steps.forEach((s,i)=>s.classList.toggle('on',i===cur));panels.forEach((p,i)=>p.classList.toggle('on',i===cur));
-  const k=calm?1:loc;
-  if(qEl){const n=cur>0?Q.length:Math.round(clamp(k/.55)*Q.length);if(qEl.dataset.n!=n){qEl.dataset.n=n;qEl.textContent=Q.slice(0,n)}}
-  chips.forEach((c,i)=>c.classList.toggle('on',cur>0||k>.6+i*.1));
-  if(cur===2&&hover<0&&SL.length)pick(clamp(Math.floor(k*SL.length),0,SL.length-1));
-  topics.forEach((t,i)=>t.classList.toggle('on',cur===3&&k>=.12+i*.16||cur>3));
+  if(!cards.length||!cards[0].offsetHeight)return;
+  const H=innerHeight,top=ats.map(a=>a.getBoundingClientRect().bottom),stick=stuckTop(),line=stick+Math.min(cards[0].offsetHeight*.5,H*.4);
+  let cur=0;top.forEach((t,i)=>{if(t<=line)cur=i});
+  tabs.forEach((b,i)=>{b.classList.toggle('on',i===cur);if(i===cur)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+  const k=i=>calm?1:clamp((H*.9-top[i])/(H*.7));
+  if(qEl){const n=Math.round(clamp(k(0)/.72)*Q.length);if(qEl.dataset.n!=n){qEl.dataset.n=n;qEl.textContent=Q.slice(0,n)}}
+  chips.forEach((c,i)=>c.classList.toggle('on',k(0)>.74+i*.09));
+  if(hover<0&&SL.length)pick(calm?0:clamp(Math.floor(clamp((H*.9-top[2])/(H*1.15))*SL.length),0,SL.length-1));
+  topics.forEach((t,i)=>t.classList.toggle('on',k(3)>=.25+i*.18));
+  if(!calm){const flow=stack.classList.contains('vk-flow');cards.forEach((c,i)=>{const nx=top[i+1];const p=flow||nx===undefined?0:clamp(1-(nx-stick)/(c.offsetHeight||1));const v=p?'scale('+(1-p*.035).toFixed(4)+')':'';if(c.style.transform!==v)c.style.transform=v})}
 }
 
 // ---- Xoay dự án 360 độ: khung hình chụp từ chính sa bàn ----
@@ -107,7 +115,7 @@ function barFrame(){if(!bar)return;const m=root.scrollHeight-innerHeight;root.st
 })();
 
 let hd=68,tick=false;
-function measure(){const h=$('header');hd=h?h.offsetHeight:68;root.style.setProperty('--hd',hd+'px');fit();paint(true);frame()}
+function measure(){const h=$('header');hd=h?h.offsetHeight:68;root.style.setProperty('--hd',hd+'px');fitStack();fit();paint(true);frame()}
 function frame(){tick=false;stepsFrame();pkFrame();typesFrame();barFrame()}
 addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});
 addEventListener('resize',measure);
