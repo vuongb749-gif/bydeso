@@ -86,7 +86,8 @@ function barFrame(){if(!bar)return;const m=root.scrollHeight-innerHeight;root.st
 
 // ---- Họa tiết trống đồng: chim Lạc bay ngược chiều kim đồng hồ, chỗ con trỏ đi qua sáng lên và lay nhẹ ----
 (function(){
-  const rings=$$('.dr'),lit=$('.dr-lit'),inner=$('.dr-lit-in');if(calm||rings.length<2)return;
+  // Chủ trang chọn cho họa tiết luôn chuyển động, kể cả khi máy tắt hiệu ứng hoạt hình
+  const rings=$$('.dr'),lit=$('.dr-lit'),inner=$('.dr-lit-in');if(rings.length<2)return;
   const R=260,SPEED=1.1;
   let ang=0,last=performance.now(),tx=-999,ty=-999,x=tx,y=ty,sway=0,dx=0,dy=0,idle=0;
   addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;if(tx<0){x=e.clientX;y=e.clientY}sway=clamp(sway+(e.clientX-tx)*.012,-1.6,1.6);tx=e.clientX;ty=e.clientY;lit.classList.add('on');clearTimeout(idle);idle=setTimeout(()=>lit.classList.remove('on'),1600)},{passive:true});

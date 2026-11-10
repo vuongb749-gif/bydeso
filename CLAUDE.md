@@ -21,7 +21,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - `bydeso-sheet.js` và `google-apps-script.gs`: gửi form về Google Sheet. Khi thử form, thay `window.bydesoSend` bằng hàm giả để không ghi vào Sheet thật.
 
 - `scroll-fx.js`: hiệu ứng cuộn ở trang chủ (bốn bước `#van-hanh`, xoay 360° `#xoay-3d`, thanh tiến độ, hiện dần). CSS nằm trong khối `/* ===== SX ===== */` của `index.html`.
-- Họa tiết trống đồng: hình nằm ở biến `--drum` trong `index.html`, các lớp `.dr-wrap`, `.dr`, `.dr-lit`; `scroll-fx.js` xoay ngược chiều kim đồng hồ (`SPEED` độ mỗi giây) và làm sáng chỗ con trỏ đi qua.
+- Họa tiết trống đồng: hình nằm ở biến `--drum` trong `index.html`, các lớp `.dr-wrap`, `.dr`, `.dr-lit`; `scroll-fx.js` xoay ngược chiều kim đồng hồ (`SPEED` độ mỗi giây) và làm sáng chỗ con trỏ đi qua. Chủ trang chọn cho họa tiết chạy cả khi Windows tắt hiệu ứng hoạt hình (các hiệu ứng cuộn khác vẫn tắt theo).
 - `sa-ban-xoay/`: 48 khung `fNN.webp` và `floor.webp` chụp từ `camellia-3d.html`. Đổi mô hình thì phải chụp lại.
 - `#phan-mem` mới là ví dụ minh họa, ghi rõ "Sắp triển khai". Không tự viết đối tác, nhận xét khách hàng, chính sách hỗ trợ khi chủ trang chưa gửi.
 
