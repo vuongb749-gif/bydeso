@@ -1175,6 +1175,19 @@ body.in-view .sx-bar{display:none}
 .type-tx a{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;padding:0 16px;border-radius:10px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:700}
 .type-tx a:hover{background:#000;color:#fff}
 .types-credit{font-size:12px}
+.vk-c1,.vk-c2,.vk-c3,.vk-c4{background:#121210;border-color:rgba(255,255,255,.14);box-shadow:0 -12px 34px rgba(0,0,0,.28)}
+.vk-card::before{content:"";position:absolute;width:680px;height:680px;background-color:rgba(253,228,127,.21);-webkit-mask:var(--drum) center/100% 100% no-repeat;mask:var(--drum) center/100% 100% no-repeat;pointer-events:none}
+.vk-c1::before{left:-220px;bottom:-300px}
+.vk-c2::before{left:-140px;top:-330px}
+.vk-c3::before{left:-290px;top:-120px}
+.vk-c4::before{left:40px;bottom:-360px}
+.vk-copy h3{color:#fff}
+.vk-copy p{color:#c9c5bb}
+.vk-ticks li{color:#f4f2ec}
+.vk-ticks li::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12' fill='%23f7c948'/%3E%3Cpath d='M7 12.5l3.4 3.4L17 9' fill='none' stroke='%23141414' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.vk-copy .btn{background:var(--gold);border-color:var(--gold);color:#141414}
+.vk-copy .btn:hover{background:var(--gold-hover);border-color:var(--gold-hover);color:#141414}
+@media (max-width:640px){.vk-card::before{width:500px;height:500px}}
 .vk-pill{font-size:13px}
 .vk-tabs small,.vk-mini figcaption,.prod-proj,.pp-lbl{font-size:13px}
 .chip,.pj-meta{font-size:14px}
