@@ -58,6 +58,7 @@ Chủ trang muốn mô hình 3D **dựng mới dựa theo ảnh sa bàn**, khôn
 - Mỗi ô cửa lấy từ bảng vật liệu vẽ bằng canvas (`facadeMaps`): kính, kính sáng đèn, ban công, tấm đặc, lam. Đổi màu, tỉ lệ các loại ô qua `PATTERN`.
 - Theo ảnh sa bàn: gờ tầng bo góc chạy quanh mặt ngoài (`outline`, `ring`), khung viền bo cong ôm mặt tháp nối với vòm mái (`portal`), các tầng sát khối đế ốp tối (`darkFloor`), khối kỹ thuật và vườn mái, mái sảnh đua sâu ở mặt trước (`CANOPY`). Màu giữ tông tự nhiên: kem nhạt, xám ấm, đồng nâu, kính xám xanh, đèn LED dịu.
 - Khối căn trong suốt, chỉ hiện màu khi xem Trạng thái, lọc, chọn tầng hoặc rê chuột. Chọn căn dò theo hộp bao `userData.b3`, không dò hình.
+- Hạ tầng xung quanh (đường, dải phân cách, thảm cỏ, vị trí cây, bờ biển) phải giữ đúng sa bàn, không tự vẽ thêm phố xá hay nhà cửa (đã thử theo ảnh The Legend, chủ trang không chọn). Từ ảnh mẫu chỉ lấy ánh sáng hoàng hôn, màu, sương, mặt biển, núi nền.
 - Mở ra ở chế độ Phối cảnh. Bóng chỉ tính lại khi đổi tầng (`shadowDirty`) để máy yếu chạy nhẹ.
 - Muốn xem hình khi khung trình duyệt bị ẩn: dừng vòng vẽ bằng tin `b3d-pause`, tự gọi `renderer.render` rồi `toDataURL` ngay (có sẵn `renderer`, `scene`, `camera` trong `window.__b3dState`).
 
