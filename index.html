@@ -724,7 +724,21 @@
   .type a{font-size:13px;font-weight:600;color:var(--accent);margin-top:4px}
 
   /* CTA */
-  .cta{background:var(--accent);color:var(--on-accent);border-radius:28px;padding:56px 32px;text-align:center}
+  .cta{position:relative;background:var(--accent);color:var(--on-accent);border-radius:28px;padding:56px 32px;text-align:center}
+  .cta>h2,.cta>p,.cta>form{position:relative}
+  /* Nền động: các vùng ánh vàng trôi chậm và vòng trống đồng xoay, luôn chạy kể cả khi máy tắt hiệu ứng */
+  .cta-fx{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+  .cta-fx i{position:absolute;width:max(620px,62%);aspect-ratio:1;border-radius:50%;will-change:transform}
+  .cta-fx i:nth-child(1){left:-18%;top:-70%;background:radial-gradient(closest-side,rgba(255,249,216,.95),rgba(255,249,216,0));animation:ctaA 13s ease-in-out infinite alternate}
+  .cta-fx i:nth-child(2){right:-20%;top:-55%;background:radial-gradient(closest-side,rgba(244,196,62,.85),rgba(244,196,62,0));animation:ctaB 16s ease-in-out infinite alternate}
+  .cta-fx i:nth-child(3){left:18%;bottom:-90%;background:radial-gradient(closest-side,rgba(247,206,84,.8),rgba(247,206,84,0));animation:ctaC 19s ease-in-out infinite alternate}
+  .cta-fx i:nth-child(4){right:6%;bottom:-85%;background:radial-gradient(closest-side,rgba(255,244,190,.9),rgba(255,244,190,0));animation:ctaD 15s ease-in-out infinite alternate}
+  .cta-fx b{--s:max(1000px,104%);position:absolute;left:50%;top:50%;width:var(--s);aspect-ratio:1;background-color:rgba(150,108,10,.15);-webkit-mask:var(--drum) center/100% 100% no-repeat;mask:var(--drum) center/100% 100% no-repeat;animation:ctaSpin 180s linear infinite;will-change:transform}
+  @keyframes ctaA{to{transform:translate(58%,34%) scale(1.25)}}
+  @keyframes ctaB{to{transform:translate(-62%,42%) scale(.85)}}
+  @keyframes ctaC{to{transform:translate(52%,-46%) scale(1.2)}}
+  @keyframes ctaD{to{transform:translate(-70%,-38%) scale(1.1)}}
+  @keyframes ctaSpin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(-360deg)}}
   .cta p{opacity:.75;margin:0 auto 26px;max-width:560px;font-size:18px}
   .cta .btn-dark{background:#141414;color:#fff}
   .cta .btn-dark:hover{background:#000}
@@ -1118,6 +1132,7 @@ body.in-view .sx-bar{display:none}
 <section id="dang-ky">
   <div class="wrap">
     <div class="cta">
+      <div class="cta-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
       <h2>Cần tư vấn về bất động sản?</h2>
       <p>Để lại số điện thoại, Bydeso sẽ liên hệ tư vấn cho bạn.</p>
       <form class="signup" id="signup">
