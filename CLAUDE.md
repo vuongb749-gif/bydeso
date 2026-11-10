@@ -20,6 +20,11 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - `layout/`: ảnh theo mẫu căn: `ch-XX-layout.jpg` (layout 2D, dùng để dựng 3D), `ch-XX-3d.jpg` (phối cảnh Salekit, làm ảnh bìa), `ch-XX-vi-tri.jpg`, cùng `mat-bang-tang-dien-hinh.jpg`.
 - `bydeso-sheet.js` và `google-apps-script.gs`: gửi form về Google Sheet. Khi thử form, thay `window.bydesoSend` bằng hàm giả để không ghi vào Sheet thật.
 
+- `scroll-fx.js`: hiệu ứng cuộn ở trang chủ (bốn bước `#van-hanh`, xoay 360° `#xoay-3d`, thanh tiến độ, hiện dần). CSS nằm trong khối `/* ===== SX ===== */` của `index.html`.
+- Họa tiết trống đồng: hình nằm ở biến `--drum` trong `index.html`, các lớp `.dr-wrap`, `.dr`, `.dr-lit`; `scroll-fx.js` xoay ngược chiều kim đồng hồ (`SPEED` độ mỗi giây) và làm sáng chỗ con trỏ đi qua.
+- `sa-ban-xoay/`: 48 khung `fNN.webp` và `floor.webp` chụp từ `camellia-3d.html`. Đổi mô hình thì phải chụp lại.
+- `#phan-mem` mới là ví dụ minh họa, ghi rõ "Sắp triển khai". Không tự viết đối tác, nhận xét khách hàng, chính sách hỗ trợ khi chủ trang chưa gửi.
+
 ## Đường dẫn trong trang (hash)
 `#du-an` danh sách dự án · `#da/<slug>` trang thông tin dự án · `#3d/<slug>` sa bàn · `#sp/<id>` trang căn · `#da-luu`, `#quan-tam`.
 Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(n)`), `window.bydeso3D` (`has`, `hash`, `open`, `stats`...), `window.bydesoFeed`, `window.bydesoDetail`.
