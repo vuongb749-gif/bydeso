@@ -55,12 +55,13 @@ import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 
 const Q=new URLSearchParams(location.search),EN=Q.get('lang')==='en',L=(v,e)=>EN?e:v,$=s=>document.querySelector(s);
 const TOUCH=matchMedia('(pointer:coarse)').matches,EMBED=Q.has('embed');
-const METAS={'ch-11':{w:8.1,d:14.3,code:'CH-xx11',area:L('88,7 m²','88.7 m²')},'ch-03':{w:13.85,d:10.3,code:'CH-xx03',area:L('89,3 m²','89.3 m²')},'ch-19':{w:14.5,d:8.57,code:'CH-xx19',area:L('103,6 m²','103.6 m²')},'ch-20':{w:9.6,d:10.1,code:'CH-xx20',area:L('84,2 m²','84.2 m²')}};
+const METAS={'ch-11':{w:8.1,d:14.3,code:'CH-xx11',area:L('88,7 m²','88.7 m²')},'ch-03':{w:13.85,d:10.3,code:'CH-xx03',area:L('89,3 m²','89.3 m²')},'ch-19':{w:14.5,d:8.57,code:'CH-xx19',area:L('103,6 m²','103.6 m²')},'ch-20':{w:9.6,d:10.1,code:'CH-xx20',area:L('84,2 m²','84.2 m²')},
+  'lg-1pn':{w:6.68,d:10.26,code:'CH14',type:'1PN',area:L('58,9 m²','58.9 m²'),lg:1},'lg-1pn1':{w:6.49,d:10.81,code:'CH1',type:'1PN+1',area:'58 m²',lg:1},'lg-2pn':{w:10.1,d:9.28,code:'CH13',type:'2PN',area:L('82,4 m²','82.4 m²'),lg:1},'lg-3pn':{w:17.23,d:9.6,code:'CH5',type:'3PN',area:L('114,1 m²','114.1 m²'),lg:1}};
 const PK=METAS[Q.get('plan')]?Q.get('plan'):'ch-11',META=METAS[PK];
 if(EMBED)document.body.classList.add('embed');
 $('#load').textContent=L('Đang dựng mô hình…','Building the model…');
-$('#ttl').textContent=(Q.get('code')||META.code)+' · 3PN · '+META.area;
-$('#sub').textContent=L('Mô hình minh họa theo layout Salekit, nội thất mang tính tương đối','Illustrative model from the sales kit layout; furnishing is indicative');
+$('#ttl').textContent=(Q.get('code')||META.code)+' · '+L(META.type||'3PN',(META.type||'3PN').replace('PN','BR'))+' · '+META.area;
+$('#sub').textContent=META.lg?L('Mô hình minh họa theo layout của chủ đầu tư, nội thất mang tính tương đối','Illustrative model from the developer layout; furnishing is indicative'):L('Mô hình minh họa theo layout Salekit, nội thất mang tính tương đối','Illustrative model from the sales kit layout; furnishing is indicative');
 $('#hint').textContent=EMBED?L('Kéo để xoay 360°','Drag to rotate 360°'):TOUCH?L('Một ngón để xoay · Hai ngón để phóng to và di chuyển','One finger to rotate · Two fingers to zoom and move'):L('Kéo chuột để xoay · Cuộn để phóng to · Chuột phải để di chuyển','Drag to rotate · Scroll to zoom · Right-drag to move');
 
 let renderer;
@@ -421,6 +422,142 @@ function plan20(){
   T.toilet(345,512,-PI_2);T.vanity(330,436,361,478,'e');T.shower(276,526,344,614,'n');
   return T;
 }
+// ---------- The Legend CH14 · 1PN: theo ảnh layout 1 phòng ngủ (ban công phía trên, cửa vào phía dưới) ----------
+function planLg1(){
+  const T=draft(157,175,87);
+  T.slab([[157,175,738,300],[157,285,738,1068]]);
+  T.oak([[183,300,440,830],[455,300,712,742],[440,655,505,1050],[183,830,440,1050]]);
+  T.tile([[510,748,712,1050]]);
+  T.balc([[165,178,738,285]]);
+  // ban công và mặt kính
+  T.WX(175,182,165,712,[[165,712,'rail']]);T.WZ(165,172,182,285,[[182,285,'rail']]);T.WZ(712,738,178,285);
+  T.WX(285,300,183,712,[[190,435,'full',3],[460,705,'full',3]]);
+  // tường hai bên và tường cửa vào
+  T.WZ(157,183,285,1068);T.WZ(712,738,285,1068);
+  T.WX(1050,1068,183,712,[[440,535,'door']]);
+  // phòng ngủ, tủ áo, phòng tắm
+  T.WZ(440,455,300,655,[[585,652,'door']]);T.WZ(495,510,655,840);T.WX(740,748,510,712);
+  T.WX(830,845,440,560);T.WZ(545,560,840,1050,[[880,955,'door']]);
+  T.solid(668,965,712,1050);
+  T.clad(560,748,712,1050,'ne');
+  T.door(452,652,70,'e');T.door(535,1059,92,'n');T.door(552,955,72,'e');
+  // phòng khách
+  T.rug(240,355,385,575);T.sofa(188,380,275,575,'w');T.tables(300,455);T.tv(418,405,440,530,'e');T.art(183,400,185,560,1.3,.6);T.plant(215,345);T.chair(340,380,-2.4);
+  // bàn ăn, bếp
+  T.table(198,700,300,780);[232,275].forEach(x=>{T.chair(x,682,0);T.chair(x,798,Math.PI)});
+  T.counter(185,835,240,1050,'w');T.counter(240,995,335,1050,'s');T.fridge(340,990,425,1050);T.hob(213,895);T.sink(287,1020);T.led(242,995,335,997,.09);
+  T.ward(445,675,495,830,2);T.ward(445,845,545,875,2);
+  // phòng ngủ
+  T.bed(620,472,-PI_2,1.8,2);T.night(695,368);T.night(695,590);T.tv(455,410,472,530,'w');T.ward(510,690,712,742,4);T.plant(480,330,.8);
+  // phòng tắm
+  T.washer(535,795);T.toilet(675,812,-PI_2);T.vanity(655,855,708,955,'e');T.shower(565,962,665,1048,'n');
+  T.plant(640,230,1.1);T.plant(215,230,.9);
+  return T;
+}
+// ---------- The Legend CH1 · 1PN+1: theo ảnh layout 1 phòng ngủ + 1 ----------
+function planLg11(){
+  const T=draft(157,130,92.5);
+  T.slab([[157,130,757,262],[157,248,757,975],[290,965,757,1130]]);
+  T.oak([[183,262,445,975],[445,790,545,905],[460,262,740,615],[557,790,740,1100]]);
+  T.tile([[460,632,740,772],[310,905,540,1100]]);
+  T.balc([[157,130,757,248]]);
+  // ban công và mặt kính
+  T.WX(130,138,157,757,[[157,757,'rail']]);T.WZ(157,165,138,248,[[138,248,'rail']]);T.WZ(749,757,138,248,[[138,248,'rail']]);
+  T.WX(248,262,183,740,[[188,440,'full',3],[475,735,'win',3]]);
+  // tường bao, cửa vào ở góc dưới trái
+  T.WZ(157,183,248,975);T.WX(965,975,157,290,[[185,290,'door']]);T.WZ(290,310,965,1130);T.WX(1100,1130,290,757);T.WZ(740,757,248,1130);
+  // phòng ngủ, phòng tắm, phòng +1
+  T.WZ(445,462,262,615,[[530,612,'door']]);T.WX(615,632,445,757);T.WZ(445,460,632,790);T.WX(772,790,445,757,[[462,537,'door']]);
+  T.WZ(540,557,790,1100,[[795,880,'door']]);T.solid(310,1045,390,1100);
+  T.clad(460,632,740,772,'ne');
+  T.door(453,612,78,'e');T.door(462,781,72,'n');T.door(548,880,80,'e');T.door(288,970,100,'n');
+  // phòng khách, bàn ăn
+  T.rug(230,320,405,580);T.sofa(183,318,268,525,'w');T.tables(300,455);T.tv(425,340,445,525,'e');T.plant(200,295);T.chair(340,330,-2.4);
+  T.table(185,675,312,758);[218,272].forEach(x=>{T.chair(x,655,0);T.chair(x,778,Math.PI)});T.ward(412,665,445,765,2);
+  // bếp
+  T.washer(340,935);T.fridge(315,975,372,1042);T.counter(395,1045,540,1100,'s');T.counter(490,905,540,1045,'e');T.hob(440,1072);T.sink(512,975);T.led(395,1045,540,1047,.09);
+  // phòng ngủ
+  T.bed(571,412,PI_2,1.6,2);T.night(495,505);T.ward(575,565,740,615,4);T.plant(700,290,.8);
+  // phòng tắm
+  T.vanity(465,640,545,688,'n');T.shower(600,640,738,712,'s');T.toilet(692,742,-PI_2);
+  // phòng +1
+  T.sofa(560,915,650,1045,'w');T.ward(650,1050,740,1098,2);T.plant(700,930,.8);
+  T.plant(560,185,1.2);T.plant(650,185,1);
+  return T;
+}
+// ---------- The Legend CH13 · 2PN: theo ảnh layout 2 phòng ngủ (cửa vào phía trên, ban công phía dưới) ----------
+function planLg2(){
+  const T=draft(55,210,97);
+  T.slab([[66,210,1025,990],[55,990,1035,1110]]);
+  T.oak([[97,232,597,975],[402,628,688,975],[700,520,995,975],[597,520,700,975]]);
+  T.tile([[607,232,825,405],[838,232,995,505],[600,415,825,510]]);
+  T.balc([[55,990,1035,1105]]);
+  // tường bao, cửa vào
+  T.WX(210,232,66,1025,[[270,385,'door']]);T.WZ(66,97,232,990);T.WZ(995,1025,232,990);
+  T.WX(975,990,97,995,[[105,380,'full',3],[402,680,'full',3],[705,985,'full',3]]);
+  // ban công
+  T.WX(1100,1108,55,1035,[[100,990,'rail']]);T.solid(55,990,100,1080);T.solid(990,990,1035,1080);
+  // khối WC, giặt
+  T.WZ(597,607,232,520);T.WX(405,415,607,825,[[615,682,'door']]);T.WZ(825,838,232,520);T.WX(505,520,838,995,[[845,915,'door']]);T.WX(510,522,688,838);T.solid(785,415,825,505);
+  // phòng ngủ
+  T.WZ(688,700,520,975,[[525,605,'door']]);T.WX(615,628,388,688,[[598,682,'door']]);T.WZ(388,402,615,975);
+  T.clad(607,232,825,405,'nw');T.clad(838,232,995,505,'ne');
+  T.door(380,232,105,'s');T.door(615,410,64,'n');T.door(915,512,68,'n');T.door(700,605,78,'e');T.door(682,628,80,'s');
+  // bếp, bàn ăn
+  T.ward(142,236,248,262,2);T.fridge(395,236,480,300);T.counter(485,236,597,300,'n');T.counter(535,300,597,515,'e');T.sink(565,335);T.hob(565,455);T.led(485,300,597,302,.09);
+  T.counter(390,405,447,518);
+  T.table(158,322,238,512);[355,412,468].forEach(y=>{T.chair(132,y,PI_2);T.chair(262,y,-PI_2)});
+  // phòng khách
+  T.rug(160,670,340,915);T.sofa(105,690,185,905,'w');T.tables(240,785);T.tv(360,715,388,905,'e');T.art(97,720,99,870,1.3,.6);T.plant(135,655);T.chair(290,890,-2.5);
+  // phòng ngủ 2
+  T.bed(512,828,PI_2,1.6,2);T.ward(402,632,575,688,4);T.plant(445,940,.8);
+  // phòng ngủ 1
+  T.bed(862,805,-PI_2,1.8,2);T.ward(935,525,990,680,3);T.tv(700,740,722,880,'w');T.night(962,695);T.night(962,925);
+  // WC
+  T.toilet(792,368,-PI_2);T.vanity(610,240,688,300,'n');T.shower(690,240,822,322,'s');
+  T.vanity(925,418,990,500,'e');T.toilet(940,372,-PI_2);T.shower(842,240,990,330,'s');
+  T.washer(740,462);
+  T.plant(160,1055,1.3);T.plant(920,1055,1.3);
+  return T;
+}
+// ---------- The Legend CH5 · 3PN: theo ảnh layout 3 phòng ngủ chữ L, ban công cong bao quanh ----------
+function planLg3(){
+  const T=draft(160,180,70);
+  T.slab([[160,180,1366,265],[175,265,1258,640],[175,640,695,852],[1255,265,1366,640]]);
+  T.oak([[195,285,403,600],[415,285,675,835],[695,285,878,552],[695,552,1240,620],[1040,285,1240,620]]);
+  T.tile([[195,610,325,835],[890,285,1025,552],[337,600,560,835]]);
+  T.balc([[160,180,1258,265],[1258,180,1366,640]]);
+  // ban công
+  T.WX(178,186,160,1300,[[160,1300,'rail']]);T.WZ(1358,1366,230,640,[[230,640,'rail']]);T.WX(632,640,1258,1366,[[1258,1366,'rail']]);T.WZ(160,168,186,265,[[186,265,'rail']]);
+  // mặt kính và tường bao
+  T.WX(265,285,175,1258,[[200,400,'full',3],[420,668,'full',3],[700,875,'full',3],[1045,1235,'win',3]]);
+  T.WZ(175,195,285,852);T.WZ(1240,1258,285,640,[[300,540,'win',3]]);
+  T.WX(835,852,175,695,[[562,640,'door']]);T.WX(620,640,675,1258);
+  T.WZ(675,695,285,552);T.WZ(675,695,625,852);
+  // phòng ngủ master và WC master
+  T.WZ(403,415,285,605,[[485,545,'door']]);T.WX(600,610,195,415,[[272,325,'door']]);T.WZ(325,337,600,835);T.solid(195,795,325,835);
+  // phòng ngủ 1, WC chung, phòng ngủ 2
+  T.WX(540,552,675,885,[[815,878,'door']]);T.WZ(878,890,285,552);
+  T.WX(540,552,885,1040,[[965,1023,'door']]);T.WZ(1025,1040,285,620,[[558,618,'door']]);
+  T.clad(195,610,325,795,'nw');T.clad(890,285,1025,552,'ne');
+  T.door(640,842,75,'n');T.door(409,545,60,'w');T.door(325,606,53,'s');T.door(878,546,62,'n');T.door(1023,546,58,'n');T.door(1033,618,58,'e');
+  // phòng khách, bàn ăn, bếp
+  T.rug(505,300,670,500);T.sofa(600,330,670,490,'e');T.tables(565,415);T.tv(415,350,430,480,'w');T.chair(540,335,.6);T.plant(650,300);
+  T.table(462,555,555,700);[580,625,670].forEach(y=>{T.chair(445,y,PI_2);T.chair(572,y,-PI_2)});
+  T.fridge(340,610,390,680);T.counter(340,680,388,835,'w');T.counter(388,790,550,835,'s');T.sink(362,725);T.hob(460,812);T.led(388,790,550,792,.09);
+  T.ward(642,625,672,835,3);
+  // phòng ngủ master
+  T.bed(282,415,PI_2,1.8,2);T.night(215,320);T.night(215,505);T.ward(195,545,270,600,2);T.ward(335,545,403,600,2);
+  T.vanity(198,612,240,668,'w');T.toilet(222,700,PI_2);T.shower(200,733,325,792,'n');
+  // phòng ngủ 1
+  T.bed(770,410,PI_2,1.6,2);T.night(718,320);T.ward(700,500,810,545,3);
+  // WC chung, giặt
+  T.shower(895,290,1025,360,'s');T.toilet(950,400,PI_2);T.vanity(925,440,965,490,'w');T.washer(925,522);
+  // phòng ngủ 2
+  T.bed(1110,420,PI_2,1.6,2);T.night(1058,505);T.ward(1115,580,1235,618,3);T.plant(1210,320,.8);
+  T.plant(230,215,1.2);T.plant(1320,600,1.3);T.plant(1320,300,1);
+  return T;
+}
 const PLANS={
   'ch-11':{build:build11,rooms:()=>ROOMS11,views:()=>VIEWS11,tall:[[4.1,.2,8],[4.1,34,27]]},
   'ch-03':{build:plan03,
@@ -431,7 +568,19 @@ const PLANS={
     views:T=>planViews([roomView(T,L('Phòng khách','Living'),120,380),roomView(T,L('Bếp','Kitchen'),265,235),roomView(T,L('Phòng ngủ 1','Bedroom 1'),525,240),roomView(T,L('Phòng ngủ 2','Bedroom 2'),590,435),roomView(T,L('Phòng ngủ 3','Bedroom 3'),385,460)])},
   'ch-20':{build:plan20,
     rooms:T=>[[L('Phòng khách','Living room'),480,450],[L('Phòng ăn','Dining'),440,190],[L('Bếp','Kitchen'),530,230],[L('Ban công','Balcony'),480,580],[L('Phòng ngủ 1','Bedroom 1'),230,190],[L('WC 1','Bath 1'),350,110],[L('Phòng ngủ 2','Bedroom 2'),240,290],[L('WC 2','Bath 2'),310,480],[L('Phòng ngủ 3','Bedroom 3'),190,440],[L('Lối vào','Entry'),520,100]],
-    views:T=>planViews([roomView(T,L('Phòng khách','Living'),470,440),roomView(T,L('Bếp','Kitchen'),500,230),roomView(T,L('Phòng ngủ 1','Bedroom 1'),150,140),roomView(T,L('Phòng ngủ 2','Bedroom 2'),150,290),roomView(T,L('Phòng ngủ 3','Bedroom 3'),130,490)])}
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),470,440),roomView(T,L('Bếp','Kitchen'),500,230),roomView(T,L('Phòng ngủ 1','Bedroom 1'),150,140),roomView(T,L('Phòng ngủ 2','Bedroom 2'),150,290),roomView(T,L('Phòng ngủ 3','Bedroom 3'),130,490)])},
+  'lg-1pn':{build:planLg1,
+    rooms:T=>[[L('Phòng khách','Living room'),320,480],[L('Phòng ăn','Dining'),250,740],[L('Bếp','Kitchen'),330,930],[L('Phòng ngủ','Bedroom'),590,640],[L('Phòng tắm','Bathroom'),610,900],[L('Ban công','Balcony'),330,235],[L('Lối vào','Entry'),490,990]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),300,470),roomView(T,L('Bếp','Kitchen'),310,930),roomView(T,L('Phòng ngủ','Bedroom'),590,480)])},
+  'lg-1pn1':{build:planLg11,
+    rooms:T=>[[L('Phòng khách','Living room'),320,430],[L('Phòng ăn','Dining'),250,720],[L('Bếp','Kitchen'),420,990],[L('Phòng ngủ','Bedroom'),600,540],[L('Phòng +1','Flex room'),650,880],[L('Phòng tắm','Bathroom'),560,700],[L('Ban công','Balcony'),330,190],[L('Lối vào','Entry'),235,915]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),310,430),roomView(T,L('Bếp','Kitchen'),430,990),roomView(T,L('Phòng ngủ','Bedroom'),600,430),roomView(T,L('Phòng +1','Flex room'),650,960)])},
+  'lg-2pn':{build:planLg2,
+    rooms:T=>[[L('Phòng khách','Living room'),240,800],[L('Phòng ăn','Dining'),200,440],[L('Bếp','Kitchen'),455,340],[L('Phòng ngủ 1','Bedroom 1'),840,640],[L('Phòng ngủ 2','Bedroom 2'),520,720],[L('WC 1','Bath 1'),910,300],[L('WC 2','Bath 2'),720,300],[L('Ban công','Balcony'),440,1050],[L('Lối vào','Entry'),330,275]],
+    views:T=>planViews([roomView(T,L('Phòng khách','Living'),230,780),roomView(T,L('Bếp','Kitchen'),450,360),roomView(T,L('Phòng ngủ 1','Bedroom 1'),850,660),roomView(T,L('Phòng ngủ 2','Bedroom 2'),520,740)])},
+  'lg-3pn':{build:planLg3,
+    rooms:T=>[[L('Phòng khách','Living room'),560,450],[L('Phòng ăn','Dining'),510,630],[L('Bếp','Kitchen'),460,740],[L('Phòng ngủ master','Master bedroom'),300,520],[L('WC master','Master bath'),265,660],[L('Phòng ngủ 1','Bedroom 1'),780,330],[L('WC chung','Bath'),960,330],[L('Phòng ngủ 2','Bedroom 2'),1140,540],[L('Ban công','Balcony'),700,220],[L('Lối vào','Entry'),600,800]],
+    views:T=>[[L('Toàn cảnh','Overview'),[8.6,.2,4.8],[8.6,23,19],1],[L('Từ trên xuống','Top down'),[8.6,0,4.8],[8.6,40,4.82],1],...[roomView(T,L('Phòng khách','Living'),560,430),roomView(T,L('Bếp','Kitchen'),460,720),roomView(T,L('Phòng ngủ master','Master bedroom'),300,420),roomView(T,L('Phòng ngủ 1','Bedroom 1'),780,420),roomView(T,L('Phòng ngủ 2','Bedroom 2'),1130,430)]]}
 };
 const PL=PLANS[PK],TT=PL.build()||null;
 
