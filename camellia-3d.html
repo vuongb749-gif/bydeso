@@ -112,15 +112,34 @@
   .loading{position:absolute;inset:0;z-index:19;display:grid;place-items:center;font-size:14px;color:var(--muted)}
 
   @media (max-width:860px){
-    .top{flex-direction:column;align-items:stretch;gap:8px}
-    .tools{justify-content:flex-start}
-    .brand h1{font-size:17px}
-    .ibtn.filters-btn{display:inline-flex}
+    /* điện thoại: gom thông tin và nút thành ba hàng gọn ở trên cùng */
+    .top{flex-direction:column;align-items:stretch;gap:5px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
+    .brand{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px;padding:0}
+    .back-home{margin:0;padding:4px 8px;border-radius:9px;background:var(--panel);border:1px solid var(--line);font-size:11.5px;white-space:nowrap;text-shadow:none}
+    .brand small,.brand p:not(.demo-note){display:none}
+    .brand h1{margin:0;flex:1 1 0;min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .brand .demo-note{flex:1 0 100%;max-width:none;margin:0;padding:2px 8px;border-radius:7px;background:var(--panel);font-size:11px;text-shadow:none}
+    .dn-more,.st-l{display:none}
+    .stats{flex:1 0 100%;margin:0;gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+    .stat{flex:none;gap:4px;padding:2px 7px;font-size:11px;background:var(--panel);white-space:nowrap;text-shadow:none}
+    .tools{justify-content:flex-start;flex-wrap:nowrap;gap:4px;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:28px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
+    .stats::-webkit-scrollbar,.tools::-webkit-scrollbar{display:none}
+    .tools>*{flex:none}
+    .top .seg{order:-2;padding:2px;border-radius:10px}
+    .top .seg button{padding:5px 8px;font-size:12px}
+    .top .ibtn{gap:4px;padding:6px 8px;border-radius:10px;font-size:12px}
+    .top .ibtn svg{width:14px;height:14px}
+    .ibtn.filters-btn{display:inline-flex;order:-1}
     .filters{display:none;top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;max-height:55%}
     .filters.open{display:flex}
-    .floors{top:auto;bottom:calc(104px + env(safe-area-inset-bottom,0px));height:min(46%,330px);width:58px}
+    .floors{top:auto;right:max(8px,env(safe-area-inset-right,0px));bottom:calc(110px + env(safe-area-inset-bottom,0px));height:min(46%,330px);width:44px;padding:5px 3px;border-radius:12px}
+    .floors .ft{padding:1px 0 4px;font-size:9px;letter-spacing:0}
+    .floors .list{padding:0}
+    .floors button{padding:7px 0;font-size:12px}
+    .floors button.all{padding:5px 0;font-size:10px}
+    .floors button .bar{left:9px;right:9px}
     .note{display:none}
-    .compass{width:62px;height:62px;bottom:calc(60px + env(safe-area-inset-bottom,0px))}.compass svg{width:50px;height:50px}
+    .compass{right:max(8px,env(safe-area-inset-right,0px));width:44px;height:44px;bottom:calc(60px + env(safe-area-inset-bottom,0px))}.compass svg{width:36px;height:36px}
     .legend{font-size:11.5px;padding:7px 10px;gap:8px;right:max(16px,env(safe-area-inset-right,0px));justify-content:center}
   }
 
@@ -160,7 +179,7 @@
       <small>Bydeso 3D · Bản mô phỏng thử nghiệm</small>
       <h1>The Camellia Sơn Trà</h1>
       <p>Lê Văn Lương – Lê Đức Thọ, Sơn Trà, Đà Nẵng</p>
-      <p class="demo-note" role="note">Giá và tình trạng căn chỉ là minh họa, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật.</p>
+      <p class="demo-note" role="note">Giá và tình trạng căn chỉ là minh họa<span class="dn-more">, chưa phải bảng hàng thật. Riêng căn CH-0301 là dữ liệu thật</span>.</p>
       <div class="stats" id="stats"></div>
     </div>
     <div class="tools">
@@ -701,7 +720,7 @@ function paint(){
 }
 function stats(){
   const c={ok:0,hold:0,sold:0};units.forEach(u=>c[u.status]++);
-  $('#stats').innerHTML='<span class="stat">'+units.length+' căn · '+new Set(units.map(u=>u.floor)).size+' tầng</span>'+['ok','hold','sold'].map(k=>'<span class="stat"><i style="background:var(--'+k+')"></i>'+ST[k].t+' '+c[k]+'</span>').join('');
+  $('#stats').innerHTML='<span class="stat">'+units.length+' căn · '+new Set(units.map(u=>u.floor)).size+' tầng</span>'+['ok','hold','sold'].map(k=>'<span class="stat"><i style="background:var(--'+k+')"></i><span class="st-l">'+ST[k].t+' </span>'+c[k]+'</span>').join('');
 }
 
 // bộ lọc
