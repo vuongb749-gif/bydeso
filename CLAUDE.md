@@ -39,6 +39,9 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 
 - Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.
 
+## Văn phòng agent
+Chủ trang có văn phòng agent: 8 nhân viên trong `.claude/agents/`, trưởng phòng điều phối là skill `van-phong` (`.claude/skills/van-phong/SKILL.md`, có các quy trình chuẩn). Dữ liệu văn phòng và khách hàng nằm ngoài repo ở `C:\Projects\bydeso-van-phong\` (hướng dẫn: `HUONG-DAN.md`). Không bao giờ đưa file trong đó vào repo vì trang công khai. Không gửi thư/tin nhắn cho khách và không đẩy lên `main` khi chủ trang chưa đồng ý rõ.
+
 ## Đường dẫn trong trang (hash)
 `#du-an` danh sách dự án · `#da/<slug>` trang thông tin dự án · `#3d/<slug>` sa bàn · `#sp/<id>` trang căn · `#da-luu`, `#quan-tam`.
 Biến toàn cục: `window.bydesoProjects` (`card`, `projects`, `facts`, `open(n)`), `window.bydeso3D` (`has`, `hash`, `open`, `stats`...), `window.bydesoFeed`, `window.bydesoDetail`.
