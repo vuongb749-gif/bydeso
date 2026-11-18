@@ -1283,6 +1283,29 @@ body.in-view .sx-bar{display:none}
   .consent input[type=checkbox]{width:24px;height:24px}
 }
 @media (prefers-reduced-motion:reduce){.pk-c:not(:last-child){display:none}}
+/* ===== DL ===== */
+.dl-box{width:min(560px,100%)}
+.dl-form{display:flex;flex-direction:column;gap:12px}
+.dl-form .fl-gap{margin-top:4px}
+.dl-form .pf-label{margin-bottom:0}
+.dl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dl-row .dl-date{grid-column:1/-1}
+.dl-form .pf-field span{font-size:13px}
+.dl-form .pf-field input,.dl-form .pf-field textarea{width:100%;font:inherit;font-size:15px;color:var(--text);background:var(--bg-soft);border:1px solid var(--border);border-radius:12px;padding:11px 12px;min-height:44px}
+.dl-form .pf-field textarea{resize:vertical;min-height:76px}
+.dl-form .pf-field textarea:focus{outline:2px solid var(--accent-strong);outline-offset:1px}
+.dl-form .fl-freq label,.dl-form .fl-topics label{min-height:44px}
+.dl-ways{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dl-slots,.dl-budget{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dl-types{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dl-form .fl-consent{margin-top:4px}
+.dl-form .pf-submit{margin-top:4px;min-height:48px}
+.dl-form .fl-privacy{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.dl-done{text-align:center;padding:10px 6px}
+.dl-done h3{margin:12px 0 8px;font-size:21px}
+.dl-done p{color:var(--muted);line-height:1.55;margin:0 0 16px}
+.dl-done .su-ic{margin:0 auto}
+@media (max-width:560px){.dl-row,.dl-ways{grid-template-columns:minmax(0,1fr)}.dl-types{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* ===== CH ===== */
 .ch-head{margin:6px 0 4px}
 .ch-group{margin-top:34px;padding-top:26px;border-top:1px solid var(--border)}
@@ -1774,6 +1797,7 @@ body.in-view .sx-bar{display:none}
 <script src="scroll-fx.js" defer></script>
 <script src="quy-hoach.js" defer></script>
 <script src="can-ho.js" defer></script>
+<script src="dat-lich.js" defer></script>
 <script>
   // ===== Lưu dự án / sản phẩm (giữ trên trình duyệt của khách) =====
   window.bydesoSaved=(function(){
@@ -2628,7 +2652,7 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
         '<div class="pd-dock">'+call('pd-white',L('Gọi','Call'))+zalo('pd-white')+(has3d?open3d('pd-dark',L('Sa bàn 3D','3D model')):adv('pd-dark'))+'</div>';
       const $$r=s=>[...root.querySelectorAll(s)];
       root.querySelector('[data-go="home"]').onclick=()=>goHome();
-      $$r('.pj-adv').forEach(a=>a.onclick=e=>{e.preventDefault();goHome(true)});
+      $$r('.pj-adv').forEach(a=>a.onclick=e=>{e.preventDefault();if(window.bydesoBook)window.bydesoBook(x.n);else goHome(true)});
       $$r('.pj-open3d').forEach(b=>b.onclick=()=>window.bydeso3D.open(x.n));
       // gửi ý kiến về Google Sheet, chủ trang duyệt rồi mới thêm vào OPINIONS
       const ykF=root.querySelector('.pd-yk-form');

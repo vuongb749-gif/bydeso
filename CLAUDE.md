@@ -40,6 +40,10 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 
 - Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.
 
+## Đặt lịch tư vấn (`dat-lich.js`)
+- Nút "Nhận tư vấn dự án này" ở trang dự án (`.pj-adv`) mở bảng `window.bydesoBook(tên dự án)`, không đưa xuống ô số điện thoại nữa. Bảng hỏi: họ tên, số điện thoại, email nhận biên bản, hình thức tư vấn (gọi điện, Zalo, gặp trực tiếp), ngày và khung giờ, loại căn, ngân sách, ghi chú, ô đồng ý. CSS khối `/* ===== DL ===== */`.
+- Gửi về Google Sheet với Loại yêu cầu "Đặt lịch tư vấn": cột Kênh nhận tin = hình thức tư vấn, cột Nội dung quan tâm = lịch hẹn · loại căn · ngân sách · ghi chú. Không cần sửa Apps Script. Đã thêm dòng này vào bảng thu thập dữ liệu của `chinh-sach-bao-mat.html`.
+
 ## Trang Căn hộ (`#can-ho`)
 - Mục "Căn hộ" trên menu nằm giữa "Dự án" và "Loại hình BĐS"; chân trang có link "Căn hộ còn hàng". Code trong `can-ho.js`, CSS khối `/* ===== CH ===== */`.
 - Chia theo từng dự án (tên, vị trí, số căn còn hàng, nút sang trang dự án), mỗi dự án hiện 6 căn còn hàng trải đều các loại căn, lọc theo dự án và loại căn. Thẻ căn dùng `bydesoFeed.card` nên bấm vào mở trang chi tiết `#sp/`. Ghi chú nguồn mỗi dự án nằm ở `NOTE` (Camellia: minh họa; The Legend: giỏ hàng chủ đầu tư).
