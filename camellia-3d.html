@@ -12,7 +12,7 @@
   /* Bố cục: một màn hình ứng dụng; mô hình 3D chiếm toàn bộ, bảng điều khiển nổi trên các cạnh */
   :root{
     --bg:#0e0c08; --panel:rgba(22,19,12,.88); --panel-solid:#17140d; --line:#3b3322; --fg:#f5f0e3; --muted:#a99f87;
-    --gold:#f6cf55; --gold-ink:#1a1407; --ok:#2fbf87; --hold:#f3b33d; --sold:#6a6f7b; --danger:#ff7a6b;
+    --gold:#f6cf55; --gold-ink:#1a1407; --ok:#2fbf87; --hold:#f3b33d; --sold:#8b8f97; --danger:#ff7a6b;
     --font:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     color-scheme:dark;
   }
@@ -207,7 +207,7 @@
   <nav class="floors" aria-label="Chọn tầng"><div class="ft">Tầng</div><div class="list" id="floorList"></div></nav>
 
   <div class="legend" aria-label="Chú thích màu">
-    <span><i style="background:var(--ok)"></i>Còn hàng</span><span><i style="background:var(--hold)"></i>Có khách quan tâm</span><span><i style="background:var(--sold)"></i>Đã bán</span>
+    <span><i style="background:var(--ok)"></i>Hàng có sẵn</span><span><i style="background:var(--hold)"></i>Liên hệ nhận thông tin</span><span><i style="background:var(--sold)"></i>Đã bán</span>
   </div>
   <div class="note">Phối cảnh dựng theo sa bàn và mặt bằng tầng điển hình. Số căn, loại căn và diện tích theo Salekit (tầng 3A đến 23) và mặt bằng tầng 3; tầng 24, 25 chưa có dữ liệu. Giá và tình trạng là minh họa, riêng CH-0301 là dữ liệu thật.</div>
   <div class="compass" title="La bàn: chữ B chỉ hướng Bắc"><svg id="needle" viewBox="0 0 100 100" aria-hidden="true">
@@ -733,7 +733,7 @@ function stats(){
 
 // bộ lọc
 function chips(el,items,set){el.innerHTML='';items.forEach(([v,t,col])=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','false');b.innerHTML=(col?'<i style="background:'+col+'"></i>':'')+t;b.onclick=()=>{set.has(v)?set.delete(v):set.add(v);b.setAttribute('aria-pressed',String(set.has(v)));paint()};el.append(b)})}
-chips($('#fStatus'),[['ok','Còn hàng','var(--ok)'],['hold','Có khách quan tâm','var(--hold)'],['sold','Đã bán','var(--sold)']],S.f.status);
+chips($('#fStatus'),[['ok','Hàng có sẵn','var(--ok)'],['hold','Liên hệ nhận thông tin','var(--hold)'],['sold','Đã bán','var(--sold)']],S.f.status);
 chips($('#fType'),TYPES.map(t=>[t,t]),S.f.type);
 chips($('#fDir'),[['TN','Tây Nam'],['TB','Tây Bắc'],['ĐB','Đông Bắc'],['ĐN','Đông Nam']],S.f.dir);
 $('#fPrice').oninput=e=>{S.f.max=+e.target.value;$('#fPriceOut').textContent=S.f.max>=7.5?'Tất cả mức giá':'Đến '+String(S.f.max.toFixed(1)).replace('.',',')+' tỷ';paint()};

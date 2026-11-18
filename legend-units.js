@@ -1,6 +1,6 @@
 // Dữ liệu căn của sa bàn The Legend Danang: trang chủ và sa bàn 3D cùng đọc file này để số liệu luôn khớp.
 // Mặt bằng tầng điển hình (tầng 5 đến 26) đo từ bản vẽ chủ đầu tư: 36 căn mỗi tầng, cánh Legacy (L) và cánh Infinity (I) đối xứng qua tâm.
-// Diện tích thông thủy theo ba nhóm tầng 5–12, 12A–20, 21–26. Trạng thái và giá chỉ lấy từ giỏ hàng thật; căn khác ghi "Chưa có trong giỏ hàng".
+// Diện tích thông thủy theo ba nhóm tầng 5–12, 12A–20, 21–26. Trạng thái: Xanh = hàng có sẵn (có trong giỏ hàng), Xám = đã bán (mã căn trong SOLD), Vàng = liên hệ nhận thông tin (các căn còn lại).
 (function(){
 const P={
   podiumFloors:4, baseFloors:2, podiumH:4.5, floorH:3.3, firstRes:5, topFloor:27, dataTop:26,
@@ -14,7 +14,9 @@ const P={
 };
 const DIR={B:'Bắc',N:'Nam',T:'Tây',D:'Đông'};
 const VIEW={B:'Thành phố, hướng Bắc',N:'Thành phố, hướng Nam',T:'Hướng sông Hàn',D:'Hướng biển Mỹ Khê'};
-const ST={ok:{t:'Còn hàng',c:0x2fbf87,cls:'ok'},hold:{t:'Có khách quan tâm',c:0xf3b33d,cls:'hold'},na:{t:'Chưa có trong giỏ hàng',c:0xb9b3a6,cls:'na'}};
+const ST={ok:{t:'Hàng có sẵn',c:0x2fbf87,cls:'ok'},hold:{t:'Liên hệ nhận thông tin',c:0xf3b33d,cls:'hold'},sold:{t:'Đã bán',c:0x8b8f97,cls:'sold'}};
+// Căn đã bán: thêm mã căn vào đây, ví dụ ['L.1612','I.0508']. Căn đã bán sẽ chuyển sang màu xám, kể cả khi còn trong giỏ hàng cũ.
+const SOLD=[];
 const TYPES=['1PN','1PN+1','2PN','3PN'];
 function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 // giỏ hàng chủ đầu tư ngày 05/05/2026: [mã căn, giá gồm VAT và phí bảo trì, cần chủ đầu tư xác nhận]
@@ -27,7 +29,7 @@ for(let f=P.firstRes;f<=P.dataTop;f++){
   P.slots.forEach((s,i)=>{
     const no=s[7].slice(2), code=s[9]+'.'+floorName+no, c=CART[code];
     units.push({code,floor:f,floorName,no,idx:i+1,tower:s[9]==='L'?'Legacy':'Infinity',box:s.slice(0,4),type:s[4],area:s[8][b],faces:s[6],
-      dir:s[6].map(x=>DIR[x]).join(' – '),view:VIEW[s[6][0]],price:c?c[0]:null,status:c?'ok':'na',check:!!(c&&c[1]),real:!!c,src:c?'gh':null});
+      dir:s[6].map(x=>DIR[x]).join(' – '),view:VIEW[s[6][0]],price:c?c[0]:null,status:SOLD.includes(code)?'sold':c?'ok':'hold',check:!!(c&&c[1]),real:!!c&&!SOLD.includes(code),src:c&&!SOLD.includes(code)?'gh':null});
   });
 }
 const DATA={P,DIR,VIEW,ST,TYPES,rng,units,cart:CARTROWS};

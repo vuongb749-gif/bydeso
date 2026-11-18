@@ -21,7 +21,7 @@ const P={
 const DIR={TN:'Tây Nam',TB:'Tây Bắc','ĐB':'Đông Bắc','ĐN':'Đông Nam',SAN:'Tây Bắc'};
 const VIEW={TN:'Phố, đường Lê Đức Thọ',TB:'Phố, đường Lê Văn Lương','ĐB':'Núi Sơn Trà','ĐN':'Hướng biển',SAN:'Sân vườn nội khu'};
 const VF={TN:1,TB:1,'ĐB':1.03,'ĐN':1.06,SAN:.98};
-const ST={ok:{t:'Còn hàng',c:0x2fbf87,cls:'ok'},hold:{t:'Có khách quan tâm',c:0xf3b33d,cls:'hold'},sold:{t:'Đã bán',c:0x6a6f7b,cls:'sold'}};
+const ST={ok:{t:'Hàng có sẵn',c:0x2fbf87,cls:'ok'},hold:{t:'Liên hệ nhận thông tin',c:0xf3b33d,cls:'hold'},sold:{t:'Đã bán',c:0x8b8f97,cls:'sold'}};
 const TYPES=['Studio','1.5PN','2PN','3PN'];
 
 // sinh dữ liệu căn (minh họa, cố định theo hạt giống)
