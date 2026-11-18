@@ -5,12 +5,26 @@
 const CITIES=[
 {
   id:'da-nang', name:['Thành phố Đà Nẵng','Da Nang City'], upd:'18/11/2026',
+  now:{
+    lead:['Thành phố trực thuộc Trung ương, hợp nhất với tỉnh Quảng Nam từ 01/07/2025 (Nghị quyết 202/2025/QH15).','Centrally governed city, merged with Quang Nam province on 1 Jul 2025 (Resolution 202/2025/QH15).'],
+    items:[
+      ['11.859,59 km²',['diện tích tự nhiên','natural area'],'11,859.59 km²'],
+      ['3.065.628',['người, quy mô dân số','people, population size'],'3,065,628'],
+      ['94',['đơn vị cấp xã: 23 phường, 70 xã, 1 đặc khu Hoàng Sa','commune-level units: 23 wards, 70 communes, Hoang Sa special zone']],
+      ['9,18%',['tăng trưởng GRDP năm 2025, cao nhất giai đoạn 2021–2025','GRDP growth in 2025, the highest of 2021–2025'],'9.18%'],
+      ['316,1 nghìn tỷ',['đồng quy mô GRDP 2025, khoảng 2,5% GDP cả nước','VND GRDP in 2025, about 2.5% of national GDP'],'VND 316.1 trillion'],
+      ['4.287 USD',['GRDP bình quân đầu người 2025 (trên 110 triệu đồng)','GRDP per capita in 2025 (over VND 110 million)'],'US$4,287'],
+      ['17,8 triệu',['lượt khách lưu trú 2025, trong đó 7,7 triệu khách quốc tế','overnight visitors in 2025, incl. 7.7 million international'],'17.8 million'],
+      ['85.824 tỷ',['đồng vốn đầu tư phát triển 2025, tăng 16,7%','VND development investment in 2025, up 16.7%'],'VND 85.8 trillion']
+    ],
+    src:['Diện tích, dân số: Nghị quyết 202/2025/QH15 · Đơn vị hành chính: Nghị quyết 1659/NQ-UBTVQH15 · Số liệu năm 2025: Thống kê TP Đà Nẵng (ước tính, công bố 31/12/2025).','Area, population: Resolution 202/2025/QH15 · Administrative units: Resolution 1659/NQ-UBTVQH15 · 2025 figures: Da Nang Statistics Office (estimates, released 31 Dec 2025).']
+  },
   tag:['Đô thị biển sinh thái, kết nối toàn cầu','Eco-coastal city, globally connected'],
   plan:['Quy hoạch chung thành phố Đà Nẵng đến năm 2050, tầm nhìn đến năm 2075','Da Nang General Plan to 2050, vision to 2075'],
   doc:['Quyết định 2016/QĐ-TTg ngày 21/10/2026 của Thủ tướng Chính phủ','Prime Minister’s Decision 2016/QĐ-TTg, 21 Oct 2026'],
   note:['Áp dụng cho toàn bộ thành phố sau khi hợp nhất với Quảng Nam (từ 01/07/2025), gồm đặc khu Hoàng Sa và vùng biển.','Covers the whole city after merging with Quang Nam (from 1 Jul 2025), including Hoang Sa special zone and its sea area.'],
   stats:[
-    ['11.870 km²',['diện tích tự nhiên','natural area']],
+    ['11.870 km²',['diện tích trong phạm vi quy hoạch','area covered by the plan'],'11,870 km²'],
     ['5,5 triệu',['dân số năm 2040','population in 2040'],'5.5 million'],
     ['6,5 triệu+',['dân số năm 2050','population in 2050'],'6.5 million+'],
     ['130–135 triệu',['lượt khách lưu trú năm 2050','overnight visitors in 2050'],'130–135 million']
@@ -46,6 +60,8 @@ const CITIES=[
     ['The Camellia Sơn Trà','#da/the-camellia-son-tra',['Khu Sơn Trà: bán đảo Sơn Trà là một trong 3 khu du lịch quốc gia tiềm năng (cùng Cù Lao Chàm, Bà Nà); phía Nam bán đảo có khu lấn biển nghiên cứu khoảng 100 ha.','Son Tra area: the peninsula is one of 3 potential national tourism areas (with Cu Lao Cham and Ba Na); about 100 ha of reclamation is under study south of it.']]
   ],
   src:[
+    ['VnEconomy, 02/01/2026: Số liệu kinh tế Đà Nẵng năm 2025 (Thống kê TP Đà Nẵng)','https://vneconomy.vn/da-nang-toc-do-tang-grdp-nam-2025-dat-918-dung-thu-1334-tinh-thanh-pho-trong-ca-nuoc.htm'],
+    ['Tạp chí Công Thương: Công bố thành lập thành phố Đà Nẵng mới','https://tapchicongthuong.vn/cong-bo-thanh-lap-thanh-pho-da-nang-moi-142278.htm'],
     ['Báo Nhân Dân, 21/10/2026: Thủ tướng phê duyệt Quy hoạch chung TP Đà Nẵng','https://nhandan.vn/thu-tuong-chinh-phu-phe-duyet-quy-hoach-chung-thanh-pho-da-nang-den-nam-2050-tam-nhin-den-nam-2075-post997014.html'],
     ['Báo Sài Gòn Giải Phóng, 21/10/2026','https://www.sggp.org.vn/thu-tuong-chinh-phu-phe-duyet-quy-hoach-chung-tp-da-nang-post877693.html'],
     ['Cổng thông tin TP Đà Nẵng: Khai trương Trung tâm Tài chính quốc tế','https://danang.gov.vn/vi/web/dng/w/khai-truong-trung-tam-tai-chinh-quoc-te-viet-nam-tai-thanh-pho-da-nang'],
@@ -57,6 +73,20 @@ const CITIES=[
 },
 {
   id:'hue', name:['Thành phố Huế','Hue City'], upd:'18/11/2026',
+  now:{
+    lead:['Thành phố trực thuộc Trung ương từ 01/01/2025 (Nghị quyết 175/2024/QH15), giữ nguyên địa giới khi sắp xếp tỉnh năm 2025.','Centrally governed city since 1 Jan 2025 (Resolution 175/2024/QH15); its boundary was unchanged in the 2025 provincial reorganisation.'],
+    items:[
+      ['4.947,11 km²',['diện tích tự nhiên','natural area'],'4,947.11 km²'],
+      ['1.236.393',['người, quy mô dân số','people, population size'],'1,236,393'],
+      ['40',['đơn vị cấp xã: 21 phường, 19 xã (từ 01/07/2025)','commune-level units: 21 wards, 19 communes (from 1 Jul 2025)']],
+      ['8,5%',['tăng trưởng GRDP năm 2025 (ước tính)','GRDP growth in 2025 (estimate)'],'8.5%'],
+      ['89.591 tỷ',['đồng quy mô GRDP 2025, giá hiện hành','VND GRDP in 2025, current prices'],'VND 89.6 trillion'],
+      ['gần 6 triệu',['lượt khách du lịch 2025, khoảng 1,76 triệu khách quốc tế','tourist visits in 2025, about 1.76 million international'],'nearly 6 million'],
+      ['gần 15.000 tỷ',['đồng thu ngân sách 2025, tăng 14,5%','VND budget revenue in 2025, up 14.5%'],'nearly VND 15 trillion'],
+      ['Loại I',['đơn vị hành chính cấp tỉnh, từ 27/11/2025','provincial administrative class, from 27 Nov 2025'],'Class I']
+    ],
+    src:['Diện tích, dân số: Nghị quyết 175/2024/QH15 · Đơn vị hành chính: Nghị quyết 1675/NQ-UBTVQH15 · Phân loại: Nghị định 307/2025/NĐ-CP · Số liệu năm 2025: Thống kê TP Huế và báo cáo cuối năm (ước tính).','Area, population: Resolution 175/2024/QH15 · Administrative units: Resolution 1675/NQ-UBTVQH15 · Class: Decree 307/2025/NĐ-CP · 2025 figures: Hue Statistics Office and year-end reports (estimates).']
+  },
   tag:['Đô thị di sản, thành phố Festival hướng biển','Heritage city, a Festival city facing the sea'],
   plan:['Quy hoạch chung đô thị Thừa Thiên Huế đến năm 2045, tầm nhìn đến năm 2065','Thua Thien Hue General Urban Plan to 2045, vision to 2065'],
   doc:['Quyết định 108/QĐ-TTg ngày 26/01/2024 của Thủ tướng Chính phủ','Prime Minister’s Decision 108/QĐ-TTg, 26 Jan 2024'],
@@ -93,6 +123,10 @@ const CITIES=[
   ],
   near:[],
   src:[
+    ['VnEconomy: Thành phố Huế chính thức trực thuộc Trung ương từ 1/1/2025','https://vneconomy.vn/thanh-pho-hue-chinh-thuc-truc-thuoc-trung-uong-tu-1-1-2025.htm'],
+    ['Báo Nhân Dân: Thành phố Huế còn 40 đơn vị hành chính cấp xã','https://nhandan.vn/thanh-pho-hue-con-40-don-vi-hanh-chinh-cap-xa-sau-khi-sap-xep-post873473.html'],
+    ['Tạp chí Kinh tế Tài chính: Kinh tế TP Huế năm 2025 (Thống kê TP Huế)','https://tapchikinhtetaichinh.vn/kinh-te-tp-hue-tang-truong-on-dinh-chuyen-dich-dung-huong-140458.html'],
+    ['Diễn đàn Doanh nghiệp, 16/12/2025: Huế 2025 vượt sóng tạo bứt phá','https://diendandoanhnghiep.vn/hue-2025-vuot-song-tao-but-pha-10167589.html'],
     ['VOV, 27/01/2024: Phê duyệt Quy hoạch chung đô thị Thừa Thiên Huế','https://vov.vn/chinh-tri/thu-tuong-chinh-phu-phe-duyet-quy-hoach-chung-do-thi-thua-thien-hue-post1074182.vov'],
     ['Luật Việt Nam: Quyết định 108/QĐ-TTg','https://luatvietnam.vn/xay-dung/quyet-dinh-108-qd-ttg-2024-phe-duyet-quy-hoach-chung-do-thi-thua-thien-hue-293400-d1.html'],
     ['Báo Chính phủ: Thành lập thành phố Huế trực thuộc Trung ương','https://xaydungchinhsach.chinhphu.vn/thanh-lap-thanh-pho-hue-truc-thuoc-trung-uong-tu-1-1-2025-119241130091551714.htm'],
@@ -116,7 +150,9 @@ function render(){
   if(c){
     const num=s=>en()&&s[2]?s[2]:s[0];
     h+='<article class="qh-body" aria-label="'+esc(T(c.name))+'">'+
-      '<div class="qh-hero"><span class="qh-kick">'+L('Quy hoạch đã phê duyệt','Approved plan')+'</span><h3>'+esc(T(c.name))+'</h3><p class="qh-plan">'+esc(T(c.plan))+'</p><p class="qh-doc">'+esc(T(c.doc))+'</p><p class="qh-note">'+esc(T(c.note))+'</p>'+
+      (c.now?'<section class="qh-now"><span class="qh-kick">'+L('Thông tin chung · số liệu hiện tại','At a glance · current figures')+'</span><h3>'+esc(T(c.name))+'</h3><p class="qh-lead">'+esc(T(c.now.lead))+'</p>'+
+        '<div class="qh-nums">'+c.now.items.map(s=>'<div><b>'+esc(num(s))+'</b><span>'+esc(T(s[1]))+'</span></div>').join('')+'</div><p class="qh-nsrc">'+esc(T(c.now.src))+'</p></section>':'')+
+      '<div class="qh-hero"><span class="qh-kick">'+L('Quy hoạch đã phê duyệt','Approved plan')+'</span><h3 class="qh-h3s">'+L('Định hướng đến tương lai','Where the city is heading')+'</h3><p class="qh-plan">'+esc(T(c.plan))+'</p><p class="qh-doc">'+esc(T(c.doc))+'</p><p class="qh-note">'+esc(T(c.note))+'</p>'+
       '<div class="qh-stats">'+c.stats.map(s=>'<div><b>'+esc(num(s))+'</b><span>'+esc(T(s[1]))+'</span></div>').join('')+'</div></div>'+
       '<section class="qh-sec"><h4>'+L('Các mốc phát triển','Milestones')+'</h4><ol class="qh-time">'+c.miles.map(m=>'<li><b>'+m[0]+'</b><p>'+esc(T(m[1]))+'</p></li>').join('')+'</ol></section>'+
       '<section class="qh-sec"><h4>'+L('Cấu trúc không gian','Spatial structure')+'</h4><p class="qh-formula">'+esc(T(c.struct))+'</p><p class="qh-sub">'+esc(T(c.structNote))+'</p>'+
