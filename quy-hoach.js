@@ -5,6 +5,7 @@
 const CITIES=[
 {
   id:'da-nang', name:['Thành phố Đà Nẵng','Da Nang City'], upd:'18/11/2026',
+  img:'anh-quy-hoach/cau-rong.webp', imgPos:'50% 45%', photo:['Cầu Rồng về đêm: Supanut Arunoprayote, CC BY 4.0','Dragon Bridge at night: Supanut Arunoprayote, CC BY 4.0','https://commons.wikimedia.org/wiki/File:Da_Nang_Dragon_Bridge_(II).jpg'],
   now:{
     lead:['Thành phố trực thuộc Trung ương, hợp nhất với tỉnh Quảng Nam từ 01/07/2025 (Nghị quyết 202/2025/QH15).','Centrally governed city, merged with Quang Nam province on 1 Jul 2025 (Resolution 202/2025/QH15).'],
     items:[
@@ -73,6 +74,7 @@ const CITIES=[
 },
 {
   id:'hue', name:['Thành phố Huế','Hue City'], upd:'18/11/2026',
+  img:'anh-quy-hoach/cau-truong-tien.webp', imgPos:'50% 52%', photo:['Cầu Trường Tiền về đêm: Lưu Ly, phạm vi công cộng','Truong Tien Bridge at night: Luu Ly, public domain','https://commons.wikimedia.org/wiki/File:Cau_Trang_tien_ve_dem.jpg'],
   now:{
     lead:['Thành phố trực thuộc Trung ương từ 01/01/2025 (Nghị quyết 175/2024/QH15), giữ nguyên địa giới khi sắp xếp tỉnh năm 2025.','Centrally governed city since 1 Jan 2025 (Resolution 175/2024/QH15); its boundary was unchanged in the 2025 provincial reorganisation.'],
     items:[
@@ -146,7 +148,7 @@ function render(){
   if(!location.hash.startsWith('#quy-hoach'))return;
   const c=city();
   let h='<div class="qh-head"><span class="qh-kick">'+L('Thông tin quy hoạch','Planning information')+'</span><h2>'+L('Quy hoạch đô thị theo thành phố','Urban planning by city')+'</h2><p>'+L('Bydeso đọc các quyết định quy hoạch đã phê duyệt và tin chính thức rồi tóm tắt lại. Chọn một thành phố để xem.','Bydeso reads approved planning decisions and official news, then sums them up. Pick a city.')+'</p></div>';
-  h+='<div class="qh-cities" role="tablist" aria-label="'+L('Chọn thành phố','Choose a city')+'">'+CITIES.map(x=>'<a class="qh-city" role="tab" href="#quy-hoach/'+x.id+'" aria-selected="'+(c&&c.id===x.id)+'"><b>'+esc(T(x.name))+'</b><span>'+esc(T(x.tag))+'</span><em>'+L('Xem quy hoạch','See the plan')+' →</em></a>').join('')+'</div>';
+  h+='<div class="qh-cities" role="tablist" aria-label="'+L('Chọn thành phố','Choose a city')+'">'+CITIES.map(x=>'<a class="qh-city'+(x.img?' qh-ph':'')+'" role="tab" href="#quy-hoach/'+x.id+'" aria-selected="'+(c&&c.id===x.id)+'"'+(x.img?' style="--ph:url('+x.img+');--pp:'+(x.imgPos||'center')+'"':'')+'>'+(c&&c.id===x.id?'<i class="qh-on-tag">'+L('Đang xem','Viewing')+'</i>':'')+'<b>'+esc(T(x.name))+'</b><span>'+esc(T(x.tag))+'</span><em>'+L('Xem quy hoạch','See the plan')+' →</em></a>').join('')+'</div>'+'<p class="qh-credit">'+L('Ảnh: ','Photos: ')+CITIES.filter(x=>x.photo).map(x=>'<a href="'+x.photo[2]+'" target="_blank" rel="noopener">'+esc(L(x.photo[0],x.photo[1]))+'</a>').join(' · ')+' (Wikimedia Commons)</p>';
   if(c){
     const num=s=>en()&&s[2]?s[2]:s[0];
     h+='<article class="qh-body" aria-label="'+esc(T(c.name))+'">'+

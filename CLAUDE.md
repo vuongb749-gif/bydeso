@@ -42,6 +42,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 ## Trang Quy hoạch (`#quy-hoach/<thành phố>`)
 - Thay mục "Sa bàn 3D" trên menu (theo yêu cầu chủ trang 18/11/2026); chân trang có thêm link "Thông tin quy hoạch".
 - Dữ liệu và cách hiện nằm trong `quy-hoach.js` (mảng `CITIES`, mỗi chữ hai bản [Việt, Anh]); CSS trong khối `/* ===== QH ===== */` của `index.html`.
+- Thẻ chọn thành phố có ảnh nền biểu tượng (Đà Nẵng: Cầu Rồng, Huế: Cầu Trường Tiền, cả hai ảnh về đêm) trong `anh-quy-hoach/`, lấy từ Wikimedia Commons với giấy phép được dùng; ghi tác giả ở dòng `.qh-credit` (trường `photo` trong `CITIES`). Thành phố mới: chọn ảnh có giấy phép CC0/CC BY/phạm vi công cộng, không lấy ảnh báo chí.
 - Chỉ ghi điều có trong quyết định đã phê duyệt hoặc báo chính thống, mỗi thành phố có danh sách nguồn và ngày cập nhật (`upd`). Việc chưa phê duyệt ghi rõ "Đang nghiên cứu". Muốn cập nhật hoặc thêm thành phố: giao nhân viên thu thập thông tin tìm nguồn, rồi sửa `CITIES`.
 
 ## Văn phòng agent
