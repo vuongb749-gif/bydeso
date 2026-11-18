@@ -12,6 +12,7 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 - Màu nhấn (khối `/* ===== GON ===== */` cuối CSS `index.html`), chủ trang muốn có điểm nhấn mà vẫn giữ trắng và vàng làm chủ đạo: `--gold #f7c948` cho nút chính (chữ đen), riêng nút "Liên hệ tư vấn miễn phí" trên menu màu xanh lá `#15803d` chữ trắng theo yêu cầu chủ trang, `--ink #141414` cho nút tìm kiếm và mục đang chọn, `--son #c2331b` chỉ dùng ít cho chỗ cần chú ý (dòng thí điểm, giá, "Sắp triển khai"), `--ngoc #0f766e` cho trạng thái tốt ("Đã có mô phỏng 3D"). `#fde47f` giữ cho logo và các mảng lớn.
 - Phần đầu trang (`.hero`) giữ nguyên bản cũ theo yêu cầu chủ trang, đã thử tinh gọn và màu nhấn mới rồi chủ trang đổi lại: không áp màu nhấn mới vào đây. Các phần khác: chữ tối thiểu khoảng 13 px (trừ ghi chú nguồn ảnh), nút trên điện thoại cao tối thiểu 44 px. Không để liên kết `href="#"` chưa có trang trong menu và chân trang.
 - Khối chữ trên sa bàn không có nền mờ tối phía sau (áp dụng cho mọi dự án).
+- Hai loại hình: "Căn hộ chung cư" và "Nhà phố liền kề" (đổi từ "BĐS nghỉ dưỡng" ngày 18/11/2026, ảnh do chủ trang chọn nằm trong `anh-loai-hinh/`). Tiêu đề các mục trang chủ (`.home-title`) không có gạch vàng đỏ phía trên.
 - Thẻ dự án ở trang chủ không ghi giá. Bấm thẻ mở trang thông tin dự án, sa bàn chỉ mở qua nút riêng.
 - Thư viện ảnh trang dự án chỉ hiện ảnh phối cảnh và mô hình 3D, không có layout hay mặt bằng 2D.
 
