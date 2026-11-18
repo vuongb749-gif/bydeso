@@ -926,6 +926,13 @@ button.pd-t:focus-visible,a.pd-t:focus-visible{outline:2px solid var(--pd-ink);o
 @keyframes pdRing{from{transform:scale(.25);opacity:1}to{transform:scale(1.5);opacity:0}}
 .pd-map .hint{position:absolute;left:14px;top:14px;z-index:2;padding:9px 13px;background:#fff;border-radius:11px;box-shadow:0 6px 18px rgba(20,20,20,.18);font-size:13.5px;font-weight:700;color:var(--pd-ink);transition:background .25s}
 .pd-map:hover .hint{background:var(--pd-y)}
+#pd-vt .pd-linfo{padding:18px 20px;gap:8px;border-radius:20px}
+#pd-vt h2.t{font-size:clamp(22px,2.4vw,28px);margin:0}
+#pd-vt .pd-linfo address{font-size:15.5px;line-height:1.4;margin:0 0 auto}
+#pd-vt .pd-linfo .pd-btn{min-height:44px;padding-top:9px;padding-bottom:9px}
+#pd-vt .pd-map{min-height:200px;border-radius:20px}
+#pd-vt .pd-map .hint{left:10px;top:10px;padding:7px 11px;font-size:13px}
+@media (max-width:760px){#pd-vt .pd-map{min-height:170px}}
 .pd-map .attr{position:absolute;right:0;bottom:0;z-index:2;padding:2px 6px;background:rgba(255,255,255,.82);color:#333;font-size:11px;border-top-left-radius:6px}
 .pd-close{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:center;padding:44px 40px;background:var(--pd-y);border-radius:28px}
 .pd-close>div:not(.cta-fx){position:relative}
