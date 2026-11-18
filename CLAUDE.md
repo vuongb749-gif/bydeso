@@ -39,6 +39,11 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 
 - Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.
 
+## Trang Quy hoạch (`#quy-hoach/<thành phố>`)
+- Thay mục "Sa bàn 3D" trên menu (theo yêu cầu chủ trang 18/11/2026); chân trang có thêm link "Thông tin quy hoạch".
+- Dữ liệu và cách hiện nằm trong `quy-hoach.js` (mảng `CITIES`, mỗi chữ hai bản [Việt, Anh]); CSS trong khối `/* ===== QH ===== */` của `index.html`.
+- Chỉ ghi điều có trong quyết định đã phê duyệt hoặc báo chính thống, mỗi thành phố có danh sách nguồn và ngày cập nhật (`upd`). Việc chưa phê duyệt ghi rõ "Đang nghiên cứu". Muốn cập nhật hoặc thêm thành phố: giao nhân viên thu thập thông tin tìm nguồn, rồi sửa `CITIES`.
+
 ## Văn phòng agent
 Chủ trang có văn phòng agent: 8 nhân viên trong `.claude/agents/`, trưởng phòng điều phối là skill `van-phong` (`.claude/skills/van-phong/SKILL.md`, có các quy trình chuẩn). Dữ liệu văn phòng và khách hàng nằm ngoài repo ở `C:\Projects\bydeso-van-phong\` (hướng dẫn: `HUONG-DAN.md`). Không bao giờ đưa file trong đó vào repo vì trang công khai. Không gửi thư/tin nhắn cho khách và không đẩy lên `main` khi chủ trang chưa đồng ý rõ.
 
