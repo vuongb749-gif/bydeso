@@ -1860,7 +1860,7 @@ body.in-view .sx-bar{display:none}
     function chips(){const pc=document.getElementById('provChips');pc.innerHTML='';PROVS.forEach(([v,vi,e])=>{const b=document.createElement('button');b.type='button';b.textContent=en()?e:vi;b.setAttribute('aria-pressed',String(v===pv));b.onclick=()=>{pv=v;chips();render()};pc.append(b)});
       chipsBox.innerHTML='';[['',en()?'All':'Tất cả'],...Object.keys(TE).map(t=>[t,en()?TE[t]:t])].forEach(([v,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.setAttribute('aria-pressed',String(v===f));b.onclick=()=>{f=v;chips();render()};chipsBox.append(b)})}
 const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm yết ≈ 62,7 triệu/m²","Listed ≈ 62.7M VND/m²"],"The Legend Danang":["Từ 6,53 tỷ","From 6.53B VND","Theo giỏ hàng, chưa VAT và phí bảo trì","Per price list, excl. VAT and maintenance fee"]};
-    const FACTS={"The Camellia Sơn Trà":["25 tầng · 469 căn hộ","25 floors · 469 apartments","Nút giao Lê Văn Lương – Lê Đức Thọ","Le Van Luong – Le Duc Tho junction"],"The Legend Danang":["29 tầng · 800 căn hộ","29 floors · 800 apartments","Lô A20 Võ Văn Kiệt","Lot A20 Vo Van Kiet"]};
+    const FACTS={"The Camellia Sơn Trà":["25 tầng · 469 căn hộ","25 floors · 469 apartments","Nút giao Lê Văn Lương – Lê Đức Thọ","Le Van Luong – Le Duc Tho junction"],"The Legend Danang":["29 tầng · 800 căn hộ","29 floors · 800 apartments","Lô A20 Võ Văn Kiệt, góc Ngô Quyền","Lot A20 Vo Van Kiet, corner of Ngo Quyen"]};
     const priceOf=n=>{const r=PRICE[n];if(!r)return null;const m=r[0].match(/([\d,]+) tỷ/);return [r[0],r[1],r[2],r[3],m?+m[1].replace(',','.'):null]};
     function card(x){
         const c=document.createElement('article');c.className='pj-card';
@@ -2405,7 +2405,7 @@ const PRICE={"The Camellia Sơn Trà":["Từ 3,61 tỷ","From 3.61B VND","Niêm 
     // Vị trí dự án: tọa độ lấy từ link Google Maps của chủ trang; mở bản đồ bằng tọa độ để điện thoại luôn có ghim
     // Ý kiến khách đã duyệt: {n:'Tên',r:'Vai trò',d:'11/2026',t:'Nội dung'}. Chỉ thêm ý kiến thật lấy từ Google Sheet, không viết thay khách.
     const OPINIONS={'The Camellia Sơn Trà':[]};
-    const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536}};
+    const MAPS={'The Camellia Sơn Trà':{lat:16.1046532,lng:108.2558536},'The Legend Danang':{lat:16.0618755,lng:108.2331764}};
     // bản đồ tĩnh: ghép vài ô ảnh OpenStreetMap quanh điểm, không tải thư viện bản đồ
     function mapTiles(lat,lng,z){
       const n=2**z,fx=(lng+180)/360*n,r=lat*Math.PI/180,fy=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n;
