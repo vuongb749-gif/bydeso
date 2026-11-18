@@ -40,6 +40,10 @@ Lên mạng tại https://vuongb749-gif.github.io/bydeso/ và https://bydeso.pag
 
 - Bấm tải lại trang thì về đầu trang (đoạn script đầu `<head>` của `index.html`), địa chỉ neo của trang chủ như `#van-hanh` cũng bị bỏ. Quay lại từ một trang khác bằng nút của trình duyệt vẫn giữ vị trí cũ.
 
+## Trang Căn hộ (`#can-ho`)
+- Mục "Căn hộ" trên menu nằm giữa "Dự án" và "Loại hình BĐS"; chân trang có link "Căn hộ còn hàng". Code trong `can-ho.js`, CSS khối `/* ===== CH ===== */`.
+- Chia theo từng dự án (tên, vị trí, số căn còn hàng, nút sang trang dự án), mỗi dự án hiện 6 căn còn hàng trải đều các loại căn, lọc theo dự án và loại căn. Thẻ căn dùng `bydesoFeed.card` nên bấm vào mở trang chi tiết `#sp/`. Ghi chú nguồn mỗi dự án nằm ở `NOTE` (Camellia: minh họa; The Legend: giỏ hàng chủ đầu tư).
+
 ## Trang Quy hoạch (`#quy-hoach/<thành phố>`)
 - Thay mục "Sa bàn 3D" trên menu (theo yêu cầu chủ trang 18/11/2026); chân trang có thêm link "Thông tin quy hoạch".
 - Dữ liệu và cách hiện nằm trong `quy-hoach.js` (mảng `CITIES`, mỗi chữ hai bản [Việt, Anh]); CSS trong khối `/* ===== QH ===== */` của `index.html`.
